@@ -1,58 +1,116 @@
-/* LoginForm.css */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
+    position: relative;
+    background-image: url("/src/assets/image/bg-login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
 .login-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--background-color-primary);
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+    max-width: 400px;
+    width: 100%;
+    padding: 50px 70px 140px 70px;
 }
-.login-form h2 {
+
+.wrap-login-form-title {
+    text-align: center;
+    font-weight: var(--font-weight-regular);
+    margin-bottom: 40px;
+}
+
+.login-form-title {
     margin-bottom: 20px;
-}
-.login-form .input-group {
+    font-size: var(--font-size-lg);
+    color: var(--text-color-primary);
+    margin-top: 50px;
     margin-bottom: 15px;
 }
-.login-form .input-group label {
-    display: block;
-    margin-bottom: 5px;
+
+.login-form-ders {
+    font-size: var(--font-size-xs);
+    color: var(--text-color-grey);
 }
+
+.login-form .input-group {
+    margin-bottom: 25px;
+}
+
 .login-form .input-group input {
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     box-sizing: border-box;
+    font-weight: var(--font-weight-regular);
 }
+
 .login-form .input-group .password-toggle {
     position: relative;
+    font-weight: var(--font-weight-regular);
 }
-.login-form .input-group .password-toggle input {
-    padding-right: 30px;
+
+.checkbox {
+    display: flex;
+    align-items: center;
 }
-.login-form .input-group .password-toggle .toggle {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+
+.lable-remember {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    color: var(--text-color-primary);
     cursor: pointer;
 }
-.login-form .input-group .checkbox {
+
+#remember {
+    width: 5px;
+    height: 5px;
+    padding: 6px;
+}
+
+.input-group.checkbox input[type="checkbox"] {
+    appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.input-group.checkbox input[type="checkbox"]:checked {
+    background-color: var(--btn-background-color-primary);
+    border-color: var(--color-primary);
+}
+
+.input-group.checkbox input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 4px;
+    width: 3px;
+    height: 10px;
+    border: solid var(--text-color-tertiary);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.actions {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    color: var(--text-color-primary);
 }
-.login-form .input-group .checkbox input {
-    margin-right: 5px;
+
+.link-register{
+    color: var(--text-color-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    margin-left: 5px;
 }
-.login-form .actions {
+
+.link-register:hover {
+    color: var(--text-color-secondary);
+}
+
+.wrap-link-register {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.login-form .actions a {
-    text-decoration: none;
-    color: #007BFF;
+    margin-top: 60px;
 }

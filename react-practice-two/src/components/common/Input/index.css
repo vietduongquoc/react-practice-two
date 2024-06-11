@@ -2,20 +2,23 @@
     margin-bottom: 15px;
 }
 
-.input-group label {
+.lable-input {
     display: block;
     margin-bottom: 5px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-color-primary);
+}
+
+.input-wrapper input {
+    box-sizing: border-box;
+    border: 1px solid #ABABAB;
+    border-radius: 8px;
+    background: var(--background-color-primary);
 }
 
 .input-wrapper {
     position: relative;
-}
-
-.input-wrapper input {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    padding-right: 30px; /* Add padding to the right to make space for the icon */
 }
 
 .input-wrapper .toggle {
@@ -26,8 +29,9 @@
     cursor: pointer;
 }
 
-.input-wrapper .toggle img {
-    width: 20px; /* Adjust size as needed */
-    height: 20px; /* Adjust size as needed */
-    color: gray; /* Set the icon color to gray */
+.input-wrapper .toggle {
+    width: 20px;
+    /* Adjust size as needed */
+    height: 20px;
+    /* Adjust size as needed */
 }

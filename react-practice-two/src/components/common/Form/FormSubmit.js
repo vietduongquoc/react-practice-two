@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Input from '../Input';
+import Button from '../Button';
 
 const FormSubmit = ({ onSubmit }) => {
     const [email, setEmail] = useState('');
@@ -26,6 +27,7 @@ const FormSubmit = ({ onSubmit }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required={true}
+                placeholder="email"
             />
             <Input
                 label="Password"
@@ -37,6 +39,7 @@ const FormSubmit = ({ onSubmit }) => {
                 required={true}
                 showPassword={showPassword}
                 togglePasswordVisibility={togglePasswordVisibility}
+                placeholder="password"
             />
             <div className="input-group checkbox">
                 <input
@@ -46,11 +49,21 @@ const FormSubmit = ({ onSubmit }) => {
                     checked={remember}
                     onChange={(e) => setRemember(e.target.checked)}
                 />
-                <label htmlFor="remember">Remember Password</label>
+                <label className='label-remember' htmlFor="remember">Remember me</label>
             </div>
             <div className="actions">
-                <button type="submit">Login</button>
-                <a href="/register">New User? Register Here</a>
+                <Button
+                    type="submit"
+                    color="#fa7c54"
+                    borderRadius="8px"
+                    size="large"
+                    text="Login"
+                    onClick={handleSubmit}
+                />
+                <div className='wrap-link-register'>
+                    <span className='text-register'> New User? </span>
+                    <a className='link-register' href="/register">Register Here</a>
+                </div>
             </div>
         </form>
     );
