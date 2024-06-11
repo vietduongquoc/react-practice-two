@@ -11,14 +11,16 @@ const Login = () => {
     };
 
     return (
-        <form className="login-form">
-            <div className='wrap-login-form-title'>
-                <Image />
-                <h2 className='login-form-title'>Welcome Back !</h2>
-                <span className='login-form-ders'>Sign in to continue to yourDigital Library</span>
-            </div>
-            <FormSubmit onSubmit={handleFormSubmit} />
-        </form>
+        <div className="form-container">
+            <form className="login-form">
+                <div className='wrap-login-form-title'>
+                    <Image />
+                    <h2 className='login-form-title'>Welcome Back !</h2>
+                    <span className='login-form-ders'>Sign in to continue to yourDigital Library</span>
+                </div>
+                <FormSubmit onSubmit={handleFormSubmit} />
+            </form>
+        </div>
     );
 };
 

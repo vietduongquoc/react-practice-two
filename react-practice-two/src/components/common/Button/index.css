@@ -1,0 +1,32 @@
+.button {
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button.small {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.button.medium {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.button.large {
+    padding: 16px;
+    font-weight: var(--font-weight-semibold);
+}
+
+.button:hover {
+    background-color: #be3308; /* Change to the desired hover color */
+}
+
+.button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}

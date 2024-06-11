@@ -1,23 +1,17 @@
-/* LoginForm.css */
 body {
     position: relative;
     background-image: url("/src/assets/image/bg-login.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
 }
 
 .login-form {
-    margin: 0 auto;
     background-color: var(--background-color-primary);
-    padding: 63px 70px 170px 72px;
     border-radius: var(--border-radius-sm);
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
-    background: rgb(255, 255, 255);
+    max-width: 400px;
+    width: 100%;
+    padding: 50px 70px 140px 70px;
 }
 
 .wrap-login-form-title {
@@ -63,26 +57,60 @@ body {
 .lable-remember {
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-regular);
-    color: var(--text-color-grey);
+    color: var(--text-color-primary);
+    cursor: pointer;
 }
 
 #remember {
-    width: 15px;
-    height: 15px;
+    width: 5px;
+    height: 5px;
+    padding: 6px;
+}
+
+.input-group.checkbox input[type="checkbox"] {
+    appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 3px;
     margin-right: 10px;
+    position: relative;
+    cursor: pointer;
 }
 
-.login-form .input-group .checkbox input {
-    margin-right: 5px;
+.input-group.checkbox input[type="checkbox"]:checked {
+    background-color: var(--btn-background-color-primary);
+    border-color: var(--color-primary);
 }
 
-.login-form .actions {
+.input-group.checkbox input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 4px;
+    width: 3px;
+    height: 10px;
+    border: solid var(--text-color-tertiary);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.actions {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    color: var(--text-color-primary);
 }
 
-.login-form .actions a {
-    text-decoration: none;
-    color: var(--color-primary);
+.link-register{
+    color: var(--text-color-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    margin-left: 5px;
+}
+
+.link-register:hover {
+    color: var(--text-color-secondary);
+}
+
+.wrap-link-register {
+    display: flex;
+    margin-top: 60px;
 }
