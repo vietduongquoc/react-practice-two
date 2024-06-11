@@ -1,6 +1,7 @@
 // Login.js
 import React from 'react';
 import './Login.css';
+import Image from '../../layouts/Logo';
 import FormSubmit from '../../components/common/Form/FormSubmit';
 
 const Login = () => {
@@ -10,10 +11,14 @@ const Login = () => {
     };
 
     return (
-        <div className="login-form">
-            <h2>Login</h2>
+        <form className="login-form">
+            <div className='wrap-login-form-title'>
+                <Image />
+                <h2 className='login-form-title'>Welcome Back !</h2>
+                <span className='login-form-ders'>Sign in to continue to yourDigital Library</span>
+            </div>
             <FormSubmit onSubmit={handleFormSubmit} />
-        </div>
+        </form>
     );
 };
 

@@ -21,7 +21,7 @@ const Input = ({ label, type, value, onChange, id, name, required, showPassword,
                 />
                 {type === 'password' && (
                     <span className="toggle" onClick={togglePasswordVisibility}>
-                        <img src={showPassword ? eyeOpen : eyeClosed} alt="Toggle Password Visibility" />
+                        <img src={showPassword ? eyeOpen : eyeClosed} alt=''/>
                     </span>
                 )}
             </div>

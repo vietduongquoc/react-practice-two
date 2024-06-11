@@ -1,38 +1,68 @@
 /* LoginForm.css */
 body {
+    position: relative;
+    background-image: url("/src/assets/image/bg-login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    width: 100%;
 }
+
 .login-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    background-color: var(--background-color-primary);
+    padding: 63px 70px 170px 72px;
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+    background: rgb(255, 255, 255);
 }
-.login-form h2 {
+
+.wrap-login-form-title {
+    text-align: center;
+    font-weight: var(--font-weight-regular);
+    margin-bottom: 40px;
+}
+
+.login-form-title {
     margin-bottom: 20px;
+    font-size: var(--font-size-lg);
+    color: var(--text-color-primary);
+    margin-top: 50px;
+    margin-bottom: 15px;
 }
+
+.login-form-ders {
+    font-size: var(--font-size-xs);
+    color: var(--text-color-grey);
+}
+
+
 .login-form .input-group {
     margin-bottom: 15px;
 }
+
 .login-form .input-group label {
     display: block;
     margin-bottom: 5px;
 }
+
 .login-form .input-group input {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
 }
+
 .login-form .input-group .password-toggle {
     position: relative;
 }
+
 .login-form .input-group .password-toggle input {
     padding-right: 30px;
 }
+
 .login-form .input-group .password-toggle .toggle {
     position: absolute;
     right: 10px;
@@ -40,18 +70,22 @@ body {
     transform: translateY(-50%);
     cursor: pointer;
 }
+
 .login-form .input-group .checkbox {
     display: flex;
     align-items: center;
 }
+
 .login-form .input-group .checkbox input {
     margin-right: 5px;
 }
+
 .login-form .actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .login-form .actions a {
     text-decoration: none;
     color: #007BFF;
