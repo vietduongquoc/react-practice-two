@@ -1,0 +1,39 @@
+.register-form .input-group input {
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    font-weight: var(--font-weight-regular);
+}
+
+.register-form .input-group .password-toggle {
+    position: relative;
+    font-weight: var(--font-weight-regular);
+}
+
+.actions-register {
+    display: flex;
+    flex-direction: column;
+    color: var(--text-color-primary);
+}
+
+.link-register{
+    color: var(--text-color-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    margin-left: 5px;
+    border-bottom: 1px solid var(--text-color-primary);
+}
+
+.link-register:hover {
+    color: var(--text-color-secondary);
+}
+
+.wrap-link-register {
+    display: flex;
+    margin-top: 50px;
+}
+
+.text-register {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+}

@@ -7,6 +7,10 @@
     transition: background-color 0.3s;
 }
 
+.button:hover {
+    background-color: var(--btn-background-color-hover)
+}
+
 .button.small {
     padding: 5px 10px;
     font-size: 12px;
@@ -22,9 +26,6 @@
     font-weight: var(--font-weight-semibold);
 }
 
-.button:hover {
-    background-color: #be3308; /* Change to the desired hover color */
-}
 
 .button:disabled {
     background-color: #cccccc;

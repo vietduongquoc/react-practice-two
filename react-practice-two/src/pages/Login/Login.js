@@ -1,8 +1,8 @@
 // Login.js
 import React from 'react';
 import './Login.css';
-import Image from '../../layouts/Logo';
-import FormSubmit from '../../components/common/Form/FormSubmit';
+import Image from '../../layouts/Logo/index'
+import FormSubmit from '../../components/common/Form/FormLogin';
 
 const Login = () => {
     const handleFormSubmit = (data) => {

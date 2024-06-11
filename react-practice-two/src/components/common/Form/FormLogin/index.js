@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Input from '../Input';
-import Button from '../Button';
+import Input from '../../Input';
+import Button from '../../Button';
 
 const FormSubmit = ({ onSubmit }) => {
     const [email, setEmail] = useState('');
@@ -60,9 +60,9 @@ const FormSubmit = ({ onSubmit }) => {
                     text="Login"
                     onClick={handleSubmit}
                 />
-                <div className='wrap-link-register'>
-                    <span className='text-register'> New User? </span>
-                    <a className='link-register' href="/register">Register Here</a>
+                <div className='wrap-link-login'>
+                    <span className='text-login'> New User? </span>
+                    <a className='link-login' href="/register">Register Here</a>
                 </div>
             </div>
         </form>
