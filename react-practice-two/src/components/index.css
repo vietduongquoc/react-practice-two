@@ -1,3 +1,4 @@
-@import url(./common/Button/index.css);
-@import url(./common/Input/index.css);
-@import url(./common/Form/index.css);
+@import url(common/Button/index.css);
+@import url(common/Input/index.css);
+@import url(common/Form/FormLogin/index.css);
+@import url(common/Form/FormRegister/index.css);
