@@ -1,66 +1,18 @@
-import React, { useState } from 'react';
+// Login.js
+import React from 'react';
 import './Login.css';
+import FormSubmit from '../../components/common/Form/FormSubmit';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [remember, setRemember] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleFormSubmit = (data) => {
         // Handle form submission logic here
-        console.log({ email, password, remember });
-    };
-
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
+        console.log(data);
     };
 
     return (
         <div className="login-form">
             <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="input-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="input-group password-toggle">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type={showPassword ? 'text' : 'password'}
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <span className="toggle" onClick={togglePasswordVisibility}>
-                        {showPassword ? '🙈' : '👁️'}
-                    </span>
-                </div>
-                <div className="input-group checkbox">
-                    <input
-                        type="checkbox"
-                        id="remember"
-                        name="remember"
-                        checked={remember}
-                        onChange={(e) => setRemember(e.target.checked)}
-                    />
-                    <label htmlFor="remember">Remember Password</label>
-                </div>
-                <div className="actions">
-                    <button type="submit">Login</button>
-                    <a href="/register">New User? Register Here</a>
-                </div>
-            </form>
+            <FormSubmit onSubmit={handleFormSubmit} />
         </div>
     );
 };
