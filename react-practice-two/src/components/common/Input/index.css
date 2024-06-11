@@ -1,0 +1,33 @@
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    padding-right: 30px; /* Add padding to the right to make space for the icon */
+}
+
+.input-wrapper .toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.input-wrapper .toggle img {
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    color: gray; /* Set the icon color to gray */
+}
