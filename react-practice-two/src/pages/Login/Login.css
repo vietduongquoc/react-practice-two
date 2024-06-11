@@ -39,41 +39,37 @@ body {
     color: var(--text-color-grey);
 }
 
-
 .login-form .input-group {
-    margin-bottom: 15px;
-}
-
-.login-form .input-group label {
-    display: block;
-    margin-bottom: 5px;
+    margin-bottom: 25px;
 }
 
 .login-form .input-group input {
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     box-sizing: border-box;
+    font-weight: var(--font-weight-regular);
 }
 
 .login-form .input-group .password-toggle {
     position: relative;
+    font-weight: var(--font-weight-regular);
 }
 
-.login-form .input-group .password-toggle input {
-    padding-right: 30px;
-}
-
-.login-form .input-group .password-toggle .toggle {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-}
-
-.login-form .input-group .checkbox {
+.checkbox {
     display: flex;
     align-items: center;
+}
+
+.lable-remember {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    color: var(--text-color-grey);
+}
+
+#remember {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
 }
 
 .login-form .input-group .checkbox input {
@@ -88,5 +84,5 @@ body {
 
 .login-form .actions a {
     text-decoration: none;
-    color: #007BFF;
+    color: var(--color-primary);
 }

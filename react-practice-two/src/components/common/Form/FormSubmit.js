@@ -26,6 +26,7 @@ const FormSubmit = ({ onSubmit }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required={true}
+                placeholder="email"
             />
             <Input
                 label="Password"
@@ -37,6 +38,7 @@ const FormSubmit = ({ onSubmit }) => {
                 required={true}
                 showPassword={showPassword}
                 togglePasswordVisibility={togglePasswordVisibility}
+                placeholder="password"
             />
             <div className="input-group checkbox">
                 <input
@@ -46,7 +48,7 @@ const FormSubmit = ({ onSubmit }) => {
                     checked={remember}
                     onChange={(e) => setRemember(e.target.checked)}
                 />
-                <label htmlFor="remember">Remember Password</label>
+                <label className='lable-remember' htmlFor="remember">Remember</label>
             </div>
             <div className="actions">
                 <button type="submit">Login</button>
