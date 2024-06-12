@@ -1,0 +1,55 @@
+.form-control {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown {
+    position: relative;
+    margin-right: 10px;
+}
+
+.dropdown-btn {
+    padding: 5px 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f0f0f0;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+.search-form input {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-right: none;
+}
+
+.search-btn {
+    padding: 5px 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}

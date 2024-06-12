@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import Image from '../../layouts/Logo';
-import FormRegister from '../../components/common/Form/FormRegister';
+import FormRegister from '../../components/Form/FormRegister';
 
 const Register = () => {
     const navigate = useNavigate();

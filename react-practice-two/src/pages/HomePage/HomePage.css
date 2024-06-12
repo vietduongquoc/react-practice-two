@@ -1,0 +1,11 @@
+.homepage {
+    display: flex;
+}
+
+.content {
+    margin-left: 200px; /* Adjust this based on the width of your sidebar */
+    padding: 20px;
+    width: calc(100% - 200px); /* Adjust this based on the width of your sidebar */
+    box-sizing: border-box;
+    margin-top: 60px; /* Adjust this based on the height of your header */
+}

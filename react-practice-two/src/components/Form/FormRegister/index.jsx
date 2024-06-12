@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Input from '../../Input';
-import Button from '../../Button';
+import Input from '../../common/Input/index'
+import Button from '../../common/Button/index'
 import './index.css'
 
 const FormRegister = ({ onSubmit, onLoginClick }) => {
