@@ -5,12 +5,11 @@ import Sidebar from '../../components/SideBar';
 
 const HomePage = () => {
     return (
-        <div className="homepage">
-            <Header />
+        <div className="homepage-container">
             <Sidebar />
+            <Header />
             <div className="content">
-                {/* Add your main content here */}
-                <h1>Welcome to the Home Page</h1>
+                <h1>Welcome to your Digital Library</h1>
             </div>
         </div>
     );

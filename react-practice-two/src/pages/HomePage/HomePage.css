@@ -1,11 +1,11 @@
-.homepage {
+.homepage-container {
     display: flex;
+    height: 100vh;
 }
 
 .content {
-    margin-left: 200px; /* Adjust this based on the width of your sidebar */
-    padding: 20px;
-    width: calc(100% - 200px); /* Adjust this based on the width of your sidebar */
+    padding: 60px;
     box-sizing: border-box;
-    margin-top: 60px; /* Adjust this based on the height of your header */
+    flex-grow: 1;
+    overflow-y: auto;
 }

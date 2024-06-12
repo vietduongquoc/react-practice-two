@@ -10,6 +10,10 @@
     left: 200px; /* Adjust this based on the width of your sidebar */
     top: 0;
     z-index: 1000;
+    padding: 0 20px;
+    height: 60px;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .header-container {

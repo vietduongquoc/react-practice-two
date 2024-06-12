@@ -1,13 +1,23 @@
+.sidebar-container {
+    position: relative;
+    background-image: url("/src/assets/image/bg-login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    width: 350px;
+}
+
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 200px;
-    height: 100%;
-    background-color: #333;
-    color: white;
-    padding: 20px;
+    width: 100%;
+    margin: 0 auto;
+    width: 310px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
     box-sizing: border-box;
+    background-color: var(--background-color-primary);
+    height: 100vh;
 }
 
 .sidebar-logo {
@@ -16,31 +26,47 @@
 }
 
 .sidebar-logo img {
-    width: 100px;
-    height: auto;
+    width: 120px;
+    height: 75px;
+    margin-bottom: 100px;
+    margin-top: 40px;
 }
 
-.sidebar ul {
-    list-style-type: none;
+.List-sidebar-link {
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
 }
 
-.sidebar ul li {
-    margin-bottom: 20px;
+.sidebar-link {
+    list-style: none;
 }
 
-.sidebar ul li a {
-    color: white;
+.sidebar-link a {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-regular);
     text-decoration: none;
-    font-size: 18px;
     display: flex;
     align-items: center;
 }
 
-.sidebar ul li a:hover {
-    text-decoration: underline;
-}
-
 .sidebar-icon {
     margin-right: 10px;
+}
+
+.sidebar-title-home {
+    color: var(--text-color-primary);
+}
+
+.sidebar-title-home:hover {
+    color: var(--text-color-secondary);
+}
+
+.sidebar-title-myshelf {
+    color: var(--text-color-primary);
+}
+
+.sidebar-title-myshelf:hover {
+    color: var(--text-color-secondary);
 }
