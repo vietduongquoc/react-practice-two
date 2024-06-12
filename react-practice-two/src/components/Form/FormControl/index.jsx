@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
-// import { FaSearch } from 'react-icons/fa';
+import searchIcon from '../../../assets/image/icon-search-color.jpg';
 
 const FormControl = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -23,27 +23,32 @@ const FormControl = () => {
 
     return (
         <div className="form-control">
-            <div className="dropdown">
-                <button className="dropdown-btn" onClick={toggleDropdown}>
+            <div className="dropdown-form-control">
+                <button className="dropdown-btn-form-control" onClick={toggleDropdown}>
                     {searchType} ▼
                 </button>
                 {dropdownOpen && (
-                    <ul className="dropdown-menu">
-                        <li onClick={() => handleSearchTypeChange('Title')}>Title</li>
-                        <li onClick={() => handleSearchTypeChange('Author')}>Author</li>
+                    <ul className="dropdown-menu-form-control">
+                        <li className='dropdown-menu-type' onClick={() => handleSearchTypeChange('Title')}>Title</li>
+                        <li className='dropdown-menu-type' onClick={() => handleSearchTypeChange('Author')}>Author</li>
                     </ul>
                 )}
             </div>
             <form onSubmit={handleSearch} className="search-form">
-                <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={`Search by ${searchType.toLowerCase()}...`}
-                />
-                <button type="submit" className="search-btn">
-                    {/* <FaSearch color="#fa7c54" /> */}
-                </button>
+                <div className="search-input-container">
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder={`Search ${searchType.toLowerCase()}...`}
+                        className="search-input"
+                    />
+                    <button type="submit" className="search-btn">
+                        <img
+                            src={searchIcon} alt='Search Icon' className='search-icon'
+                        />
+                    </button>
+                </div>
             </form>
         </div>
     );

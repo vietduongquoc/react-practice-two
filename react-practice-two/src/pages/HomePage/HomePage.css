@@ -1,11 +1,25 @@
+/* HomePage.css */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .homepage-container {
     display: flex;
     height: 100vh;
+    overflow: hidden;
 }
 
-.content {
-    padding: 60px;
-    box-sizing: border-box;
+.main-content {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
+    margin-left: 380px; /* Adjust based on sidebar width */
+    margin-top: 100px; /* Adjust based on header height */
+    background-color: var(--background-color-primary); /* White background for content */
     overflow-y: auto;
+    padding-top: 100px;
+    height: calc(100vh - 50px); /* Adjust based on header height */
 }

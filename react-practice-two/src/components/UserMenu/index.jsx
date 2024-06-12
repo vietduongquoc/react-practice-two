@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
+import avatarUser from '../../assets/image/avatar-user.jpg';
 
 const UserMenu = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -14,13 +15,14 @@ const UserMenu = () => {
 
     return (
         <div className="user-menu">
-            <img src="/path-to-avatar.jpg" alt="User Avatar" className="avatar" />
-            <button className="dropdown-btn" onClick={toggleDropdown}>
+            <img src={avatarUser} alt="User Avatar" className="avatar" />
+            <p className='user-name'>Kenson</p>
+            <button className="dropdown-btn-menu" onClick={toggleDropdown}>
                 ▼
             </button>
             {dropdownOpen && (
-                <ul className="dropdown-menu">
-                    <li onClick={handleLogout}>Logout</li>
+                <ul className="dropdown-menu-user">
+                    <li className='dropdown-menu-option' onClick={handleLogout}>Logout</li>
                 </ul>
             )}
         </div>
