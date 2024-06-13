@@ -16,7 +16,7 @@ const Login = () => {
                 <div className='wrap-login-form-title'>
                     <img src={logoIcon} alt="Logo" className="logo-icon" />
                     <h1 className='login-form-title'>Welcome Back !</h1>
-                    <p className='login-form-ders'>Sign in to continue to yourDigital Library</p>
+                    <p className='login-form-ders'>Sign in to continue to your Digital Library</p>
                 </div>
                 <FormSubmit onSubmit={handleFormSubmit} />
             </form>

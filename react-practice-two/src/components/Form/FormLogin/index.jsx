@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Input from '../../common/Input';
 import Button from '../../common/Button';
 import './index.css';
+import { loginUser } from '../../../services/servicesUser'
 
 const FormSubmit = ({ onSubmit }) => {
     const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ const FormSubmit = ({ onSubmit }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
     const [isFormValid, setIsFormValid] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         const emailError = validateEmail(email) ? '' : 'Email must be in correct format';
@@ -34,10 +36,20 @@ const FormSubmit = ({ onSubmit }) => {
         return passwordPattern.test(password);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (isFormValid) {
-            onSubmit({ email, password, remember });
+            setIsSubmitting(true);
+            const result = await loginUser({ email, password }); // Calling loginUser service
+            console.log('result ', {result});
+            setIsSubmitting(false);
+            if (result.error) {
+                alert('test')
+                alert('Login failed: ' + result.error);
+            } else {
+                alert('Login successful!');
+                onSubmit({ email, password, remember });
+            }
         }
     };
 
@@ -85,12 +97,11 @@ const FormSubmit = ({ onSubmit }) => {
                 <Button
                     type="submit"
                     className="submit-btn"
-                    onClick={handleSubmit}
                     text="Login"
                     color="btn-primary"
                     borderRadius="btn-rounded"
                     size="btn-large"
-                    isDisabled={!isFormValid}
+                    isDisabled={!isFormValid || isSubmitting}
                 />
                 <div className='wrap-link-login'>
                     <span className='text-login'> New User? </span>
