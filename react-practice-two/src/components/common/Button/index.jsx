@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 import './index.css';
 
 const Button = ({
-    type = 'button',
-    className = '',
+    type,
+    className,
     onClick,
     isDisabled = false,
     text,

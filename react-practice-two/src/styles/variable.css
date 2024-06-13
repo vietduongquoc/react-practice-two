@@ -1,6 +1,7 @@
 :root {
   /* Font Sizes */
   --font-size-xxs: 10px;
+  --font-size-validation: 13px;
   --font-size-xs: 15px;
   --font-size-sm: 16px;
   --font-size-md: 18px;
@@ -24,7 +25,7 @@
   --background-color-tertiary: #f3f3f7;
   --background-color-light-grey:#eeecec;
   --btn-background-color-primary: #fa7c54;
-  --btn-background-color-hover: #c43307;
+  --btn-background-color-hover: #f03d07;
   --btn-background-color-tertiary: #42bb4e;
 
   --text-color-primary: #4d4d4d;
