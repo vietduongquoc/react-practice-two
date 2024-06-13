@@ -28,7 +28,7 @@ const FormSubmit = ({ onSubmit }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required={true}
-                placeholder="email"
+                placeholder="Email"
             />
             <Input
                 label="Password"
@@ -40,7 +40,7 @@ const FormSubmit = ({ onSubmit }) => {
                 required={true}
                 showPassword={showPassword}
                 togglePasswordVisibility={togglePasswordVisibility}
-                placeholder="password"
+                placeholder="Password"
             />
             <div className="input-group checkbox">
                 <input

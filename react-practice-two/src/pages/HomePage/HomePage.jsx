@@ -2,7 +2,7 @@
 import React from 'react';
 import './HomePage.css';
 import Header from '../../layouts/Header';
-import Sidebar from '../../components/SideBar';
+import Sidebar from '../../layouts/SideBar';
 
 const HomePage = () => {
     return (

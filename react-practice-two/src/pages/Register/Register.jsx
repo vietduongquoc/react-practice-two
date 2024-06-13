@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
-import Image from '../../layouts/Logo';
+import logoIcon from '../../assets/image/Logo.jpg'
 import FormRegister from '../../components/Form/FormRegister';
 
 const Register = () => {
@@ -19,9 +19,9 @@ const Register = () => {
         <div className="form-container">
             <form className="register-form">
                 <div className='wrap-register-form-title'>
-                    <Image />
-                    <h2 className='register-form-title'>Registration</h2>
-                    <span className='register-form-ders'>For Both Staff & Students</span>
+                <img src={logoIcon} alt="Logo" className="logo-icon" />
+                    <h1 className='register-form-title'>Registration</h1>
+                    <p className='register-form-ders'>For Both Staff & Students</p>
                 </div>
                 <FormRegister onSubmit={handleFormRegister} onLoginClick={handleLoginClick} />
             </form>
