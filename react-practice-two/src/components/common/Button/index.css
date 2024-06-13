@@ -30,3 +30,7 @@
     background-color: #cccccc;
     cursor: not-allowed;
 }
+
+.btn-disabled:hover {
+    background-color: #cccccc;
+}
