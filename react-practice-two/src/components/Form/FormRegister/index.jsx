@@ -13,7 +13,7 @@ const FormRegister = ({ onSubmit, onLoginClick }) => {
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
-        const nameError = validateName(name) ? '' : 'Password must have a minimum of 8 characters';
+        const nameError = validateName(name) ? '' : 'Name must have a minimum of 6 characters';
         const emailError = validateEmail(email) ? '' : 'Email must be in correct format';
         const passwordError = validatePassword(password) ? '' : 'Password must have a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number, and one symbol';
         const confirmPasswordError = password === confirmPassword ? '' : 'Passwords do not match';
@@ -31,8 +31,7 @@ const FormRegister = ({ onSubmit, onLoginClick }) => {
     }, [name, email, password, confirmPassword]);
 
     const validateName = (name) => {
-        const namePattern = /^(?=.*[a-z]){8,}$/;
-        return namePattern.test(name);
+        return name.length >= 6;
     };
 
     const validateEmail = (email) => {
