@@ -72,9 +72,9 @@ const FormRegister = ({ onSubmit, onLoginClick }) => {
             <div className="actions-register">
                 <Button
                     type="submit"
-                    color="#fa7c54"
-                    borderRadius="8px"
-                    size="large"
+                    color="btn-primary"
+                    borderRadius="btn-rounded"
+                    size="btn-large"
                     text="Register"
                     onClick={handleSubmit}
                 />

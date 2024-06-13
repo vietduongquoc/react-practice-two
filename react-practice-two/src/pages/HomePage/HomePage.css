@@ -1,11 +1,3 @@
-/* HomePage.css */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 .homepage-container {
     display: flex;
     height: 100vh;

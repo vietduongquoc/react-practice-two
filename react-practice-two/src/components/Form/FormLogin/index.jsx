@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Input from '../../common/Input'
-import Button from '../../common/Button'
+import Input from '../../common/Input';
+import Button from '../../common/Button';
+import './index.css';  // Make sure to import your CSS file here
 
 const FormSubmit = ({ onSubmit }) => {
     const [email, setEmail] = useState('');
@@ -54,11 +55,12 @@ const FormSubmit = ({ onSubmit }) => {
             <div className="actions">
                 <Button
                     type="submit"
-                    color="#fa7c54"
-                    borderRadius="8px"
-                    size="large"
-                    text="Login"
+                    className="submit-btn"
                     onClick={handleSubmit}
+                    text="Login"
+                    color="btn-primary"
+                    borderRadius="btn-rounded"
+                    size="btn-large"
                 />
                 <div className='wrap-link-login'>
                     <span className='text-login'> New User? </span>

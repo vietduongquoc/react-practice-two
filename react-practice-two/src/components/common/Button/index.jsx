@@ -1,21 +1,28 @@
-import React from 'react';
-import './index.css'
+import React, { memo } from 'react';
+import './index.css';
 
-const Button = ({ color, type, borderRadius, size, isDisabled, text, onClick }) => {
+const Button = ({
+    type = 'button',
+    className = '',
+    onClick,
+    isDisabled = false,
+    text,
+    icon,
+    color,
+    borderRadius,
+    size
+}) => {
     return (
         <button
             type={type}
+            className={`btn ${className} ${size} ${color} ${borderRadius} ${isDisabled ? 'btn-disabled' : ''}`}
             onClick={onClick}
-            className={`button ${size}`}
-            style={{
-                backgroundColor: color,
-                borderRadius: borderRadius,
-            }}
             disabled={isDisabled}
         >
+            {icon && <span className="icon">{icon}</span>}
             {text}
         </button>
     );
 };
 
-export default Button;
+export default memo(Button);
