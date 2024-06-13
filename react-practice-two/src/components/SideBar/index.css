@@ -1,0 +1,155 @@
+/* .sidebar-container {
+    position: relative;
+    background-image: url("/src/assets/image/bg-login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    width: 350px;
+    height: 100vh;
+}
+
+.sidebar {
+    border-radius: 10px 0px 0px 10px;
+    width: 100%;
+    margin: 0 auto;
+    width: 310px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 30px;
+    box-sizing: border-box;
+    background-color: var(--background-color-primary);
+    height: -webkit-fill-available;
+}
+
+.sidebar-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-logo img {
+    width: 120px;
+    height: 75px;
+    margin-bottom: 100px;
+    margin-top: 40px;
+}
+
+.List-sidebar-link {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.sidebar-link {
+    list-style: none;
+}
+
+.sidebar-link a {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-regular);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-icon {
+    margin-right: 10px;
+}
+
+.sidebar-title-home {
+    color: var(--text-color-primary);
+}
+
+.sidebar-title-home:hover {
+    color: var(--text-color-secondary);
+}
+
+.sidebar-title-myshelf {
+    color: var(--text-color-primary);
+}
+
+.sidebar-title-myshelf:hover {
+    color: var(--text-color-secondary);
+} */
+
+/* Sidebar.css */
+
+.sidebar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 100vh;
+    background-image: url("/src/assets/image/bg-login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1000;
+}
+
+.sidebar {
+    border-radius: 10px 0px 0px 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: var(--background-color-primary);
+    height: calc(100vh - 50px);
+    box-sizing: border-box;
+    margin-left: 30px;
+}
+
+.sidebar-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-logo img {
+    width: 120px;
+    height: 75px;
+    margin-bottom: 100px;
+    margin-top: 40px;
+}
+
+.List-sidebar-link {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.sidebar-link {
+    list-style: none;
+}
+
+.sidebar-link a {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-regular);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-icon {
+    margin-right: 10px;
+}
+
+.sidebar-title-home {
+    color: var(--text-color-primary);
+}
+
+.sidebar-title-home:hover {
+    color: var(--text-color-secondary);
+}
+
+.sidebar-title-myshelf {
+    color: var(--text-color-primary);
+}
+
+.sidebar-title-myshelf:hover {
+    color: var(--text-color-secondary);
+}

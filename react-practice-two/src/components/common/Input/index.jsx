@@ -1,10 +1,7 @@
-import React from 'react';
 import './index.css';
-import '../../../assets/image/eye-closed.jpg'
-import '../../../assets/image/eye-open.jpg'
-
-const eyeClosed = '../../../assets/image/eye-closed.jpg'
-const eyeOpen = '../../../assets/image/eye-open.jpg'
+import React, { memo } from 'react';
+import eyeClosed from '../../../assets/image/eye-closed.jpg'
+import eyeOpen from '../../../assets/image/eye-open.jpg'
 
 const Input = ({ label, type, value, onChange, id, name, required, showPassword, placeholder, togglePasswordVisibility }) => {
     return (
@@ -22,7 +19,7 @@ const Input = ({ label, type, value, onChange, id, name, required, showPassword,
                 />
                 {type === 'password' && (
                     <span className="toggle" onClick={togglePasswordVisibility}>
-                        <img src={showPassword ? eyeOpen : eyeClosed} alt=''/>
+                        <img src={showPassword ? eyeOpen : eyeClosed} alt="Toggle Password Visibility" />
                     </span>
                 )}
             </div>
@@ -30,4 +27,4 @@ const Input = ({ label, type, value, onChange, id, name, required, showPassword,
     );
 };
 
-export default Input;
+export default memo(Input);

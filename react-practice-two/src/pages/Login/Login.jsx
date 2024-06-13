@@ -2,7 +2,7 @@
 import React from 'react';
 import './Login.css';
 import Image from '../../layouts/Logo/index'
-import FormSubmit from '../../components/common/Form/FormLogin';
+import FormSubmit from '../../components/Form/FormLogin';
 
 const Login = () => {
     const handleFormSubmit = (data) => {

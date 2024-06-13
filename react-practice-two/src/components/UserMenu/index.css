@@ -1,0 +1,59 @@
+.user-menu {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 40px;
+    border-radius: 33px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    background: rgb(255, 255, 255);
+    width: 200px;
+    height: 50px;
+    justify-content: space-around;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-name {
+    color: var(--text-color-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-regular);
+}
+
+.dropdown-btn-menu {
+    padding: 5px;
+    background-color: var(--background-color-primary);
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-menu-user {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    border: 1px solid #ddd;
+    list-style: none;
+    background-color: var(--background-color-primary);
+    border-radius: var(--border-radius-sm);
+    width: 100%;
+    max-width: 170px;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.dropdown-menu-option {
+    padding: 12px 20px;
+    cursor: pointer;
+    color: var(--text-color-primary);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
+}
+
+.dropdown-menu-option:hover {
+    background-color: var(--background-color-tertiary);
+    border-radius: var(--border-radius-sm);
+}
