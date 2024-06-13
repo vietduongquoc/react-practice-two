@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';
-import Image from '../../layouts/Logo';
+import logoIcon from '../../assets/image/Logo.jpg';
 import homeIcon from '../../assets/image/Sidebar-icon-home.jpg';
 import bookshelfIcon from '../../assets/image/Sidebar-icon-Bookshelf.jpg';
 
 const Sidebar = () => {
     return (
         <div className="sidebar-container">
-            <div className='sidebar'>
+            <aside className='sidebar'>
                 <div className="sidebar-logo">
-                    <Image />
+                    <img src={logoIcon} alt="Logo" className="logo-icon" />
                 </div>
-                <ul className='List-sidebar-link'>
+                <ul className='list-sidebar-link'>
                     <li className='sidebar-link'>
                         <Link to="/">
                             <img src={homeIcon} alt="Home" className="sidebar-icon" />
@@ -26,7 +26,7 @@ const Sidebar = () => {
                         </Link>
                     </li>
                 </ul>
-            </div>
+            </aside>
         </div >
     );
 };

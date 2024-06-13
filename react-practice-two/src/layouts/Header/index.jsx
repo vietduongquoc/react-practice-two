@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import FormControl from '../../components/Form/FormControl';
-import UserMenu from '../../components/UserMenu';
+import UserMenu from '../UserMenu';
 
 const Header = () => {
     return (
