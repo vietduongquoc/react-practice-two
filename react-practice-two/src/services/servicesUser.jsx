@@ -6,13 +6,13 @@ const api = axios.create({
     baseURL: config.apiBaseUrl,
 });
 
-// Example function to get user details
-export const loginUser = async (userId) => {
+// Example function to get all users
+export const fetchUsers = async () => {
     try {
-        const response = await api.get(`/User/${userId}`);
+        const response = await api.get('/User');
         return { data: response.data, error: null };
     } catch (error) {
-        console.error('Error fetching user details:', error);
+        console.error('Error fetching users:', error);
         return { data: null, error: error.response ? error.response.data : error.message };
     }
 };
