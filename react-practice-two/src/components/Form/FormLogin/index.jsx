@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Input from '../../common/Input';
 import Button from '../../common/Button';
 import './index.css';
-import { loginUser } from '../../../services/servicesUser'
+import { fetchUsers } from '../../../services/servicesUser'
 
 const FormSubmit = ({ onSubmit }) => {
     const [email, setEmail] = useState('');
@@ -10,7 +10,7 @@ const FormSubmit = ({ onSubmit }) => {
     const [remember, setRemember] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
-    const [isFormValid, setIsFormValid] = useState(false);
+    const [isFormValid, setIsFormValid] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
@@ -40,15 +40,22 @@ const FormSubmit = ({ onSubmit }) => {
         e.preventDefault();
         if (isFormValid) {
             setIsSubmitting(true);
-            const result = await loginUser({ email, password }); // Calling loginUser service
-            console.log('result ', {result});
+            const result = await fetchUsers(); // Calling fetchUsers service to get all users
             setIsSubmitting(false);
+
             if (result.error) {
-                alert('test')
-                alert('Login failed: ' + result.error);
-            } else {
+                alert('Error fetching users: ' + result.error);
+                return;
+            }
+
+            const users = result.data;
+            const user = users.find(user => user.email === email && user.password === password);
+
+            if (user) {
                 alert('Login successful!');
                 onSubmit({ email, password, remember });
+            } else {
+                alert('Login failed: Incorrect email or password');
             }
         }
     };
@@ -95,6 +102,7 @@ const FormSubmit = ({ onSubmit }) => {
             </div>
             <div className="actions">
                 <Button
+                    onClick={handleSubmit}
                     type="submit"
                     className="submit-btn"
                     text="Login"
