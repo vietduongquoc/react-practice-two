@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Login.css';
 import logoIcon from '../../assets/image/Logo.jpg';
-import Input from '../../components/common/Input'
-import Button from '../../components/common/Button'
-import { emailPattern, passwordPattern } from '../../constants/regex';
+import Input from '../../components/common/Input';
+import Button from '../../components/common/Button';
+import { emailPattern, validTlds, passwordPattern } from '../../constants/regex';
 import { fetchUsers } from '../../services/servicesUser';
 
 const LoginPage = () => {
@@ -25,20 +25,38 @@ const LoginPage = () => {
     }, [email, password, errors]);
 
     const validateEmail = (email) => {
-        return emailPattern.test(email);
+        if (!emailPattern.test(email)) return false;
+        const domain = email.split('.').pop();
+        return validTlds.includes(domain);
     };
 
     const validatePassword = (password) => {
         return passwordPattern.test(password);
     };
 
-    const handleValidate = (field) => {
+    const handleChange = (field, value) => {
         if (field === 'email') {
-            const emailError = validateEmail(email) ? '' : 'Email must be in correct format';
-            setErrors((prevErrors) => ({ ...prevErrors, email: emailError }));
+            setEmail(value);
+            if (validateEmail(value)) {
+                setErrors((prevErrors) => ({ ...prevErrors, email: '' }));
+            } else if (errors.email) {
+                setErrors((prevErrors) => ({ ...prevErrors, email: 'Email must be in correct format' }));
+            }
         } else if (field === 'password') {
-            const passwordError = validatePassword(password) ? '' : 'Password must have a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number, and one symbol';
-            setErrors((prevErrors) => ({ ...prevErrors, password: passwordError }));
+            setPassword(value);
+            if (validatePassword(value)) {
+                setErrors((prevErrors) => ({ ...prevErrors, password: '' }));
+            } else if (errors.password) {
+                setErrors((prevErrors) => ({ ...prevErrors, password: 'Password must have a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number, and one symbol' }));
+            }
+        }
+    };
+
+    const handleBlur = (field) => {
+        if (field === 'email' && !validateEmail(email)) {
+            setErrors((prevErrors) => ({ ...prevErrors, email: 'Email must be in correct format' }));
+        } else if (field === 'password' && !validatePassword(password)) {
+            setErrors((prevErrors) => ({ ...prevErrors, password: 'Password must have a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number, and one symbol' }));
         }
     };
 
@@ -84,10 +102,8 @@ const LoginPage = () => {
                     id="email"
                     name="email"
                     value={email}
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                        handleValidate('email');
-                    }}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                    onBlur={() => handleBlur('email')}
                     required={true}
                     placeholder="Email"
                 />
@@ -98,10 +114,8 @@ const LoginPage = () => {
                     id="password"
                     name="password"
                     value={password}
-                    onChange={(e) => {
-                        setPassword(e.target.value);
-                        handleValidate('password');
-                    }}
+                    onChange={(e) => handleChange('password', e.target.value)}
+                    onBlur={() => handleBlur('password')}
                     required={true}
                     showPassword={showPassword}
                     togglePasswordVisibility={togglePasswordVisibility}
@@ -140,3 +154,7 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+
+
+

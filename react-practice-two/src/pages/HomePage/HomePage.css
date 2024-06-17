@@ -17,3 +17,7 @@
     height: calc(100vh - 50px);
     /* Adjust based on header height */
 }
+
+.content {
+    padding: 10px 40px 10px 10px;
+}
