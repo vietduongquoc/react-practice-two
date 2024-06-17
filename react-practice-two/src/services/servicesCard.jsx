@@ -8,6 +8,7 @@ const api = axios.create({
 export const fetchCard = async () => {
     try {
         const response = await api.get('/Card');
+        console.log("response.data", response.data );
         return { data: response.data, error: null };
     } catch (error) {
         console.error('Error fetching Card:', error);
