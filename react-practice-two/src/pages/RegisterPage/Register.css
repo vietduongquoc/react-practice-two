@@ -1,3 +1,33 @@
+.register-form {
+    background-color: var(--background-color-primary);
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    max-width: 400px;
+    width: 100%;
+    padding: 30px 60px;
+}
+
+.wrap-register-form-title {
+    text-align: center;
+    font-weight: var(--font-weight-regular);
+    margin-bottom: 25px;
+}
+
+.register-form-title {
+    font-size: var(--font-size-lg);
+    color: var(--text-color-primary);
+    margin: 25px 0 10px;
+}
+
+.register-form-ders {
+    font-size: var(--font-size-xs);
+    color: var(--text-color-grey);
+}
+
+.register-form .input-group {
+    margin-bottom: 25px;
+}
+
 .register-form .input-group input {
     width: 100%;
     padding: 15px;
@@ -11,7 +41,7 @@
     color: var(--text-color-primary);
 }
 
-.link-register{
+.link-register {
     color: var(--text-color-primary);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-regular);
@@ -37,6 +67,6 @@
 
 .error {
     color: var(--btn-background-color-hover);
-    font-size: var(--font-size-validation) ;
+    font-size: var(--font-size-validation);
     padding-bottom: 10px;
 }
