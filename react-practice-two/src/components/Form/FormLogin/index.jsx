@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Input from '../../common/Input';
 import Button from '../../common/Button';
 import './index.css';
-import { fetchUsers } from '../../../services/servicesUser'
+import { fetchUsers } from '../../../services/servicesUser';
 
 const FormSubmit = ({ onSubmit }) => {
     const [email, setEmail] = useState('');
@@ -10,21 +10,17 @@ const FormSubmit = ({ onSubmit }) => {
     const [remember, setRemember] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
-    const [isFormValid, setIsFormValid] = useState(true);
+    const [isFormValid, setIsFormValid] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        const emailError = validateEmail(email) ? '' : 'Email must be in correct format';
-        const passwordError = validatePassword(password) ? '' : 'Password must have a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number, and one symbol';
-        setErrors({ email: emailError, password: passwordError });
-
         setIsFormValid(
             email !== '' &&
             password !== '' &&
-            emailError === '' &&
-            passwordError === ''
+            !errors.email &&
+            !errors.password
         );
-    }, [email, password]);
+    }, [email, password, errors]);
 
     const validateEmail = (email) => {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -34,6 +30,16 @@ const FormSubmit = ({ onSubmit }) => {
     const validatePassword = (password) => {
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         return passwordPattern.test(password);
+    };
+
+    const handleValidate = (field) => {
+        if (field === 'email') {
+            const emailError = validateEmail(email) ? '' : 'Email must be in correct format';
+            setErrors((prevErrors) => ({ ...prevErrors, email: emailError }));
+        } else if (field === 'password') {
+            const passwordError = validatePassword(password) ? '' : 'Password must have a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number, and one symbol';
+            setErrors((prevErrors) => ({ ...prevErrors, password: passwordError }));
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -72,7 +78,10 @@ const FormSubmit = ({ onSubmit }) => {
                 id="email"
                 name="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                    setEmail(e.target.value);
+                    handleValidate('email');
+                }}
                 required={true}
                 placeholder="Email"
             />
@@ -83,7 +92,10 @@ const FormSubmit = ({ onSubmit }) => {
                 id="password"
                 name="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                    setPassword(e.target.value);
+                    handleValidate('password');
+                }}
                 required={true}
                 showPassword={showPassword}
                 togglePasswordVisibility={togglePasswordVisibility}

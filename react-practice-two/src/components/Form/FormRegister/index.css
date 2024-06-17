@@ -17,10 +17,12 @@
     font-weight: var(--font-weight-regular);
     margin-left: 5px;
     border-bottom: 1px solid var(--text-color-primary);
+    cursor: pointer;
 }
 
 .link-register:hover {
     color: var(--text-color-secondary);
+    border-bottom: 1px solid var(--text-color-secondary);
 }
 
 .wrap-link-register {
