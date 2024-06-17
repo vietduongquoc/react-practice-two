@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Input from '../../common/Input';
 import Button from '../../common/Button';
 import './index.css';
+import { emailPattern, passwordPattern } from '../../../constants/regex';
 import { fetchUsers } from '../../../services/servicesUser';
 
 const FormSubmit = ({ onSubmit }) => {
@@ -23,12 +24,10 @@ const FormSubmit = ({ onSubmit }) => {
     }, [email, password, errors]);
 
     const validateEmail = (email) => {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(email);
     };
 
     const validatePassword = (password) => {
-        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         return passwordPattern.test(password);
     };
 
