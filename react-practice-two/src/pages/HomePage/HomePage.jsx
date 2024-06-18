@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './HomePage.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
-import HomePageContent from '../../components/Home-page-conntent';
+import HomePageContent from '../../components/HomePageConntent';
 import { fetchCard, addCardToFavorites } from '../../services/servicesCard'; 
 
 const HomePage = () => {

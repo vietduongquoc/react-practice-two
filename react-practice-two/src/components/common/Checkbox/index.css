@@ -1,0 +1,15 @@
+/* src/components/common/Checkbox.css */
+
+.input-group.checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.input-group.checkbox input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.label-remember {
+    font-size: 14px;
+    cursor: pointer;
+}

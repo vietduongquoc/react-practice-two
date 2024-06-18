@@ -1,10 +1,44 @@
 .card-book {
     width: 100%;
-    max-width: 300px;
-    background-color: lightcoral;
+    max-width: 160px;
+    background-color: var(--background-color-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 15px 15px 0 15px;
+    border-radius: var(--border-radius-sm);
 }
 
 .heart-icon {
     width: 20px;
     height: 20px;
+}
+
+.wrap-card-content {
+    display: flex;
+    margin: 0 auto;
+    padding: 5px 10px;
+}
+
+.heart-icon-actions {
+    padding-top: 11px;
+}
+
+.book-details {
+    font-weight: var(--font-weight-regular);
+    color: var(--text-color-primary);
+    margin-right: 5px;
+}
+
+.book-details-name {
+    font-size: var(--font-size-validation);
+}
+
+.book-details-author {
+    font-size: var(--font-size-xxs);
+}
+
+.book-details-rate {
+    font-size: var(--font-size-xxs);
 }

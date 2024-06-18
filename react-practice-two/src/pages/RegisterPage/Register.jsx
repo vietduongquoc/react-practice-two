@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import logoIcon from '../../assets/image/Logo.jpg';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
-import { emailPattern, passwordPattern } from '../../constants/regex';
 import { fetchUsers } from '../../services/servicesUser';
+import { validateForm } from '../../utils/validation';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -18,57 +18,38 @@ const RegisterPage = () => {
     const [isFormValid, setIsFormValid] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    useEffect(() => {
-        const nameError = validateName(name) ? '' : 'Name must have a minimum of 6 characters';
-        const emailError = validateEmail(email) ? '' : 'Email must be in correct format';
-        const passwordError = validatePassword(password) ? '' : 'Password must have a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number, and one symbol';
-        const confirmPasswordError = password === confirmPassword ? '' : 'Passwords do not match';
-
-        setErrors({
-            name: name ? nameError : '',
-            email: email ? emailError : '',
-            password: password ? passwordError : '',
-            confirmPassword: confirmPassword ? confirmPasswordError : '',
-        });
-
-        setIsFormValid(
-            !nameError &&
-            !emailError &&
-            !passwordError &&
-            !confirmPasswordError &&
-            name !== '' &&
-            email !== '' &&
-            password !== '' &&
-            confirmPassword !== ''
-        );
+    const validateAllFields = useCallback(() => {
+        const { errors, isFormValid } = validateForm({ name, email, password, confirmPassword });
+        setErrors(errors);
+        setIsFormValid(isFormValid);
     }, [name, email, password, confirmPassword]);
 
-    const validateName = (name) => {
-        return name.length >= 6;
-    };
+    useEffect(() => {
+        validateAllFields();
+    }, [name, email, password, confirmPassword, validateAllFields]);
 
-    const validateEmail = (email) => {
-        return emailPattern.test(email);
-    };
-
-    const validatePassword = (password) => {
-        return passwordPattern.test(password);
-    };
-
-    const handleValidate = (field) => {
-        if (field === 'name') {
-            const nameError = validateName(name) ? '' : 'Name must have a minimum of 6 characters';
-            setErrors((prevErrors) => ({ ...prevErrors, name: nameError }));
-        } else if (field === 'email') {
-            const emailError = validateEmail(email) ? '' : 'Email must be in correct format';
-            setErrors((prevErrors) => ({ ...prevErrors, email: emailError }));
-        } else if (field === 'password') {
-            const passwordError = validatePassword(password) ? '' : 'Password must have a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number, and one symbol';
-            setErrors((prevErrors) => ({ ...prevErrors, password: passwordError }));
-        } else if (field === 'confirmPassword') {
-            const confirmPasswordError = password === confirmPassword ? '' : 'Passwords do not match';
-            setErrors((prevErrors) => ({ ...prevErrors, confirmPassword: confirmPasswordError }));
+    const handleChange = (field, value) => {
+        switch (field) {
+            case 'name':
+                setName(value);
+                break;
+            case 'email':
+                setEmail(value);
+                break;
+            case 'password':
+                setPassword(value);
+                break;
+            case 'confirmPassword':
+                setConfirmPassword(value);
+                break;
+            default:
+                break;
         }
+        validateAllFields(field, value);
+    };
+
+    const handleBlur = (field) => {
+        validateAllFields();
     };
 
     const handleSubmit = async (e) => {
@@ -117,10 +98,8 @@ const RegisterPage = () => {
                     id="name"
                     name="name"
                     value={name}
-                    onChange={(e) => {
-                        setName(e.target.value);
-                        handleValidate('name');
-                    }}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                    onBlur={() => handleBlur('name')}
                     required={true}
                     placeholder="Username"
                 />
@@ -131,10 +110,8 @@ const RegisterPage = () => {
                     id="email"
                     name="email"
                     value={email}
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                        handleValidate('email');
-                    }}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                    onBlur={() => handleBlur('email')}
                     required={true}
                     placeholder="Username@mail.com"
                 />
@@ -145,10 +122,8 @@ const RegisterPage = () => {
                     id="password"
                     name="password"
                     value={password}
-                    onChange={(e) => {
-                        setPassword(e.target.value);
-                        handleValidate('password');
-                    }}
+                    onChange={(e) => handleChange('password', e.target.value)}
+                    onBlur={() => handleBlur('password')}
                     required={true}
                     showPassword={showPassword}
                     togglePasswordVisibility={togglePasswordVisibility}
@@ -161,10 +136,7 @@ const RegisterPage = () => {
                     id="confirmPassword"
                     name="confirmPassword"
                     value={confirmPassword}
-                    onChange={(e) => {
-                        setConfirmPassword(e.target.value);
-                        handleValidate('confirmPassword');
-                    }}
+                    onChange={(e) => handleChange('confirmPassword', e.target.value)}
                     required={true}
                     showPassword={showPassword}
                     togglePasswordVisibility={togglePasswordVisibility}
