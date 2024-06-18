@@ -136,7 +136,7 @@ const RegisterPage = () => {
                         handleValidate('email');
                     }}
                     required={true}
-                    placeholder="username@mail.com"
+                    placeholder="Username@mail.com"
                 />
                 {errors.email && <div className="error">{errors.email}</div>}
                 <Input
