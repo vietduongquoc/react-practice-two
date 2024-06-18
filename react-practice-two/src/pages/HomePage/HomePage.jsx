@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import './HomePage.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
-import HomePageContent from '../../components/HomePageConntent';
-import { fetchCard, addCardToFavorites } from '../../services/servicesCard'; 
+import CardBook from '../../components/CardBook'; // Import CardBook directly
+import { fetchCard, addCardToFavorites } from '../../services/servicesCard';
 
 const HomePage = () => {
     const [books, setBooks] = useState([]);
@@ -22,6 +22,35 @@ const HomePage = () => {
 
         fetchData();
     }, []);
+
+    // Function to split books into rows with max 6 items per row
+    const splitIntoRows = (books) => {
+        return books.reduce((rows, book, index) => {
+            const rowIndex = Math.floor(index / 6);
+            if (!rows[rowIndex]) {
+                rows[rowIndex] = [];
+            }
+            rows[rowIndex].push(book);
+            return rows;
+        }, []);
+    };
+
+    // Render each row of books with a maximum of 6 items per row
+    const renderRows = () => {
+        const rows = splitIntoRows(books);
+        return rows.map((row, index) => (
+            <div className="row" key={index}>
+                {row.map((book) => (
+                    <CardBook
+                        key={book.id}
+                        book={book}
+                        onAddToFavorites={handleAddToFavorites}
+                        onPreview={handlePreview}
+                    />
+                ))}
+            </div>
+        ));
+    };
 
     const handleAddToFavorites = async (bookId) => {
         // Call API to add book to favorites
@@ -45,11 +74,7 @@ const HomePage = () => {
                 <Header />
                 <div className="content">
                     <h1>Welcome to your Digital Library</h1>
-                    <HomePageContent
-                        books={books}
-                        onAddToFavorites={handleAddToFavorites}
-                        onPreview={handlePreview}
-                    />
+                    <div className="homepage-content">{renderRows()}</div>
                 </div>
             </div>
         </div>
