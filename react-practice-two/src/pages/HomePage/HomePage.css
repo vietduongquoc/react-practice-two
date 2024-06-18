@@ -4,6 +4,14 @@
     overflow: hidden;
 }
 
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
 .main-content {
     display: flex;
     flex-direction: column;
@@ -14,10 +22,11 @@
     background-color: var(--background-color-light-grey);
     overflow-y: auto;
     padding-top: 100px;
-    height: calc(100vh - 50px);
+    /* Adjust based on header height */
+    height: calc(100vh - 70px);
     /* Adjust based on header height */
 }
 
 .content {
-    padding: 10px 70px 10px 50px;
+    padding: 10px 50px 10px 40px;
 }
