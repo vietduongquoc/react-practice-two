@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './Login.css';
 import logoIcon from '../../assets/image/Logo.jpg';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
-import { emailPattern, validTlds, passwordPattern } from '../../constants/regex';
+import Checkbox from '../../components/common/Checkbox';
 import { fetchUsers } from '../../services/servicesUser';
+import { validateForm } from '../../utils/validation';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -15,49 +16,27 @@ const LoginPage = () => {
     const [isFormValid, setIsFormValid] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const validateAllFields = useCallback(() => {
+        const { errors, isFormValid } = validateForm({ email, password });
+        setErrors(errors);
+        setIsFormValid(isFormValid);
+    }, [email, password]);
+
     useEffect(() => {
-        setIsFormValid(
-            email !== '' &&
-            password !== '' &&
-            !errors.email &&
-            !errors.password
-        );
-    }, [email, password, errors]);
-
-    const validateEmail = (email) => {
-        if (!emailPattern.test(email)) return false;
-        const domain = email.split('.').pop();
-        return validTlds.includes(domain);
-    };
-
-    const validatePassword = (password) => {
-        return passwordPattern.test(password);
-    };
+        validateAllFields();
+    }, [email, password, validateAllFields])
 
     const handleChange = (field, value) => {
         if (field === 'email') {
             setEmail(value);
-            if (validateEmail(value)) {
-                setErrors((prevErrors) => ({ ...prevErrors, email: '' }));
-            } else if (errors.email) {
-                setErrors((prevErrors) => ({ ...prevErrors, email: 'Email must be in correct format' }));
-            }
         } else if (field === 'password') {
             setPassword(value);
-            if (validatePassword(value)) {
-                setErrors((prevErrors) => ({ ...prevErrors, password: '' }));
-            } else if (errors.password) {
-                setErrors((prevErrors) => ({ ...prevErrors, password: 'Password must have a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number, and one symbol' }));
-            }
         }
+        validateAllFields();
     };
 
     const handleBlur = (field) => {
-        if (field === 'email' && !validateEmail(email)) {
-            setErrors((prevErrors) => ({ ...prevErrors, email: 'Email must be in correct format' }));
-        } else if (field === 'password' && !validatePassword(password)) {
-            setErrors((prevErrors) => ({ ...prevErrors, password: 'Password must have a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number, and one symbol' }));
-        }
+        validateAllFields();
     };
 
     const handleSubmit = async (e) => {
@@ -122,16 +101,13 @@ const LoginPage = () => {
                     placeholder="Password"
                 />
                 {errors.password && <div className="error">{errors.password}</div>}
-                <div className="input-group checkbox">
-                    <input
-                        type="checkbox"
-                        id="remember"
-                        name="remember"
-                        checked={remember}
-                        onChange={(e) => setRemember(e.target.checked)}
-                    />
-                    <label className='label-remember' htmlFor="remember">Remember me</label>
-                </div>
+                <Checkbox
+                    id="remember"
+                    name="remember"
+                    checked={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
+                    label="Remember me"
+                />
                 <div className="actions">
                     <Button
                         onClick={handleSubmit}
