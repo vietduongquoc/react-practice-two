@@ -8,6 +8,7 @@ import { fetchCard, addCardToFavorites } from '../../services/servicesCard';
 
 const HomePage = () => {
     const [books, setBooks] = useState([]);
+    const [filteredBooks, setFilteredBooks] = useState([]);
 
     useEffect(() => {
         // Fetch books from API
@@ -15,6 +16,7 @@ const HomePage = () => {
             const { data, error } = await fetchCard();
             if (data) {
                 setBooks(data);
+                setFilteredBooks(data); // Initialize filtered books
             } else {
                 console.error('Error fetching books:', error);
             }
@@ -37,7 +39,7 @@ const HomePage = () => {
 
     // Render each row of books with a maximum of 6 items per row
     const renderRows = () => {
-        const rows = splitIntoRows(books);
+        const rows = splitIntoRows(filteredBooks);
         return rows.map((row, index) => (
             <div className="row" key={index}>
                 {row.map((book) => (
@@ -71,9 +73,8 @@ const HomePage = () => {
         <div className="homepage-container">
             <Sidebar />
             <div className="main-content">
-                <Header />
+                <Header setFilteredBooks={setFilteredBooks} books={books} />
                 <div className="content">
-                    <h1>Welcome to your Digital Library</h1>
                     <div className="homepage-content">{renderRows()}</div>
                 </div>
             </div>
