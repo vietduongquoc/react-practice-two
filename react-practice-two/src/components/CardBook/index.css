@@ -10,9 +10,18 @@
     border-radius: var(--border-radius-sm);
 }
 
+.card-book:hover {
+    cursor: pointer;
+}
+
 .heart-icon {
     width: 20px;
     height: 20px;
+}
+
+.heart-icon:hover {
+    transition-delay: 0.15s;
+    height: 22px;
 }
 
 .wrap-card-content {
@@ -28,6 +37,11 @@
     font-weight: var(--font-weight-regular);
     color: var(--text-color-primary);
     margin-right: 5px;
+}
+
+.book-details:hover {
+    cursor: pointer;
+    color: var(--color-primary);
 }
 
 .book-details-name {
