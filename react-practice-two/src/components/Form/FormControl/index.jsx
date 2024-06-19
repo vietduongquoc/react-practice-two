@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './index.css';
 import searchIcon from '../../../assets/image/icon-search-color.jpg';
 
-const FormControl = () => {
+const FormControl = ({ setFilteredBooks, books }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [searchType, setSearchType] = useState('Title');
     const [searchQuery, setSearchQuery] = useState('');
@@ -18,7 +18,13 @@ const FormControl = () => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        console.log(`Searching for ${searchType}: ${searchQuery}`);
+        const lowerCaseQuery = searchQuery.toLowerCase();
+        const filtered = books.filter(book =>
+            searchType === 'Title'
+                ? book.name.toLowerCase().includes(lowerCaseQuery)
+                : book.author.toLowerCase().includes(lowerCaseQuery)
+        );
+        setFilteredBooks(filtered);
     };
 
     return (
