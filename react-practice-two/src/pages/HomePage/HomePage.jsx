@@ -1,22 +1,22 @@
-// HomePage.jsx
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
-import CardBook from '../../components/CardBook'; // Import CardBook directly
+import CardBook from '../../components/CardBook';
 import { fetchCard, addCardToFavorites } from '../../services/servicesCard';
 
 const HomePage = () => {
     const [books, setBooks] = useState([]);
     const [filteredBooks, setFilteredBooks] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch books from API
         const fetchData = async () => {
             const { data, error } = await fetchCard();
             if (data) {
                 setBooks(data);
-                setFilteredBooks(data); // Initialize filtered books
+                setFilteredBooks(data);
             } else {
                 console.error('Error fetching books:', error);
             }
@@ -25,7 +25,6 @@ const HomePage = () => {
         fetchData();
     }, []);
 
-    // Function to split books into rows with max 6 items per row
     const splitIntoRows = (books) => {
         return books.reduce((rows, book, index) => {
             const rowIndex = Math.floor(index / 6);
@@ -37,7 +36,6 @@ const HomePage = () => {
         }, []);
     };
 
-    // Render each row of books with a maximum of 6 items per row
     const renderRows = () => {
         const rows = splitIntoRows(filteredBooks);
         return rows.map((row, index) => (
@@ -47,7 +45,7 @@ const HomePage = () => {
                         key={book.id}
                         book={book}
                         onAddToFavorites={handleAddToFavorites}
-                        onPreview={handlePreview}
+                        onPreview={() => handlePreview(book.id)}
                     />
                 ))}
             </div>
@@ -55,7 +53,6 @@ const HomePage = () => {
     };
 
     const handleAddToFavorites = async (bookId) => {
-        // Call API to add book to favorites
         const { data, error } = await addCardToFavorites(bookId);
         if (data) {
             // Update UI or show notification
@@ -65,8 +62,8 @@ const HomePage = () => {
     };
 
     const handlePreview = (cardId) => {
-        // Navigate to preview page or open modal
-        console.log('Preview book:', cardId);
+        console.log('Preview book:', cardId, books);
+        navigate(`/preview-page/${cardId}`, { state: { books } });
     };
 
     return (

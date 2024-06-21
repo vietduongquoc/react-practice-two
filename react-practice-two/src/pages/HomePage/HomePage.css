@@ -22,9 +22,6 @@
     background-color: var(--background-color-tertiary);
     overflow-y: auto;
     padding-top: 130px;
-    /* Adjust based on header height */
-    height: calc(100vh - 70px);
-    /* Adjust based on header height */
 }
 
 .content {

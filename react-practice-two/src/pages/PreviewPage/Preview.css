@@ -1,0 +1,133 @@
+.preview-page {
+    height: 680px;
+}
+
+.link-homepage {
+    text-decoration: none;
+    color: var(--text-color-primary);
+}
+
+.link-homepage:hover {
+    color: var(--text-color-secondary);
+}
+
+.wrap-back-arrow {
+    display: flex;
+    margin-left: 0;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
+    color: var(--text-color-primary);
+}
+
+.icon-arrow {
+    width: 20px;
+    height: 18px;
+    margin-right: 10px;
+}
+
+.preview-content {
+    display: flex;
+    color: var(--text-color-primary);
+    justify-content: space-between;
+}
+
+.preview-left {
+    display: flex;
+    gap: 50px;
+}
+
+.preview-book-image {
+    width: 200px;
+    height: 280px;
+    background-color: var(--background-color-primary);
+    padding: 40px 30px;
+    border-radius: var(--border-radius-sm);
+}
+
+.preview-book-details {
+    font-weight: var(--font-weight-regular);
+}
+
+.preview-book-title {
+    font-size: var(--font-size-2xl);
+}
+
+.preview-book-author {
+    font-size: var(--font-size-xs);
+}
+
+.availability {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.availability li {
+    display: flex;
+    align-items: center;
+}
+
+.availability input {
+    margin-right: 10px;
+}
+
+.status {
+    margin-bottom: 20px;
+}
+
+.borrow-button {
+    background-color: var(--btn-background-color-primary);
+    color: var(--color-secondary);
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+}
+
+.borrow-button[disabled] {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.preview-right {
+    width: 450px;
+    background-color: var(--background-color-primary);
+    padding: 30px 10px 150px 30px;
+    border-radius: var(--border-radius-sm);
+}
+
+.preview-right-wrap-header {
+    display: flex;
+    gap: 60px;
+}
+
+.wrap-title {
+    font-size: var(--font-size-lg);
+    font-size: var(--font-weight-semibold);
+}
+
+.preview-title {
+    margin-bottom: 10px;
+    color: var(--text-color-secondary);
+}
+
+.preview-title span {
+    color: var(--text-color-primary);
+}
+
+.preview-image {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.preview-description {
+    font-size: var(--font-size-validation);
+    font-weight: var(--font-weight-regular);
+    padding-right: 30px;
+}
+
+.wrap-status {
+    display: flex;
+    gap: 30px;
+}
