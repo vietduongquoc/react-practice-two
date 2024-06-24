@@ -5,29 +5,37 @@ import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import ItemCard from '../../components/ItemCard';
 import { fetchCard, addCardToFavorites } from '../../services/servicesCard';
+// import { useLoading } from '../../components/Loading/LoadingContext'; // Import LoadingContext
 import { useToast } from '../../components/Toast/ToastManager';
 
 const HomePage = () => {
     const [books, setBooks] = useState([]);
     const [filteredBooks, setFilteredBooks] = useState([]);
     const navigate = useNavigate();
+    // const { showLoading, hideLoading } = useLoading(); // Hook into LoadingContext
     const addToast = useToast();
 
     useEffect(() => {
         const fetchData = async () => {
-            const { data, error } = await fetchCard();
-            if (data) {
-                setBooks(data);
-                setFilteredBooks(data);
-                addToast('Books fetched successfully', 'success');
-            } else {
+            try {
+                // showLoading(); // Show loading indicator
+                const { data, error } = await fetchCard();
+                if (data) {
+                    setBooks(data);
+                    setFilteredBooks(data);
+                } else {
+                    console.error('Error fetching books:', error);
+                }
+            } catch (error) {
                 console.error('Error fetching books:', error);
-                addToast('Error fetching books', 'error');
             }
+            // } finally {
+            //     hideLoading(); // Hide loading indicator
+            // }
         };
 
         fetchData();
-    }, [addToast]);
+    }, []);
 
     const splitIntoRows = (books) => {
         return books.reduce((rows, book, index) => {
@@ -57,13 +65,22 @@ const HomePage = () => {
     };
 
     const handleAddToFavorites = async (bookId) => {
-        const { data, error } = await addCardToFavorites(bookId);
-        if (data) {
-            addToast('Added to favorites', 'success');
-        } else {
+        try {
+            // showLoading(); // Show loading indicator
+            const { data, error } = await addCardToFavorites(bookId);
+            if (data) {
+                addToast('Added to favorites', 'success');
+            } else {
+                console.error('Error adding to favorites:', error);
+                addToast('Error adding to favorites', 'error');
+            }
+        } catch (error) {
             console.error('Error adding to favorites:', error);
             addToast('Error adding to favorites', 'error');
         }
+        // } finally {
+        //     hideLoading(); // Hide loading indicator
+        // }
     };
 
     const handlePreview = (bookId) => {

@@ -7,6 +7,7 @@ import Button from '../../components/common/Button';
 import { fetchCard } from '../../services/servicesCard';
 import authorImage from '../../assets/image/preview-image.png';
 import arrowBack from '../../assets/image/arrow-small-left.png';
+import rateStars from '../../assets/image/rate-stars.png'
 
 const PreviewPage = () => {
     const { bookId } = useParams();
@@ -57,11 +58,17 @@ const PreviewPage = () => {
                         </figure>
                         <div className="preview-content">
                             <div className='preview-left'>
-                                <img src={book.urlImage} alt={book.name} className="preview-book-image" />
+                                <div className='wrap-preview-book-image'>
+                                    <img src={book.urlImage} alt={book.name} className="preview-book-image" />
+                                </div>
                                 <div className="preview-book-details">
                                     <h1 className="preview-book-title">{book.name}</h1>
-                                    <p className="preview-book-author">Author: {book.author}</p>
-                                    <p className="preview-book-rate">Rate: {book.rate}/5</p>
+                                    <div className='preview-book-ders'>
+                                        <img src={rateStars} alt="stars" className="icon-start" />
+                                        <p className="preview-book-rate">5.0 Ratings</p>
+                                        <p>25 Currently reading</p>
+                                        <p>119 Have read</p>
+                                    </div>
                                     <div className='wrap-status'>
                                         <ul className="availability">Availability
                                             <li>
@@ -101,7 +108,7 @@ const PreviewPage = () => {
                             <aside className="preview-right">
                                 <div className='preview-right-wrap-header'>
                                     <div className='wrap-title'>
-                                        <h1 className="preview-title">About <span>Author</span></h1>
+                                        <h2 className="preview-title">About <span>Author</span></h2>
                                         <p>{book.author}</p>
                                     </div>
                                     <img src={authorImage} alt='authorImage' className="preview-image" />
