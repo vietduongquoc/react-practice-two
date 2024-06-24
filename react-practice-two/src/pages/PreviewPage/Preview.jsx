@@ -1,34 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Preview.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/common/Button';
-import authorImage from '../../assets/image/preview-image.png'
-import arrowBack from '../../assets/image/arrow-small-left.png'
-import rateStars from '../../assets/image/rate-stars.png'
+import { fetchCard } from '../../services/servicesCard';
+import authorImage from '../../assets/image/preview-image.png';
+import arrowBack from '../../assets/image/arrow-small-left.png';
 
 const PreviewPage = () => {
-    const { cardId } = useParams();
-    const { state } = useLocation();
-    console.log('PreviewPage state:', state);
+    const { bookId } = useParams();
     const navigate = useNavigate();
+    const [book, setBook] = useState(null);
     const [status, setStatus] = useState('In-shelf');
 
     useEffect(() => {
-        if (!state || !Array.isArray(state.books)) {
-            console.error("Books data is invalid or not provided.", state);
-            // Handle the error scenario or navigate back
-            navigate('/'); // Example: Navigate back to homepage
-        }
-    }, [state, navigate]);
-
-    const books = state ? state.books : [];
-
-    const book = books.find(book => book.id.toString() === cardId);
+        const fetchBookData = async (id) => {
+            try {
+                const { data, error } = await fetchCard();
+                if (data) {
+                    const bookData = data.find(b => b.id.toString() === id);
+                    if (bookData) {
+                        setBook(bookData);
+                    } else {
+                        console.error('Book not found in fetched data');
+                        navigate('/'); // Handle the error scenario or navigate back
+                    }
+                } else {
+                    console.error('Error fetching books:', error);
+                    navigate('/'); // Handle the error scenario or navigate back
+                }
+            } catch (error) {
+                console.error('Error fetching book data:', error);
+                navigate('/'); // Handle the error scenario or navigate back
+            }
+        };
+        fetchBookData(bookId);
+    }, [bookId, navigate]);
 
     if (!book) {
-        return <div>Book not found.</div>;
+        return <div className="loading-container">Loading...</div>;
     }
 
     const isAvailable = status === 'In-shelf';
@@ -50,25 +61,20 @@ const PreviewPage = () => {
                                 <div className="preview-book-details">
                                     <h1 className="preview-book-title">{book.name}</h1>
                                     <p className="preview-book-author">Author: {book.author}</p>
-                                    <div className='preview-book-ders'>
-                                        <img src={rateStars} alt="stars" className="icon-start" />
-                                        <p className="preview-book-rate">5.0 Ratings</p>
-                                        <p>25 Currently reading</p>
-                                        <p>119 Have read</p>
-                                    </div>
+                                    <p className="preview-book-rate">Rate: {book.rate}/5</p>
                                     <div className='wrap-status'>
                                         <ul className="availability">Availability
                                             <li>
-                                                <input type="checkbox" id="hardcopy" checked={true} readOnly />
-                                                <label htmlFor="hardcopy">Hard Copy</label>
+                                                <input type="checkbox" checked={true} readOnly />
+                                                <label>Hard Copy</label>
                                             </li>
                                             <li>
-                                                <input type="checkbox" id="ebook" checked={false} readOnly />
-                                                <label htmlFor="ebook">E - Book</label>
+                                                <input type="checkbox" checked={false} readOnly />
+                                                <label>E - Book</label>
                                             </li>
                                             <li>
-                                                <input type="checkbox" id="audiobook" checked={false} readOnly />
-                                                <label htmlFor="audiobook">Audio book</label>
+                                                <input type="checkbox" checked={false} readOnly />
+                                                <label>Audio book</label>
                                             </li>
                                         </ul>
                                         <div className="status">
@@ -95,7 +101,7 @@ const PreviewPage = () => {
                             <aside className="preview-right">
                                 <div className='preview-right-wrap-header'>
                                     <div className='wrap-title'>
-                                        <h2 className="preview-title">About <span>Author</span></h2>
+                                        <h1 className="preview-title">About <span>Author</span></h1>
                                         <p>{book.author}</p>
                                     </div>
                                     <img src={authorImage} alt='authorImage' className="preview-image" />
@@ -113,3 +119,4 @@ const PreviewPage = () => {
 };
 
 export default PreviewPage;
+

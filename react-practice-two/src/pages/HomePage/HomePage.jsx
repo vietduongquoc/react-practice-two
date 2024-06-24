@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
-import CardBook from '../../components/CardBook';
+import ItemCard from '../../components/ItemCard';
 import { fetchCard, addCardToFavorites } from '../../services/servicesCard';
+import { useToast } from '../../components/Toast/ToastManager';
 
 const HomePage = () => {
     const [books, setBooks] = useState([]);
     const [filteredBooks, setFilteredBooks] = useState([]);
     const navigate = useNavigate();
+    const addToast = useToast();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,13 +19,15 @@ const HomePage = () => {
             if (data) {
                 setBooks(data);
                 setFilteredBooks(data);
+                addToast('Books fetched successfully', 'success');
             } else {
                 console.error('Error fetching books:', error);
+                addToast('Error fetching books', 'error');
             }
         };
 
         fetchData();
-    }, []);
+    }, [addToast]);
 
     const splitIntoRows = (books) => {
         return books.reduce((rows, book, index) => {
@@ -41,7 +45,7 @@ const HomePage = () => {
         return rows.map((row, index) => (
             <div className="row" key={index}>
                 {row.map((book) => (
-                    <CardBook
+                    <ItemCard
                         key={book.id}
                         book={book}
                         onAddToFavorites={handleAddToFavorites}
@@ -55,15 +59,16 @@ const HomePage = () => {
     const handleAddToFavorites = async (bookId) => {
         const { data, error } = await addCardToFavorites(bookId);
         if (data) {
-            // Update UI or show notification
+            addToast('Added to favorites', 'success');
         } else {
             console.error('Error adding to favorites:', error);
+            addToast('Error adding to favorites', 'error');
         }
     };
 
-    const handlePreview = (cardId) => {
-        console.log('Preview book:', cardId, books);
-        navigate(`/preview-page/${cardId}`, { state: { books } });
+    const handlePreview = (bookId) => {
+        console.log('Preview book:', bookId);
+        navigate(`/preview-page/${bookId}`);
     };
 
     return (

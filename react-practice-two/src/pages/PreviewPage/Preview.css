@@ -1,5 +1,6 @@
 .preview-page {
-    height: 680px;
+    /* height: 680px; */
+    height: calc(100vh - 250px);
 }
 
 .link-homepage {

@@ -1,9 +1,9 @@
-// CardBook.jsx
+// ItemCard.jsx
 import React from 'react';
 import './index.css';
 import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
 
-const CardBook = ({ book, onAddToFavorites, onPreview }) => {
+const ItemCard = ({ book, onAddToFavorites, onPreview }) => {
     // console.log(book);
     const handleAddToFavorites = () => {
         // Call API to add book to favorites
@@ -15,9 +15,8 @@ const CardBook = ({ book, onAddToFavorites, onPreview }) => {
         onPreview(book.id);
     };
 
-
     return (
-        <div className="card-book" onClick={handlePreview}>
+        <article className="item-card" onClick={handlePreview}>
             <img src={book.urlImage} alt={book} className="book-image" />
             <div className='wrap-card-content'>
                 <div className="book-details">
@@ -34,8 +33,8 @@ const CardBook = ({ book, onAddToFavorites, onPreview }) => {
                     />
                 </div>
             </div>
-        </div>
+        </article>
     );
 };
 
-export default CardBook;
+export default ItemCard;
