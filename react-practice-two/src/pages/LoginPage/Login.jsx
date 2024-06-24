@@ -6,6 +6,7 @@ import Button from '../../components/common/Button';
 import Checkbox from '../../components/common/Checkbox';
 import { fetchUsers } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
+import { useToast } from '../../components/Toast/ToastManager';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -15,6 +16,7 @@ const LoginPage = () => {
     const [errors, setErrors] = useState({});
     const [isFormValid, setIsFormValid] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const addToast = useToast();
 
     const validateAllFields = useCallback(() => {
         const { errors, isFormValid } = validateForm({ email, password });
@@ -24,7 +26,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         validateAllFields();
-    }, [email, password, validateAllFields])
+    }, [email, password, validateAllFields]);
 
     const handleChange = (field, value) => {
         if (field === 'email') {
@@ -43,11 +45,11 @@ const LoginPage = () => {
         e.preventDefault();
         if (isFormValid) {
             setIsSubmitting(true);
-            const result = await fetchUsers(); // Calling fetchUsers service to get all users
+            const result = await fetchUsers();
             setIsSubmitting(false);
 
             if (result.error) {
-                alert('Error fetching users: ' + result.error);
+                addToast('Error fetching users: ' + result.error, 'error');
                 return;
             }
 
@@ -55,10 +57,10 @@ const LoginPage = () => {
             const user = users.find(user => user.email === email && user.password === password);
 
             if (user) {
-                alert('Login successful!');
+                addToast('Login successful!', 'success');
                 console.log({ email, password, remember });
             } else {
-                alert('Login failed: Incorrect email or password');
+                addToast('Login failed: Incorrect email or password', 'error');
             }
         }
     };
@@ -72,7 +74,7 @@ const LoginPage = () => {
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className='wrap-login-form-title'>
                     <img src={logoIcon} alt="Logo" className="logo-icon" />
-                    <h1 className='login-form-title'>Welcome Back !</h1>
+                    <h1 className='login-form-title'>Welcome Back!</h1>
                     <p className='login-form-ders'>Sign in to continue to your Digital Library</p>
                 </div>
                 <Input
@@ -120,7 +122,7 @@ const LoginPage = () => {
                         isDisabled={!isFormValid || isSubmitting}
                     />
                     <div className='wrap-link-login'>
-                        <span className='text-login'> New User? </span>
+                        <span className='text-login'>New User?</span>
                         <a className='link-login' href="/register">Register Here</a>
                     </div>
                 </div>
@@ -130,7 +132,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-
-
-

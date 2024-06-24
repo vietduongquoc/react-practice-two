@@ -14,7 +14,7 @@ const Sidebar = () => {
                 </div>
                 <ul className='list-sidebar-link'>
                     <li className='sidebar-link'>
-                        <Link to="/">
+                        <Link to="/home-page">
                             <img src={homeIcon} alt="Home" className="sidebar-icon" />
                             <span className='sidebar-title-home'>Home</span>
                         </Link>

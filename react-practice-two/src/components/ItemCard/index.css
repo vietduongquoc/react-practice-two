@@ -1,4 +1,4 @@
-.card-book {
+.item-card {
     width: 100%;
     max-width: 160px;
     background-color: var(--background-color-primary);
@@ -10,7 +10,7 @@
     border-radius: var(--border-radius-sm);
 }
 
-.card-book:hover {
+.item-card:hover {
     cursor: pointer;
 }
 

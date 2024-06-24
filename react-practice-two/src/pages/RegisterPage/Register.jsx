@@ -6,6 +6,7 @@ import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import { fetchUsers } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
+import { useToast } from '../../components/Toast/ToastManager';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ const RegisterPage = () => {
     const [errors, setErrors] = useState({});
     const [isFormValid, setIsFormValid] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const addToast = useToast();
 
     const validateAllFields = useCallback(() => {
         const { errors, isFormValid } = validateForm({ name, email, password, confirmPassword });
@@ -45,7 +47,7 @@ const RegisterPage = () => {
             default:
                 break;
         }
-        validateAllFields(field, value);
+        validateAllFields();
     };
 
     const handleBlur = (field) => {
@@ -60,7 +62,7 @@ const RegisterPage = () => {
             setIsSubmitting(false);
 
             if (result.error) {
-                alert('Error fetching users: ' + result.error);
+                addToast('Error fetching users: ' + result.error, 'error');
                 return;
             }
 
@@ -68,9 +70,9 @@ const RegisterPage = () => {
             const userExists = users.some(user => user.email === email);
 
             if (userExists) {
-                alert('Registration failed: Email already in use');
+                addToast('Registration failed: Email already in use', 'error');
             } else {
-                alert('Registration successful!');
+                addToast('Registration successful!', 'success');
                 console.log({ name, email, password });
             }
         }

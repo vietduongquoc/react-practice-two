@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './index.css';
 import avatarUser from '../../assets/image/avatar-user.jpg';
+import { useToast } from '../../components/Toast/ToastManager';
 
 const UserMenu = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const addToast = useToast();
 
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
@@ -11,6 +13,7 @@ const UserMenu = () => {
 
     const handleLogout = () => {
         console.log('User logged out');
+        addToast('Logout successful!', 'success');
     };
 
     return (
