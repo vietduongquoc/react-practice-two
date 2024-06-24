@@ -45,7 +45,7 @@
 }
 
 .book-details-name {
-    font-size: var(--font-size-validation);
+    font-size: 12px;
 }
 
 .book-details-author {

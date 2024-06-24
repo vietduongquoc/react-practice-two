@@ -3,8 +3,18 @@ import React, { memo } from 'react';
 import eyeClosed from '../../../assets/image/eye-closed.jpg'
 import eyeOpen from '../../../assets/image/eye-open.jpg'
 
-const Input = ({ label, type, value,onChange, id, name, required, showPassword,
-                 placeholder, togglePasswordVisibility, onBlur }) => {
+const Input = ({
+    label,
+    type,
+    value,
+    onChange,
+    id,
+    name,
+    required,
+    showPassword,
+    placeholder,
+    togglePasswordVisibility,
+    onBlur }) => {
     return (
         <div className={`input-group ${type === 'password' ? 'password-toggle' : ''}`}>
             <label className='lable-input' htmlFor={id}>{label}</label>
