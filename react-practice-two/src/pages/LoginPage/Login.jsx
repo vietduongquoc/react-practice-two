@@ -7,6 +7,7 @@ import Checkbox from '../../components/common/Checkbox';
 import { fetchUsers } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
 import { useToast } from '../../components/Toast/ToastManager';
+import { useLoading } from '../../components/Loading/LoadingContext';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -17,6 +18,7 @@ const LoginPage = () => {
     const [isFormValid, setIsFormValid] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const addToast = useToast();
+    const { showLoading, hideLoading } = useLoading();
 
     const validateAllFields = useCallback(() => {
         const { errors, isFormValid } = validateForm({ email, password });
@@ -45,8 +47,10 @@ const LoginPage = () => {
         e.preventDefault();
         if (isFormValid) {
             setIsSubmitting(true);
+            showLoading();
             const result = await fetchUsers();
             setIsSubmitting(false);
+            hideLoading();
 
             if (result.error) {
                 addToast('Error fetching users: ' + result.error, 'error');

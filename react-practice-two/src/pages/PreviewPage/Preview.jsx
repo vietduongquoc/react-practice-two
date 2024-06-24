@@ -35,12 +35,11 @@ const PreviewPage = () => {
                 navigate('/'); // Handle the error scenario or navigate back
             }
         };
-
         fetchBookData(bookId);
     }, [bookId, navigate]);
 
     if (!book) {
-        return <div>Loading...</div>;
+        return <div className="loading-container">Loading...</div>;
     }
 
     const isAvailable = status === 'In-shelf';
@@ -120,3 +119,4 @@ const PreviewPage = () => {
 };
 
 export default PreviewPage;
+
