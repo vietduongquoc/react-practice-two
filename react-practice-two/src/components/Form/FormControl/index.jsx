@@ -27,6 +27,10 @@ const FormControl = ({ setFilteredBooks, books }) => {
         setFilteredBooks(filtered);
     };
 
+    const handleSearchQueryChange = (e) => {
+        setSearchQuery(e.target.value)
+    }
+
     return (
         <div className="form-control">
             <div className="dropdown-form-control">
@@ -35,8 +39,18 @@ const FormControl = ({ setFilteredBooks, books }) => {
                 </button>
                 {dropdownOpen && (
                     <ul className="dropdown-menu-form-control">
-                        <li className='dropdown-menu-type' onClick={() => handleSearchTypeChange('Title')}>Title</li>
-                        <li className='dropdown-menu-type' onClick={() => handleSearchTypeChange('Author')}>Author</li>
+                        <li
+                            className='dropdown-menu-type'
+                            onClick={() => handleSearchTypeChange('Title')}
+                        >
+                            Title
+                        </li>
+                        <li
+                            className='dropdown-menu-type'
+                            onClick={() => handleSearchTypeChange('Author')}
+                        >
+                            Author
+                        </li>
                     </ul>
                 )}
             </div>
@@ -45,7 +59,7 @@ const FormControl = ({ setFilteredBooks, books }) => {
                     <input
                         type="text"
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={handleSearchQueryChange}
                         placeholder={`Search ${searchType.toLowerCase()}...`}
                         className="search-input"
                     />

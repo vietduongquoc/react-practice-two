@@ -9,7 +9,7 @@
     justify-content: space-between;
     gap: 10px;
     width: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 75px;
 }
 
 .main-content {
@@ -22,9 +22,6 @@
     background-color: var(--background-color-tertiary);
     overflow-y: auto;
     padding-top: 130px;
-    /* Adjust based on header height */
-    height: calc(100vh - 70px);
-    /* Adjust based on header height */
 }
 
 .content {

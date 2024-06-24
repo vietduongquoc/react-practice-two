@@ -17,6 +17,10 @@
     width: 100%;
 }
 
+.btn-big {
+    padding: 20px 60px;
+}
+
 .btn-primary {
     background-color: var(--btn-background-color-primary);
     color: var(--text-color-tertiary);

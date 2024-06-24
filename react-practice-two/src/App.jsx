@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/Login';
 import HomePage from './pages/HomePage/HomePage';
 import RegisterPage from './pages/RegisterPage/Register';
+import PreviewPage from './pages/PreviewPage/Preview';
 
 const App = () => {
     return (
@@ -12,6 +13,7 @@ const App = () => {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/home-page" element={<HomePage />} />
+                <Route path="/preview-page/:cardId" element={<PreviewPage />} />
             </Routes>
         </Router>
     );
