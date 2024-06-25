@@ -8,7 +8,7 @@ import { fetchCard } from '../../services/servicesCard';
 import authorImage from '../../assets/image/preview-image.png';
 import arrowBack from '../../assets/image/arrow-small-left.png';
 import rateStars from '../../assets/image/rate-stars.png'
-import { useLoading } from '../../components/Loading/LoadingContext';
+import { useLoading } from '../../components/Spinner/LoadingProvider';
 
 const PreviewPage = () => {
     const { bookId } = useParams();

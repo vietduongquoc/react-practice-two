@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './App.css'
-import { ToastProvider } from './components/Toast/ToastManager';
-import { LoadingProvider } from './components/Loading/LoadingContext';
+import { ToastProvider } from './components/Toast/ToastProvider';
+import { LoadingProvider } from './components/Spinner/LoadingProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

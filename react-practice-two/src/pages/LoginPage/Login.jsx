@@ -7,8 +7,8 @@ import Button from '../../components/Button';
 import Checkbox from '../../components/FormCheckbox';
 import { fetchUsers } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
-import { useToast } from '../../components/Toast/ToastManager';
-import { useLoading } from '../../components/Loading/LoadingContext';
+import { useToast } from '../../components/Toast/ToastProvider';
+import { useLoading } from '../../components/Spinner/LoadingProvider';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');

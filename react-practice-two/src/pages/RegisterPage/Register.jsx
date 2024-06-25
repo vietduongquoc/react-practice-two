@@ -6,8 +6,8 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { fetchUsers } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
-import { useToast } from '../../components/Toast/ToastManager';
-import { useLoading } from '../../components/Loading/LoadingContext';
+import { useToast } from '../../components/Toast/ToastProvider';
+import { useLoading } from '../../components/Spinner/LoadingProvider';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
