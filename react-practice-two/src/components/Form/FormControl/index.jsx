@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
 import searchIcon from '../../../assets/image/icon-search-color.jpg';
 
@@ -6,6 +6,20 @@ const FormControl = ({ setFilteredBooks, books }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [searchType, setSearchType] = useState('Title');
     const [searchQuery, setSearchQuery] = useState('');
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
@@ -33,9 +47,9 @@ const FormControl = ({ setFilteredBooks, books }) => {
 
     return (
         <div className="form-control">
-            <div className="dropdown-form-control">
+            <div className="dropdown-form-control" ref={dropdownRef}>
                 <button className="dropdown-btn-form-control" onClick={toggleDropdown}>
-                    {searchType} ▼
+                    {searchType} {dropdownOpen ? '▲' : '▼'}
                 </button>
                 {dropdownOpen && (
                     <ul className="dropdown-menu-form-control">
