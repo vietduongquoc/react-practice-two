@@ -70,17 +70,17 @@ const PreviewPage = () => {
                                         <p>119 Have read</p>
                                     </div>
                                     <div className='wrap-status'>
-                                        <ul className="availability">Availability
-                                            <li>
+                                        <ul className="availability-title">Availability
+                                            <li className='availability-ders'>
                                                 <input type="checkbox" checked={true} readOnly />
                                                 <label>Hard Copy</label>
                                             </li>
-                                            <li>
-                                                <input type="checkbox" checked={false} readOnly />
+                                            <li className='availability-ders'>
+                                                <input type="checkbox" checked={true} readOnly />
                                                 <label>E - Book</label>
                                             </li>
-                                            <li>
-                                                <input type="checkbox" checked={false} readOnly />
+                                            <li className='availability-ders'>
+                                                <input type="checkbox" checked={true} readOnly />
                                                 <label>Audio book</label>
                                             </li>
                                         </ul>
@@ -88,9 +88,8 @@ const PreviewPage = () => {
                                             <p>Status</p>
                                             <Button
                                                 onClick={() => setStatus(isAvailable ? 'None' : 'In-shelf')}
-                                                className="status-button"
+                                                className={isAvailable ? "btn-enable" : "btn-primary"}
                                                 text={status}
-                                                color="btn-primary"
                                                 borderRadius="btn-rounded"
                                                 size="btn-medium"
                                                 isDisabled={false}
@@ -98,8 +97,9 @@ const PreviewPage = () => {
                                         </div>
                                     </div>
                                     <Button
+                                        borderRadius="btn-rounded"
                                         size="btn-big"
-                                        className="borrow-button"
+                                        className={isAvailable ? "borrow-button" : "btn-disabled"}
                                         disabled={!isAvailable}
                                         text="BORROW"
                                     />
