@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './Login.css';
 import logoIcon from '../../assets/image/Logo.jpg';
 import Input from '../../components/common/Input';
@@ -19,6 +20,7 @@ const LoginPage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const addToast = useToast();
     const { showLoading, hideLoading } = useLoading();
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const validateAllFields = useCallback(() => {
         const { errors, isFormValid } = validateForm({ email, password });
@@ -63,6 +65,7 @@ const LoginPage = () => {
             if (user) {
                 addToast('Login successful!', 'success');
                 console.log({ email, password, remember });
+                navigate('/home-page'); // Redirect to HomePage
             } else {
                 addToast('Login failed: Incorrect email or password', 'error');
             }
