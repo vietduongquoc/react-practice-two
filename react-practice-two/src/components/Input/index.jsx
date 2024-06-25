@@ -1,7 +1,7 @@
 import './index.css';
 import React, { memo } from 'react';
-import eyeClosed from '../../../assets/image/eye-closed.jpg'
-import eyeOpen from '../../../assets/image/eye-open.jpg'
+import eyeClosed from '../../assets/image/eye-closed.jpg'
+import eyeOpen from '../../assets/image/eye-open.jpg'
 
 const Input = ({
     label,
