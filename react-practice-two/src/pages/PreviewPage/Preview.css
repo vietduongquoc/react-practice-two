@@ -1,5 +1,4 @@
 .preview-page {
-    /* height: 680px; */
     height: calc(100vh - 250px);
 }
 
@@ -130,28 +129,33 @@
     display: flex;
     gap: 30px;
     margin-bottom: 20px;
+    font-weight: var(--font-weight-regular);
 }
 
-.availability {
+.availability-title {
     list-style-type: none;
     padding: 0;
     margin-bottom: 0;
+    font-weight: var(--font-weight-bold);
+    font-size: 14px;
 }
 
-.availability li {
+.availability-ders {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
     margin-top: 15px;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
 }
 
-.availability input[type="checkbox"] {
+.availability-ders input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     cursor: pointer;
 }
 
-.availability label {
+.availability-ders label {
     position: relative;
     cursor: pointer;
     font-size: 14px;
@@ -160,7 +164,7 @@
     color: var(--text-color-primary);
 }
 
-.availability label::before {
+.availability-ders label::before {
     content: '';
     position: absolute;
     left: 0;
@@ -176,20 +180,18 @@
     transition: background-color 0.3s, border-color 0.3s;
 }
 
-.availability input[type="checkbox"]:checked+label::before {
+.availability-ders input[type="checkbox"]:checked+label::before {
     background-color: var(--btn-background-color-tertiary);
     /* Green fill color when checked */
     border-color: var(--btn-background-color-tertiary);
     content: '✔';
-    /* Check mark */
-    /* color: white; */
     font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.availability input[type="checkbox"]:checked+label::after {
+.availability-ders input[type="checkbox"]:checked+label::after {
     content: '✔';
     position: absolute;
     left: 4px;
@@ -204,5 +206,6 @@
 }
 
 .status {
-    margin-top: 20px;
+    font-size: 14px;
+    font-weight: var(--font-weight-bold);
 }

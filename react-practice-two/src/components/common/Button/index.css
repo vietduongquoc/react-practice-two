@@ -17,8 +17,17 @@
     width: 100%;
 }
 
+.btn-medium {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
+    width: 100px;
+    height: 35px;
+    text-align: center;
+}
+
 .btn-big {
     padding: 20px 60px;
+    font-weight: var(--font-weight-semibold);
 }
 
 .btn-primary {
@@ -27,14 +36,23 @@
 }
 
 .btn-rounded {
-    border-radius: 8px;
+    border-radius: var(--border-radius-sm);
 }
 
 .btn-disabled {
-    background-color: #cccccc;
+    background-color: var(--btn-background-color-disnable);
     cursor: not-allowed;
 }
 
 .btn-disabled:hover {
-    background-color: #cccccc;
+    background-color: var(--btn-background-color-disnable);
+}
+
+.btn-enable {
+    background-color: var(--btn-background-color-tertiary);
+    color: var(--text-color-tertiary);
+}
+
+.btn-enable:hover {
+    background-color: green;
 }
