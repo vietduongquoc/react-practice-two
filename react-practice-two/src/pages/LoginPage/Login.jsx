@@ -13,14 +13,28 @@ import { useLoading } from '../../components/Spinner/LoadingProvider';
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [remember, setRemember] = useState(false);
+    const [remember, setRemember] = useState(false); // State for Remember me checkbox
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
     const [isFormValid, setIsFormValid] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const addToast = useToast();
     const { showLoading, hideLoading } = useLoading();
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Check localStorage for Remember me status and populate email/password if checked
+        const rememberMeStatus = localStorage.getItem('rememberMe');
+        if (rememberMeStatus === 'true') {
+            const savedEmail = localStorage.getItem('savedEmail');
+            const savedPassword = localStorage.getItem('savedPassword');
+            if (savedEmail && savedPassword) {
+                setEmail(savedEmail);
+                setPassword(savedPassword);
+                setRemember(true);
+            }
+        }
+    }, []);
 
     const validateAllFields = useCallback(() => {
         const { errors, isFormValid } = validateForm({ email, password });
@@ -64,7 +78,18 @@ const LoginPage = () => {
 
             if (user) {
                 addToast('Login successful!', 'success');
-                navigate('/home-page'); // Redirect to HomePage
+                if (remember) {
+                    // If Remember me is checked, save email and password to localStorage
+                    localStorage.setItem('rememberMe', 'true');
+                    localStorage.setItem('savedEmail', email);
+                    localStorage.setItem('savedPassword', password);
+                } else {
+                    // If Remember me is not checked, clear localStorage
+                    localStorage.removeItem('rememberMe');
+                    localStorage.removeItem('savedEmail');
+                    localStorage.removeItem('savedPassword');
+                }
+                navigate('/home-page');
             } else {
                 addToast('Login failed: Incorrect email or password', 'error');
             }

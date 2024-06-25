@@ -28,7 +28,6 @@ const UserMenu = () => {
     };
 
     const handleLogout = () => {
-        console.log('User logged out');
         addToast('Logout successful!', 'success');
         navigate('/');
     };
