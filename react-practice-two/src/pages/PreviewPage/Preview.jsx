@@ -3,41 +3,44 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './Preview.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
-import Button from '../../components/common/Button';
+import Button from '../../components/Button';
 import { fetchCard } from '../../services/servicesCard';
 import authorImage from '../../assets/image/preview-image.png';
 import arrowBack from '../../assets/image/arrow-small-left.png';
 import rateStars from '../../assets/image/rate-stars.png'
+import { useLoading } from '../../components/Loading/LoadingContext';
 
 const PreviewPage = () => {
     const { bookId } = useParams();
     const navigate = useNavigate();
     const [book, setBook] = useState(null);
     const [status, setStatus] = useState('In-shelf');
+    const { showLoading, hideLoading } = useLoading();
 
     useEffect(() => {
         const fetchBookData = async (id) => {
+            showLoading(); // Show loading when fetching starts
             try {
-                const { data, error } = await fetchCard();
-                if (data) {
-                    const bookData = data.find(b => b.id.toString() === id);
-                    if (bookData) {
-                        setBook(bookData);
-                    } else {
-                        console.error('Book not found in fetched data');
-                        navigate('/'); // Handle the error scenario or navigate back
-                    }
-                } else {
-                    console.error('Error fetching books:', error);
-                    navigate('/'); // Handle the error scenario or navigate back
+                const { data } = await fetchCard();
+                const bookData = data.find(b => b.id.toString() === id);
+                if (bookData) {
+                    setBook(bookData);
                 }
+                hideLoading(); // Hide loading on success or no book found
             } catch (error) {
                 console.error('Error fetching book data:', error);
-                navigate('/'); // Handle the error scenario or navigate back
+                hideLoading(); // Hide loading on failure
+                navigate('/home-page'); // Handle the error scenario or navigate back
             }
         };
         fetchBookData(bookId);
-    }, [bookId, navigate]);
+    }, [bookId, navigate, showLoading, hideLoading]);
+
+    useEffect(() => {
+        if (book) {
+            hideLoading(); // Hide loading when book is set
+        }
+    }, [book, hideLoading]);
 
     if (!book) {
         return <div className="loading-container">Loading...</div>;

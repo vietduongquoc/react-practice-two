@@ -5,20 +5,17 @@ import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import ItemCard from '../../components/ItemCard';
 import { fetchCard, addCardToFavorites } from '../../services/servicesCard';
-// import { useLoading } from '../../components/Loading/LoadingContext'; // Import LoadingContext
 import { useToast } from '../../components/Toast/ToastManager';
 
 const HomePage = () => {
     const [books, setBooks] = useState([]);
     const [filteredBooks, setFilteredBooks] = useState([]);
     const navigate = useNavigate();
-    // const { showLoading, hideLoading } = useLoading(); // Hook into LoadingContext
     const addToast = useToast();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // showLoading(); // Show loading indicator
                 const { data, error } = await fetchCard();
                 if (data) {
                     setBooks(data);
@@ -29,9 +26,6 @@ const HomePage = () => {
             } catch (error) {
                 console.error('Error fetching books:', error);
             }
-            // } finally {
-            //     hideLoading(); // Hide loading indicator
-            // }
         };
 
         fetchData();

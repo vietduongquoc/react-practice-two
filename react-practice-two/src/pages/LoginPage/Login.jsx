@@ -2,9 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './Login.css';
 import logoIcon from '../../assets/image/Logo.jpg';
-import Input from '../../components/common/Input';
-import Button from '../../components/common/Button';
-import Checkbox from '../../components/common/Checkbox';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import Checkbox from '../../components/Checkbox';
 import { fetchUsers } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
 import { useToast } from '../../components/Toast/ToastManager';

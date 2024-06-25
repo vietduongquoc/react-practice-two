@@ -2,11 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import logoIcon from '../../assets/image/Logo.jpg';
-import Input from '../../components/common/Input';
-import Button from '../../components/common/Button';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 import { fetchUsers } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
 import { useToast } from '../../components/Toast/ToastManager';
+import { useLoading } from '../../components/Loading/LoadingContext';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ const RegisterPage = () => {
     const [isFormValid, setIsFormValid] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const addToast = useToast();
+    const { showLoading, hideLoading } = useLoading();
 
     const validateAllFields = useCallback(() => {
         const { errors, isFormValid } = validateForm({ name, email, password, confirmPassword });
@@ -58,8 +60,10 @@ const RegisterPage = () => {
         e.preventDefault();
         if (isFormValid) {
             setIsSubmitting(true);
+            showLoading();
             const result = await fetchUsers(); // Calling fetchUsers service to get all users
             setIsSubmitting(false);
+            hideLoading();
 
             if (result.error) {
                 addToast('Error fetching users: ' + result.error, 'error');
@@ -74,6 +78,8 @@ const RegisterPage = () => {
             } else {
                 addToast('Registration successful!', 'success');
                 console.log({ name, email, password });
+                // After successful registration, redirect to home page
+                navigate('/home-page');
             }
         }
     };
