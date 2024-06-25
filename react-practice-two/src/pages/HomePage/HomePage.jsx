@@ -15,16 +15,10 @@ const HomePage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const { data, error } = await fetchCard();
-                if (data) {
-                    setBooks(data);
-                    setFilteredBooks(data);
-                } else {
-                    console.error('Error fetching books:', error);
-                }
-            } catch (error) {
-                console.error('Error fetching books:', error);
+            const { data } = await fetchCard();
+            if (data) {
+                setBooks(data);
+                setFilteredBooks(data);
             }
         };
 
@@ -60,25 +54,18 @@ const HomePage = () => {
 
     const handleAddToFavorites = async (bookId) => {
         try {
-            // showLoading(); // Show loading indicator
-            const { data, error } = await addCardToFavorites(bookId);
+            const { data } = await addCardToFavorites(bookId);
             if (data) {
                 addToast('Added to favorites', 'success');
             } else {
-                console.error('Error adding to favorites:', error);
                 addToast('Error adding to favorites', 'error');
             }
         } catch (error) {
-            console.error('Error adding to favorites:', error);
             addToast('Error adding to favorites', 'error');
         }
-        // } finally {
-        //     hideLoading(); // Hide loading indicator
-        // }
     };
 
     const handlePreview = (bookId) => {
-        console.log('Preview book:', bookId);
         navigate(`/preview-page/${bookId}`);
     };
 

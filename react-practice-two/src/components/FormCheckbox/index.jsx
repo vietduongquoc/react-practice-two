@@ -1,9 +1,12 @@
-// src/components/common/Checkbox.js
-
 import React, { memo } from 'react';
 import './index.css';
 
-const Checkbox = ({ id, name, checked, onChange, label }) => {
+const Checkbox = ({ 
+    id,
+    name,
+    checked,
+    onChange,
+    label }) => {
     return (
         <div className="input-group checkbox">
             <input

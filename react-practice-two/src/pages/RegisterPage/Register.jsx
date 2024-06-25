@@ -77,7 +77,6 @@ const RegisterPage = () => {
                 addToast('Registration failed: Email already in use', 'error');
             } else {
                 addToast('Registration successful!', 'success');
-                console.log({ name, email, password });
                 // After successful registration, redirect to home page
                 navigate('/home-page');
             }

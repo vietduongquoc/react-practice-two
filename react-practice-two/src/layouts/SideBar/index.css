@@ -25,6 +25,10 @@
     margin-left: 30px;
 }
 
+.logo-icon {
+    cursor: pointer;
+}
+
 .sidebar-logo {
     text-align: center;
     margin-bottom: 20px;

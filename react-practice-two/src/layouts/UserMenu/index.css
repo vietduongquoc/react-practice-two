@@ -17,12 +17,14 @@
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .user-name {
     color: var(--text-color-primary);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-regular);
+    cursor: pointer;
 }
 
 .dropdown-btn-menu {

@@ -28,7 +28,6 @@ const PreviewPage = () => {
                 }
                 hideLoading(); // Hide loading on success or no book found
             } catch (error) {
-                console.error('Error fetching book data:', error);
                 hideLoading(); // Hide loading on failure
                 navigate('/home-page'); // Handle the error scenario or navigate back
             }

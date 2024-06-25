@@ -4,7 +4,7 @@ import './Login.css';
 import logoIcon from '../../assets/image/Logo.jpg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import Checkbox from '../../components/Checkbox';
+import Checkbox from '../../components/FormCheckbox';
 import { fetchUsers } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
 import { useToast } from '../../components/Toast/ToastManager';
@@ -64,7 +64,6 @@ const LoginPage = () => {
 
             if (user) {
                 addToast('Login successful!', 'success');
-                console.log({ email, password, remember });
                 navigate('/home-page'); // Redirect to HomePage
             } else {
                 addToast('Login failed: Incorrect email or password', 'error');
