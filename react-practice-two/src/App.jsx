@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage/HomePage';
 import RegisterPage from './pages/RegisterPage/Register';
 import PreviewPage from './pages/PreviewPage/Preview';
 import Loading from './components/Spinner/Loading';
+import MyShelf from './pages/MyShelf/MyShelf';
 
 const App = () => {
     return (
@@ -14,6 +15,7 @@ const App = () => {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/home-page" element={<HomePage />} />
+                <Route path="/my-shelf" element={<MyShelf />} />
                 <Route path="/preview-page/:bookId" element={<PreviewPage />} />
             </Routes>
             <Loading />

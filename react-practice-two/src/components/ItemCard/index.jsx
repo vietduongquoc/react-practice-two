@@ -1,16 +1,28 @@
-// ItemCard.jsx
 import React from 'react';
 import './index.css';
 import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
+import { addCardToFavorites } from '../../services/servicesCard';
+import { useToast } from '../../components/Toast/ToastProvider';
 
-const ItemCard = ({ book, onAddToFavorites, onPreview }) => {
-    const handleAddToFavorites = () => {
-        // Call API to add book to favorites
-        onAddToFavorites(book.id);
+const ItemCard = ({ book, onPreview, onFavoriteAdded }) => {
+    const addToast = useToast();
+
+    const handleAddToFavorites = async (event) => {
+        event.stopPropagation();
+        try {
+            const { data, error } = await addCardToFavorites(book.id);
+            if (error) {
+                addToast('Failed to add to favorites: ' + error, 'error');
+            } else {
+                addToast('Added to favorites successfully', 'success');
+                onFavoriteAdded(book);
+            }
+        } catch (error) {
+            addToast('Failed to add to favorites: ' + error.message, 'error');
+        }
     };
 
     const handlePreview = () => {
-        // Navigate to preview page or open modal
         onPreview(book.id);
     };
 

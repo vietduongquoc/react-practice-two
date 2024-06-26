@@ -4,11 +4,12 @@ import './Preview.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/Button';
-import { fetchCard } from '../../services/servicesCard';
+import { fetchCard, updateBookStatus } from '../../services/servicesCard';
 import authorImage from '../../assets/image/preview-image.png';
 import arrowBack from '../../assets/image/arrow-small-left.png';
 import rateStars from '../../assets/image/rate-stars.png'
 import { useLoading } from '../../components/Spinner/LoadingProvider';
+import { useToast } from '../../components/Toast/ToastProvider';
 
 const PreviewPage = () => {
     const { bookId } = useParams();
@@ -16,15 +17,22 @@ const PreviewPage = () => {
     const [book, setBook] = useState(null);
     const [status, setStatus] = useState('In-shelf');
     const { showLoading, hideLoading } = useLoading();
+    const addToast = useToast();
 
     useEffect(() => {
         const fetchBookData = async (id) => {
             showLoading(); // Show loading when fetching starts
             try {
-                const { data } = await fetchCard();
-                const bookData = data.find(b => b.id.toString() === id);
-                if (bookData) {
-                    setBook(bookData);
+                const { data, error } = await fetchCard();
+                if (error) {
+                    addToast('Error fetching book data: ' + error, 'error');
+                    navigate('/home-page'); // Handle the error scenario or navigate back
+                } else {
+                    const bookData = data.find(b => b.id.toString() === id);
+                    if (bookData) {
+                        setBook(bookData);
+                        setStatus(bookData.status ? 'Borrowed' : 'In-shelf'); // Initialize status here
+                    }
                 }
                 hideLoading(); // Hide loading on success or no book found
             } catch (error) {
@@ -33,7 +41,7 @@ const PreviewPage = () => {
             }
         };
         fetchBookData(bookId);
-    }, [bookId, navigate, showLoading, hideLoading]);
+    }, [bookId, navigate, showLoading, hideLoading, addToast]);
 
     useEffect(() => {
         if (book) {
@@ -41,11 +49,31 @@ const PreviewPage = () => {
         }
     }, [book, hideLoading]);
 
+    const handleBorrowBook = async () => {
+        if (status === 'In-shelf') {
+            showLoading();
+            try {
+                const { error } = await updateBookStatus(bookId, true);
+                if (error) {
+                    addToast('Failed to borrow book: ' + error, 'error');
+                } else {
+                    setStatus('Borrowed');
+                    setBook(prevBook => ({ ...prevBook, status: true })); // Update the book status
+                    addToast('Book borrowed successfully', 'success');
+                }
+            } catch (error) {
+                addToast('Failed to borrow book: ' + error.message, 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+    };
+
     if (!book) {
         return <div className="loading-container">Loading...</div>;
     }
 
-    const isAvailable = status === 'In-shelf';
+    const newStatus = status === 'In-shelf' ? 'Borrowed' : 'In-shelf';
 
     return (
         <div className="preview-container">
@@ -89,9 +117,9 @@ const PreviewPage = () => {
                                         <div className="status">
                                             <p>Status</p>
                                             <Button
-                                                onClick={() => setStatus(isAvailable ? 'None' : 'In-shelf')}
-                                                className={isAvailable ? "btn-enable" : "btn-primary"}
-                                                text={status}
+                                                onClick={() => { setStatus(newStatus) }}
+                                                className={status === 'In-shelf' ? "btn-enable" : "btn-primary"}
+                                                text={status === 'In-shelf' ? 'In-shelf' : 'None'}
                                                 borderRadius="btn-rounded"
                                                 size="btn-medium"
                                                 isDisabled={false}
@@ -101,9 +129,10 @@ const PreviewPage = () => {
                                     <Button
                                         borderRadius="btn-rounded"
                                         size="btn-big"
-                                        className={isAvailable ? "borrow-button" : "btn-disabled"}
-                                        disabled={!isAvailable}
-                                        text="BORROW"
+                                        className={status === 'In-shelf' ? "btn-primary" : "btn-disabled"}
+                                        disabled={status !== 'In-shelf'}
+                                        onClick={handleBorrowBook}
+                                        text={status === 'In-shelf' ? "BORROW" : "BORROW"}
                                     />
                                 </div>
                             </div>
@@ -128,4 +157,3 @@ const PreviewPage = () => {
 };
 
 export default PreviewPage;
-
