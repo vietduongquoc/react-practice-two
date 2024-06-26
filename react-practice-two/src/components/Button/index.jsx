@@ -1,4 +1,3 @@
-import React, { memo } from 'react';
 import './index.css';
 
 const Button = ({
@@ -25,4 +24,4 @@ const Button = ({
     );
 };
 
-export default memo(Button);
+export default Button;

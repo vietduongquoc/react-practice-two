@@ -4,7 +4,6 @@ import './index.css';
 import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
 
 const ItemCard = ({ book, onAddToFavorites, onPreview }) => {
-    // console.log(book);
     const handleAddToFavorites = () => {
         // Call API to add book to favorites
         onAddToFavorites(book.id);

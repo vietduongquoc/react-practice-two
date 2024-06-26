@@ -4,7 +4,7 @@ import LoginPage from './pages/LoginPage/Login';
 import HomePage from './pages/HomePage/HomePage';
 import RegisterPage from './pages/RegisterPage/Register';
 import PreviewPage from './pages/PreviewPage/Preview';
-import Loading from './components/Loading/Loading';
+import Loading from './components/Spinner/Loading';
 
 const App = () => {
     return (
