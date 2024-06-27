@@ -93,7 +93,7 @@ const MyShelf = () => {
                                                 onClick={() => handleReturnBook(book.id)}
                                                 text="Return"
                                                 className="btn-return"
-                                                
+                                                size="btn-large"
                                             />
                                         </aside>
                                     </article>
