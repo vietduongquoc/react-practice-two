@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage/HomePage';
 import RegisterPage from './pages/RegisterPage/Register';
 import PreviewPage from './pages/PreviewPage/Preview';
 import Loading from './components/Spinner/Loading';
-import MyShelf from './pages/myShelf/MyShelf'
+import MyShelf from './pages/Shelf/MyShelf'
 
 const App = () => {
     return (
