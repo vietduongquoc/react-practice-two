@@ -31,7 +31,6 @@ const PreviewPage = () => {
                     const bookData = data.find(b => b.id.toString() === id);
                     if (bookData) {
                         setBook(bookData);
-                        setStatus(bookData.status ? 'Borrowed' : 'In-shelf'); // Initialize status here
                     }
                 }
                 hideLoading(); // Hide loading on success or no book found
@@ -72,8 +71,6 @@ const PreviewPage = () => {
     if (!book) {
         return <div className="loading-container">Loading...</div>;
     }
-
-    const newStatus = status === 'In-shelf' ? 'Borrowed' : 'In-shelf';
 
     return (
         <div className="preview-container">
@@ -117,7 +114,6 @@ const PreviewPage = () => {
                                         <div className="status">
                                             <p>Status</p>
                                             <Button
-                                                onClick={() => { setStatus(newStatus) }}
                                                 className={status === 'In-shelf' ? "btn-enable" : "btn-primary"}
                                                 text={status === 'In-shelf' ? 'In-shelf' : 'None'}
                                                 borderRadius="btn-rounded"
@@ -132,7 +128,7 @@ const PreviewPage = () => {
                                         className={status === 'In-shelf' ? "btn-primary" : "btn-disabled"}
                                         disabled={status !== 'In-shelf'}
                                         onClick={handleBorrowBook}
-                                        text={status === 'In-shelf' ? "BORROW" : "BORROW"}
+                                        text="BORROW"
                                     />
                                 </div>
                             </div>
