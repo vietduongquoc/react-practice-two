@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
-import { addCardToFavorites } from '../../services/servicesCard';
+import { addCardToFavorites } from '../../services/servicesBook';
 import { useToast } from '../../components/Toast/ToastProvider';
 
 const ItemCard = ({ book, onPreview }) => {

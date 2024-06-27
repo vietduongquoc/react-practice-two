@@ -1,4 +1,4 @@
-// servicesCard.js
+// servicesBook.js
 import axios from 'axios';
 import configCard from '../configs/config-card';
 

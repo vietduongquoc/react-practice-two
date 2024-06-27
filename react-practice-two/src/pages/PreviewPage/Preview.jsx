@@ -4,7 +4,7 @@ import './Preview.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/Button';
-import { fetchCard, updateBookStatus } from '../../services/servicesCard';
+import { fetchCard, updateBookStatus } from '../../services/servicesBook';
 import authorImage from '../../assets/image/preview-image.png';
 import arrowBack from '../../assets/image/arrow-small-left.png';
 import rateStars from '../../assets/image/rate-stars.png'

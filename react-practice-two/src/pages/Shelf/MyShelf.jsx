@@ -4,7 +4,7 @@ import './MyShelf.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/Button';
-import { fetchCard, fetchFavorites, updateBookStatus, updateFavoriteStatus } from '../../services/servicesCard';
+import { fetchCard, fetchFavorites, updateBookStatus, updateFavoriteStatus } from '../../services/servicesBook';
 import { useToast } from '../../components/Toast/ToastProvider';
 import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
 

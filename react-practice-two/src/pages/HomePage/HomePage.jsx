@@ -4,7 +4,7 @@ import './HomePage.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import ItemCard from '../../components/ItemCard';
-import { fetchCard, addCardToFavorites } from '../../services/servicesCard';
+import { fetchCard, addCardToFavorites } from '../../services/servicesBook';
 import { useToast } from '../../components/Toast/ToastProvider';
 
 const HomePage = () => {
