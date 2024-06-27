@@ -16,32 +16,24 @@ export const fetchCard = async () => {
     }
 };
 
-export const addCardToFavorites = async (cardId) => {
+export const fetchFavorites = async () => {
     try {
-        const response = await api.post(`/Card/${cardId}/favorites`);
+        const response = await api.get('/Card');
+        const favoriteBooks = response.data.filter(book => book.favorites === true);
+        console.log('favoriteBooks', favoriteBooks);
+        return { data: favoriteBooks, error: null };
+    } catch (error) {
+        console.error('Error fetching favorite books:', error);
+        return { data: null, error };
+    }
+};
+
+export const addCardToFavorites = async (cardId, updatedFavourite) => {
+    try {
+        const response = await api.put(`/Card/${cardId}`, { favorites: updatedFavourite });
         return { data: response.data, error: null };
     } catch (error) {
         console.error('Error adding to favorites:', error);
-        return { data: null, error };
-    }
-};
-
-export const fetchBorrowedBooks = async () => {
-    try {
-        const response = await api.get('/BorrowedBooks');
-        return { data: response.data, error: null };
-    } catch (error) {
-        console.error('Error fetching borrowed books:', error);
-        return { data: null, error };
-    }
-};
-
-export const fetchFavorites = async () => {
-    try {
-        const response = await api.get('/FavoriteBooks');
-        return { data: response.data, error: null };
-    } catch (error) {
-        console.error('Error fetching favorite books:', error);
         return { data: null, error };
     }
 };
@@ -56,14 +48,12 @@ export const updateBookStatus = async (cardId, updatedStatus) => {
     }
 };
 
-
-
-export const removeFavorite = async (bookId) => {
+export const updateFavoriteStatus = async (cardId, updatedFavorite) => {
     try {
-        const response = await api.delete(`/Books/${bookId}/favorites`);
+        const response = await api.put(`/Card/${cardId}`, { favorite: updatedFavorite });
         return { data: response.data, error: null };
     } catch (error) {
-        console.error('Error removing favorite:', error);
+        console.error('Error updating favorite status:', error);
         return { data: null, error };
     }
 };

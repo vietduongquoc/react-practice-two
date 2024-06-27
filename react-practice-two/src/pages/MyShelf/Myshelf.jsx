@@ -4,8 +4,9 @@ import './MyShelf.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/Button';
-import { fetchCard, fetchFavorites, updateBookStatus, removeFavorite } from '../../services/servicesCard';
+import { fetchCard, fetchFavorites, updateBookStatus, updateFavoriteStatus } from '../../services/servicesCard';
 import { useToast } from '../../components/Toast/ToastProvider';
+import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
 
 const MyShelf = () => {
     const [currentTab, setCurrentTab] = useState('all');
@@ -28,9 +29,10 @@ const MyShelf = () => {
         const fetchFavoriteBooks = async () => {
             const { data, error } = await fetchFavorites();
             if (error) {
-                // addToast('Error fetching favorite books: ' + error, 'error');
+                addToast('Error fetching favorite books: ' + error, 'error');
             } else {
-                setFavorites(Array.isArray(data) ? data : []);
+                const favoriteBooks = data.filter(book => book.favorites === true);
+                setFavorites(Array.isArray(favoriteBooks) ? favoriteBooks : []);
             }
         };
 
@@ -53,7 +55,7 @@ const MyShelf = () => {
     };
 
     const handleUnlikeBook = async (bookId) => {
-        const { error } = await removeFavorite(bookId);
+        const { error } = await updateFavoriteStatus(bookId, false);
         if (error) {
             addToast('Failed to remove book from favorites: ' + error, 'error');
         } else {
@@ -72,7 +74,7 @@ const MyShelf = () => {
                         <h1 className='myshelf-title'>Your <span>Shelf</span></h1>
                         <div className="tabs">
                             <button className={`tab ${currentTab === 'all' ? 'active' : ''}`} onClick={() => handleTabChange('all')}>All Books</button>
-                            <button className={`tab ${currentTab === 'favorites' ? 'active' : ''}`} onClick={() => handleTabChange('favorites')}>Favorite Books</button>
+                            <button className={`tab ${currentTab === 'favorites' ? 'active' : ''}`} onClick={() => handleTabChange('favorites')}>Favorite</button>
                         </div>
                         {currentTab === 'all' && (
                             <div className="books-list">
@@ -102,18 +104,41 @@ const MyShelf = () => {
                         )}
                         {currentTab === 'favorites' && (
                             <div className="books-list">
+                                <div className='wrap-book-item-favourite-title'>
+                                    <p className='title-one'>Title</p>
+                                    <p className='title-two'>Ratings</p>
+                                    <p className='title-three'>Category</p>
+                                    <p className='title-four'>Status</p>
+                                </div>
                                 {Array.isArray(favorites) && favorites.map(book => (
-                                    <div key={book.id} className="book-item">
-                                        <h3>{book.name}</h3>
+                                    <div key={book.id} className="book-item-favourite">
+                                        <img src={book.urlImage} alt={book.name} className="book-item-favourite-image" />
+                                        <div className='book-item-favourite-content'>
+                                            <h3 className='book-item-name'>{book.name}</h3>
+                                            <p className='book-item-author'>{book.author}</p>
+                                        </div>
+                                        <p className="book-item-favourite-rate">4.5/<span>5</span></p>
+                                        <div className='book-item-favourite-category'>
+                                            <p>Computer Science</p>
+                                            <p>Ux Design</p>
+                                        </div>
                                         <Button
+                                            text="In-Shelf"
+                                            className="btn-In-Shelf"
+                                            color="btn-enable"
+                                            borderRadius="btn-rounded"
+                                        />
+                                        <img
+                                            src={heartIcon}
+                                            alt="unlike to favorites"
+                                            className="heart-icon"
                                             onClick={() => handleUnlikeBook(book.id)}
-                                            text="Unlike"
-                                            className="btn-unlike"
                                         />
                                         <Button
                                             onClick={() => navigate(`/preview/${book.id}`)}
                                             text="Preview"
                                             className="btn-preview"
+                                            borderRadius="btn-rounded"
                                         />
                                     </div>
                                 ))}

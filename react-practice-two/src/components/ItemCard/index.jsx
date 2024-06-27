@@ -4,18 +4,17 @@ import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart 
 import { addCardToFavorites } from '../../services/servicesCard';
 import { useToast } from '../../components/Toast/ToastProvider';
 
-const ItemCard = ({ book, onPreview, onFavoriteAdded }) => {
+const ItemCard = ({ book, onPreview }) => {
     const addToast = useToast();
 
     const handleAddToFavorites = async (event) => {
         event.stopPropagation();
         try {
-            const { data, error } = await addCardToFavorites(book.id);
+            const { error } = await addCardToFavorites(book.id, true);
             if (error) {
                 addToast('Failed to add to favorites: ' + error, 'error');
             } else {
                 addToast('Added to favorites successfully', 'success');
-                onFavoriteAdded(book);
             }
         } catch (error) {
             addToast('Failed to add to favorites: ' + error.message, 'error');
