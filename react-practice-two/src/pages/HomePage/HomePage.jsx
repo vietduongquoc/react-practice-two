@@ -54,11 +54,9 @@ const HomePage = () => {
 
     const handleAddToFavorites = async (bookId) => {
         try {
-            const { data } = await addCardToFavorites(bookId);
+            const { data } = await addCardToFavorites(bookId, true);
             if (data) {
                 addToast('Added to favorites', 'success');
-            } else {
-                addToast('Error adding to favorites', 'error');
             }
         } catch (error) {
             addToast('Error adding to favorites', 'error');

@@ -102,12 +102,16 @@
 
 .wrap-title {
     font-size: var(--font-size-lg);
-    font-size: var(--font-weight-semibold);
 }
 
 .preview-title {
     margin-bottom: 40px;
     color: var(--text-color-secondary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.wrap-title p {
+    font-weight: var(--font-weight-regular);
 }
 
 .preview-title span {
