@@ -135,7 +135,7 @@ const MyShelf = () => {
                                             onClick={() => handleUnlikeBook(book.id)}
                                         />
                                         <Button
-                                            onClick={() => navigate(`/preview/${book.id}`)}
+                                            onClick={() => navigate(`/preview-page/${book.id}`)}
                                             text="Preview"
                                             className="btn-preview"
                                             borderRadius="btn-rounded"
