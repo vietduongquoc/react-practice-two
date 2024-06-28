@@ -28,9 +28,14 @@ const PreviewPage = () => {
                     addToast('Error fetching book data: ' + error, 'error');
                     navigate('/home-page'); // Handle the error scenario or navigate back
                 } else {
-                    const bookData = data.find(b => b.id.toString() === id);
+                    const bookData = data.find(b => b._id.$oid === id);
+                    console.log(bookData);
                     if (bookData) {
                         setBook(bookData);
+                    }
+                    else {
+                        addToast('Book not found', 'error');
+                        navigate('/home-page'); // Navigate back if book not found
                     }
                 }
                 hideLoading(); // Hide loading on success or no book found

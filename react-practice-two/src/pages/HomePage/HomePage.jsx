@@ -4,7 +4,7 @@ import './HomePage.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import ItemCard from '../../components/ItemCard';
-import { fetchBook, addBookToFavorites } from '../../services/servicesBook';
+import { fetchBook, addBookToFavorites, fetchBookById } from '../../services/servicesBook';
 import { useToast } from '../../components/Toast/ToastProvider';
 
 const HomePage = () => {
@@ -66,8 +66,18 @@ const HomePage = () => {
         }
     };
 
-    const handlePreview = (bookId) => {
-        navigate(`/preview-page/${bookId}`);
+    const handlePreview = async (bookId) => {
+        try {
+            const { error } = await fetchBookById(bookId);
+            if (error) {
+                addToast(`Error fetching book details: ${error}`, 'error');
+            } else {
+                // Navigate to PreviewPage with book data
+                navigate(`/preview-page/${bookId}`);
+            }
+        } catch (error) {
+            addToast(`Error fetching book details: ${error.message}`, 'error');
+        }
     };
 
     return (

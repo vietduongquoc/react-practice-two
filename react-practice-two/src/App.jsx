@@ -9,7 +9,7 @@ import MyShelf from './pages/Shelf/MyShelf';
 import { getToken } from './services/servicesUser';
 
 const PrivateRoute = ({ element }) => {
-    const token = getToken(); // Lấy token từ localStorage
+    const token = getToken();
     return token ? element : <Navigate to="/login" />;
 };
 
@@ -20,9 +20,6 @@ const App = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/" element={<LoginPage />} />
-                {/* <Route path="/home-page" element={<HomePage />} />
-                <Route path="/my-shelf" element={<MyShelf />} />
-                <Route path="/preview-page/:bookId" element={<PreviewPage />} /> */}
                 <Route path="/home-page" element={<PrivateRoute element={<HomePage />} />} />
                 <Route path="/my-shelf" element={<PrivateRoute element={<MyShelf />} />} />
                 <Route path="/preview-page/:bookId" element={<PrivateRoute element={<PreviewPage />} />} />

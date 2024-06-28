@@ -3,15 +3,17 @@ import './index.css';
 import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
 import { addBookToFavorites } from '../../services/servicesBook';
 import { useToast } from '../../components/Toast/ToastProvider';
+import { useNavigate } from 'react-router-dom';
 
-const ItemCard = ({ book, onPreview }) => {
+const ItemCard = ({ book }) => {
+
     const addToast = useToast();
-
+    const navigate = useNavigate();
     const handleAddToFavorites = async (event) => {
         event.stopPropagation();
         try {
-            const { error } = await addBookToFavorites(book.id, true);
-            // const { error } = await addBookToFavorites(book._id, !book.favorite);
+            // const { error } = await addBookToFavorites(book.id, true);
+            const { error } = await addBookToFavorites(book._id, !book.favorite);
             if (error) {
                 addToast('Failed to add to favorites: ' + error, 'error');
             } else {
@@ -23,7 +25,7 @@ const ItemCard = ({ book, onPreview }) => {
     };
 
     const handlePreview = () => {
-        onPreview(book.id);
+        navigate(`/preview-page/${book.id}`);
     };
 
     return (
@@ -39,8 +41,8 @@ const ItemCard = ({ book, onPreview }) => {
                     <img
                         src={heartIcon}
                         alt="Add to favorites"
-                        className="heart-icon"
-                        // className={`heart-icon ${book.favorite ? 'favorited' : ''}`}
+                        // className="heart-icon"
+                        className={`heart-icon ${book.favorite ? 'favorited' : ''}`}
                         onClick={handleAddToFavorites}
                     />
                 </div>

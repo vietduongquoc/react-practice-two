@@ -9,13 +9,16 @@ export const loginUser = async (email, password) => {
             email,
             password
         });
+        const { data } = response.data || {}
 
-        if (response.data && response.data.token) {
+        console.log('response: ', response.data.data)
+        if (data) {
             // Save the token to localStorage
-            localStorage.setItem('authToken', response.data.token);
+            const { token } = data
+            localStorage.setItem('authToken', token);
         }
 
-        return { data: response.data, error: null };
+        return { data: data, error: null };
     } catch (error) {
         console.error('Error logging in:', error);
         return { data: null, error: error.message };
