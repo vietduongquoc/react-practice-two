@@ -4,7 +4,7 @@ import './MyShelf.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/Button';
-import { fetchCard, fetchFavorites, updateBookStatus, updateFavoriteStatus } from '../../services/servicesBook';
+import { fetchBook, fetchFavorites, updateBookStatus, updateFavoriteStatus } from '../../services/servicesBook';
 import { useToast } from '../../components/Toast/ToastProvider';
 import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
 
@@ -17,12 +17,14 @@ const MyShelf = () => {
 
     useEffect(() => {
         const fetchAllBooks = async () => {
-            const { data, error } = await fetchCard();
+            const { data, error } = await fetchBook();
             if (error) {
                 addToast('Error fetching borrowed books: ' + error, 'error');
-            } else {
+            } else if (Array.isArray(data)) { // Kiểm tra dữ liệu là một mảng
                 const borrowedBooks = data.filter(book => book.status === true);
-                setBooks(Array.isArray(borrowedBooks) ? borrowedBooks : []);
+                setBooks(borrowedBooks);
+            } else {
+                console.error('Data is not an array:', data);
             }
         };
 
@@ -30,9 +32,11 @@ const MyShelf = () => {
             const { data, error } = await fetchFavorites();
             if (error) {
                 addToast('Error fetching favorite books: ' + error, 'error');
+            } else if (Array.isArray(data)) { // Kiểm tra dữ liệu là một mảng
+                const favoriteBooks = data.filter(book => book.favorite === true);
+                setFavorites(favoriteBooks);
             } else {
-                const favoriteBooks = data.filter(book => book.favorites === true);
-                setFavorites(Array.isArray(favoriteBooks) ? favoriteBooks : []);
+                console.error('Data is not an array:', data);
             }
         };
 
@@ -78,7 +82,7 @@ const MyShelf = () => {
                         </div>
                         {currentTab === 'all' && (
                             <div className="books-list">
-                                {Array.isArray(books) && books.map(book => (
+                                {books.map(book => (
                                     <article key={book.id} className="book-item">
                                         <div className='book-item-column-left'>
                                             <img src={book.urlImage} alt={book.name} className="book-item-image" />
@@ -110,7 +114,7 @@ const MyShelf = () => {
                                     <p className='title-three'>Category</p>
                                     <p className='title-four'>Status</p>
                                 </div>
-                                {Array.isArray(favorites) && favorites.map(book => (
+                                {favorites.map(book => (
                                     <div key={book.id} className="book-item-favourite">
                                         <img src={book.urlImage} alt={book.name} className="book-item-favourite-image" />
                                         <div className='book-item-favourite-content'>

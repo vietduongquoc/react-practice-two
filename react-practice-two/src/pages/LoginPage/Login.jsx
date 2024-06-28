@@ -5,10 +5,10 @@ import logoIcon from '../../assets/image/Logo.jpg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Checkbox from '../../components/FormCheckbox';
-import { fetchUsers } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
+import { loginUser } from '../../services/servicesUser';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -64,35 +64,31 @@ const LoginPage = () => {
         if (isFormValid) {
             setIsSubmitting(true);
             showLoading();
-            const result = await fetchUsers();
+            
+            const { error } = await loginUser(email, password);
             setIsSubmitting(false);
             hideLoading();
 
-            if (result.error) {
-                addToast('Error fetching users: ' + result.error, 'error');
+            if (error) {
+                addToast('Login failed: ' + error, 'error');
                 return;
             }
 
-            const users = result.data;
-            const user = users.find(user => user.email === email && user.password === password);
-
-            if (user) {
-                addToast('Login successful!', 'success');
-                if (remember) {
-                    // If Remember me is checked, save email and password to localStorage
-                    localStorage.setItem('rememberMe', 'true');
-                    localStorage.setItem('savedEmail', email);
-                    localStorage.setItem('savedPassword', password);
-                } else {
-                    // If Remember me is not checked, clear localStorage
-                    localStorage.removeItem('rememberMe');
-                    localStorage.removeItem('savedEmail');
-                    localStorage.removeItem('savedPassword');
-                }
-                navigate('/home-page');
+            addToast('Login successful!', 'success');
+            if (remember) {
+                localStorage.setItem('rememberMe', 'true');
+                localStorage.setItem('savedEmail', email);
+                localStorage.setItem('savedPassword', password);
             } else {
-                addToast('Login failed: Incorrect email or password', 'error');
+                localStorage.removeItem('rememberMe');
+                localStorage.removeItem('savedEmail');
+                localStorage.removeItem('savedPassword');
             }
+            
+            // Save token to localStorage
+            localStorage.setItem('token', '483|7wGDX8MyvTRv1KkiMkUKPDF3PRbtpYNpKfFFdpi8');
+            
+            navigate('/home-page');
         }
     };
 

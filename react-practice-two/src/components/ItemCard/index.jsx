@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
-import { addCardToFavorites } from '../../services/servicesBook';
+import { addBookToFavorites } from '../../services/servicesBook';
 import { useToast } from '../../components/Toast/ToastProvider';
 
 const ItemCard = ({ book, onPreview }) => {
@@ -10,7 +10,8 @@ const ItemCard = ({ book, onPreview }) => {
     const handleAddToFavorites = async (event) => {
         event.stopPropagation();
         try {
-            const { error } = await addCardToFavorites(book.id, true);
+            const { error } = await addBookToFavorites(book.id, true);
+            // const { error } = await addBookToFavorites(book._id, !book.favorite);
             if (error) {
                 addToast('Failed to add to favorites: ' + error, 'error');
             } else {
@@ -39,6 +40,7 @@ const ItemCard = ({ book, onPreview }) => {
                         src={heartIcon}
                         alt="Add to favorites"
                         className="heart-icon"
+                        // className={`heart-icon ${book.favorite ? 'favorited' : ''}`}
                         onClick={handleAddToFavorites}
                     />
                 </div>

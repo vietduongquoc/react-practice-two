@@ -1,5 +1,3 @@
-const config = {
-    apiBaseUrl: 'https://6653fc581c6af63f467609f6.mockapi.io',
-};
+// const SLACK_API_URL = 'https://v1.slashapi.com/viet/auth/nyHhsMgpor';
 
-export default config;
+// export default SLACK_API_URL;

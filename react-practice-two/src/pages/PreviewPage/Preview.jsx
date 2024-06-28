@@ -4,7 +4,7 @@ import './Preview.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/Button';
-import { fetchCard, updateBookStatus } from '../../services/servicesBook';
+import { fetchBook, updateBookStatus } from '../../services/servicesBook';
 import authorImage from '../../assets/image/preview-image.png';
 import arrowBack from '../../assets/image/arrow-small-left.png';
 import rateStars from '../../assets/image/rate-stars.png'
@@ -23,7 +23,7 @@ const PreviewPage = () => {
         const fetchBookData = async (id) => {
             showLoading(); // Show loading when fetching starts
             try {
-                const { data, error } = await fetchCard();
+                const { data, error } = await fetchBook();
                 if (error) {
                     addToast('Error fetching book data: ' + error, 'error');
                     navigate('/home-page'); // Handle the error scenario or navigate back

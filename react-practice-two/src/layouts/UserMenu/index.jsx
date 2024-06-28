@@ -3,6 +3,7 @@ import './index.css';
 import avatarUser from '../../assets/image/avatar-user.jpg';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../../services/servicesUser';
 
 const UserMenu = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -28,8 +29,9 @@ const UserMenu = () => {
     };
 
     const handleLogout = () => {
+        logoutUser();
         addToast('Logout successful!', 'success');
-        navigate('/');
+        navigate('/login');
     };
 
     return (

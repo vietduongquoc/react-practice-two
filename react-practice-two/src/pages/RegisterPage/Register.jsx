@@ -4,10 +4,10 @@ import './Register.css';
 import logoIcon from '../../assets/image/Logo.jpg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { fetchUsers } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
+import { registerUser } from '../../services/servicesUser';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -61,25 +61,17 @@ const RegisterPage = () => {
         if (isFormValid) {
             setIsSubmitting(true);
             showLoading();
-            const result = await fetchUsers(); // Calling fetchUsers service to get all users
+            const { error } = await registerUser(name, email, password);
             setIsSubmitting(false);
             hideLoading();
 
-            if (result.error) {
-                addToast('Error fetching users: ' + result.error, 'error');
+            if (error) {
+                addToast('Registration failed: ' + error, 'error');
                 return;
             }
 
-            const users = result.data;
-            const userExists = users.some(user => user.email === email);
-
-            if (userExists) {
-                addToast('Registration failed: Email already in use', 'error');
-            } else {
-                addToast('Registration successful!', 'success');
-                // After successful registration, redirect to home page
-                navigate('/home-page');
-            }
+            addToast('Registration successful!', 'success');
+            navigate('/home-page');
         }
     };
 
