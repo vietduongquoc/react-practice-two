@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Preview.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
@@ -17,29 +17,30 @@ const PreviewPage = () => {
     const [status, setStatus] = useState('In-shelf');
     const { showLoading, hideLoading } = useLoading();
     const addToast = useToast();
+    const navigate = useNavigate();
 
     const fetchBookDetail = async (bookId) => {
+        showLoading(); // Show loading when fetching starts
         try {
-            const { data } = await fetchBookById(bookId)
-            setBook(data)
-            console.log('result: ', data)
+            const { data } = await fetchBookById(bookId);
+            if (data) {
+                setBook(data);
+                setStatus(data.status ? 'None' : 'In-shelf');
+            }
         } catch (error) {
-            console.log('error: ', error)
+            console.error('Error fetching book details:', error);
+            addToast('Error fetching book details', 'error');
+            navigate('/home-page'); // Handle the error scenario or navigate back
+        } finally {
+            hideLoading(); // Hide loading on success or failure
         }
-
-    }
+    };
 
     useEffect(() => {
         if (bookId) {
-            fetchBookDetail(bookId)
+            fetchBookDetail(bookId);
         }
-    }, [bookId])
-
-    useEffect(() => {
-        if (book) {
-            hideLoading(); // Hide loading when book is set
-        }
-    }, [book, hideLoading]);
+    }, [bookId]);
 
     const handleBorrowBook = async () => {
         if (status === 'In-shelf') {

@@ -67,7 +67,6 @@ const HomePage = () => {
     };
 
     const handlePreview = async (bookId) => {
-        console.log('bookId: ', bookId)
         try {
             const { error } = await fetchBookById(bookId);
             if (error) {
