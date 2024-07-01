@@ -156,7 +156,7 @@
     font-size: var(--font-size-lg);
     width: 100%;
     max-width: 1400px;
-    grid-template-columns: 435px 130px 215px 100px;
+    grid-template-columns: 435px 150px 225px 100px;
     margin-top: 20px;
     margin-bottom: 5px;
 }

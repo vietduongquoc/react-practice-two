@@ -9,19 +9,17 @@ export const loginUser = async (email, password) => {
             email,
             password
         });
-        const { data } = response.data || {}
 
-        console.log('response: ', response.data.data)
+        const { data } = response.data || {};
         if (data) {
-            // Save the token to localStorage
-            const { token } = data
+            const { token, username } = data;
             localStorage.setItem('authToken', token);
+            return { data: { username, token }, error: null };
         }
-
-        return { data: data, error: null };
+        return { data: null, error: 'Invalid response format' };
     } catch (error) {
         console.error('Error logging in:', error);
-        return { data: null, error: error.message };
+        return { data: null, error: error.response?.data?.message || error.message };
     }
 };
 

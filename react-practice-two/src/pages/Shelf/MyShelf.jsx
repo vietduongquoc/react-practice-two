@@ -15,8 +15,6 @@ const MyShelf = () => {
     const addToast = useToast();
     const navigate = useNavigate();
 
-    console.log('books: ', books)
-
     useEffect(() => {
         const fetchAllBooks = async () => {
             const { data, error } = await fetchBook();
