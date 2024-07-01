@@ -5,7 +5,7 @@ import { addBookToFavorites } from '../../services/servicesBook';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { useNavigate } from 'react-router-dom';
 
-const ItemCard = ({ book }) => {
+const ItemCard = ({ book, onPreview }) => {
 
     const addToast = useToast();
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ const ItemCard = ({ book }) => {
         event.stopPropagation();
         try {
             // const { error } = await addBookToFavorites(book.id, true);
-            const { error } = await addBookToFavorites(book._id, !book.favorite);
+            const { error } = await addBookToFavorites(book._id.$oid, !book.favorite);
             if (error) {
                 addToast('Failed to add to favorites: ' + error, 'error');
             } else {
@@ -24,8 +24,9 @@ const ItemCard = ({ book }) => {
         }
     };
 
-    const handlePreview = () => {
-        navigate(`/preview-page/${book.id}`);
+    const handlePreview = async () => {
+        await onPreview()
+        navigate(`/preview-page/${book._id.$oid}`);
     };
 
     return (

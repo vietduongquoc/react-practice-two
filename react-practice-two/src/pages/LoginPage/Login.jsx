@@ -61,35 +61,40 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isFormValid) {
-            setIsSubmitting(true);
-            showLoading();
-            
-            const { error } = await loginUser(email, password);
-            setIsSubmitting(false);
-            hideLoading();
+        try {
+            if (isFormValid) {
+                setIsSubmitting(true);
+                showLoading();
 
-            if (error) {
-                addToast('Login failed: ' + error, 'error');
-                return;
-            }
+                const { data } = await loginUser(email, password);
+                const { username } = data;
 
-            addToast('Login successful!', 'success');
-            if (remember) {
-                localStorage.setItem('rememberMe', 'true');
-                localStorage.setItem('savedEmail', email);
-                localStorage.setItem('savedPassword', password);
-            } else {
-                localStorage.removeItem('rememberMe');
-                localStorage.removeItem('savedEmail');
-                localStorage.removeItem('savedPassword');
+                console.log('data: ', data)
+                setIsSubmitting(false);
+                hideLoading();
+
+                localStorage.setItem('username', username || 'username')
+                addToast('Login successful!', 'success');
+                if (remember) {
+                    localStorage.setItem('rememberMe', 'true');
+                    localStorage.setItem('savedEmail', email);
+                    localStorage.setItem('savedPassword', password);
+                } else {
+                    localStorage.removeItem('rememberMe');
+                    localStorage.removeItem('savedEmail');
+                    localStorage.removeItem('savedPassword');
+                }
+
+                // Save token to localStorage
+                localStorage.setItem('token', '483|7wGDX8MyvTRv1KkiMkUKPDF3PRbtpYNpKfFFdpi8');
+
+                navigate('/home-page');
             }
-            
-            // Save token to localStorage
-            localStorage.setItem('token', '483|7wGDX8MyvTRv1KkiMkUKPDF3PRbtpYNpKfFFdpi8');
-            
-            navigate('/home-page');
+        } catch (error) {
+            addToast('Login failed: ' + error, 'error');
+            return;
         }
+
     };
 
     const togglePasswordVisibility = () => {

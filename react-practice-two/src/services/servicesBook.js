@@ -45,8 +45,13 @@ export const fetchFavorites = async () => {
 
 
 export const addBookToFavorites = async (bookId, updatedFavorite) => {
+    const params = {
+        data: {
+            favorite: updatedFavorite
+        }
+    }
     try {
-        const response = await api.put(`/books/${bookId}`, { favorite: updatedFavorite });
+        const response = await api.patch(`/books/${bookId}`, params);
         return { data: response.data.data, error: null };
     } catch (error) {
         console.error('Error adding to favorites:', error);
@@ -55,8 +60,13 @@ export const addBookToFavorites = async (bookId, updatedFavorite) => {
 };
 
 export const updateBookStatus = async (bookId, updatedStatus) => {
+    const params = {
+        data: {
+            status: updatedStatus
+        }
+    }
     try {
-        const response = await api.put(`/books/${bookId}`, { status: updatedStatus });
+        const response = await api.patch(`/books/${bookId}`, params);
         return { data: response.data.data, error: null };
     } catch (error) {
         console.error('Error updating book status:', error);

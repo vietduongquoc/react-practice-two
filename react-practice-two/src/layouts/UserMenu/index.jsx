@@ -10,6 +10,7 @@ const UserMenu = () => {
     const addToast = useToast();
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
+    const username = localStorage.getItem('username');
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -37,7 +38,7 @@ const UserMenu = () => {
     return (
         <div className="user-menu">
             <img src={avatarUser} alt="User Avatar" className="avatar" onClick={toggleDropdown} />
-            <p className='user-name' onClick={toggleDropdown}>Kenson</p>
+            <p className='user-name' onClick={toggleDropdown}>{username}</p>
             <button className="dropdown-btn-menu" onClick={toggleDropdown}>
                 {dropdownOpen ? '▲' : '▼'}
             </button>

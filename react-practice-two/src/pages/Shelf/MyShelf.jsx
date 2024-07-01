@@ -15,6 +15,8 @@ const MyShelf = () => {
     const addToast = useToast();
     const navigate = useNavigate();
 
+    console.log('books: ', books)
+
     useEffect(() => {
         const fetchAllBooks = async () => {
             const { data, error } = await fetchBook();
@@ -53,7 +55,7 @@ const MyShelf = () => {
         if (error) {
             addToast('Failed to return book: ' + error, 'error');
         } else {
-            setBooks(books.filter(book => book.id !== bookId));
+            setBooks(books.filter(book => book._id.$oid !== bookId));
             addToast('Book returned successfully', 'success');
         }
     };
@@ -63,7 +65,7 @@ const MyShelf = () => {
         if (error) {
             addToast('Failed to remove book from favorites: ' + error, 'error');
         } else {
-            setFavorites(favorites.filter(book => book.id !== bookId));
+            setFavorites(favorites.filter(book => book._id.$oid !== bookId));
             addToast('Book removed from favorites', 'success');
         }
     };
@@ -96,7 +98,7 @@ const MyShelf = () => {
                                                 <p className='book-item-time'>11 Mar 2023 09:00 AM</p>
                                             </div>
                                             <Button
-                                                onClick={() => handleReturnBook(book.id)}
+                                                onClick={() => handleReturnBook(book._id.$oid)}
                                                 text="Return"
                                                 className="btn-return"
                                                 size="btn-large"
@@ -136,10 +138,10 @@ const MyShelf = () => {
                                             src={heartIcon}
                                             alt="unlike to favorites"
                                             className="heart-icon"
-                                            onClick={() => handleUnlikeBook(book.id)}
+                                            onClick={() => handleUnlikeBook(book._id.$oid)}
                                         />
                                         <Button
-                                            onClick={() => navigate(`/preview-page/${book.id}`)}
+                                            onClick={() => navigate(`/preview-page/${book._id.$oid}`)}
                                             text="Preview"
                                             className="btn-preview"
                                             borderRadius="btn-rounded"

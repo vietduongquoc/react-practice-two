@@ -1,13 +1,6 @@
 .sidebar-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 350px;
-    height: 100vh;
-    background-image: url("/src/assets/image/bg-login.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: 1000;
+    max-width: 350px;
+    width: 100%;
 }
 
 .sidebar {

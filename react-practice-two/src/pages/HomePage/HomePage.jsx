@@ -45,10 +45,10 @@ const HomePage = () => {
             <div className="row" key={index}>
                 {row.map((book) => (
                     <ItemCard
-                        key={book._id} // Use _id if id does not exist
+                        key={book._id.$oid} // Use _id if id does not exist
                         book={book}
                         onAddToFavorites={handleAddToFavorites}
-                        onPreview={() => handlePreview(book._id)} // Use _id if id does not exist
+                        onPreview={() => handlePreview(book._id.$oid)} // Use _id if id does not exist
                     />
                 ))}
             </div>
@@ -67,6 +67,7 @@ const HomePage = () => {
     };
 
     const handlePreview = async (bookId) => {
+        console.log('bookId: ', bookId)
         try {
             const { error } = await fetchBookById(bookId);
             if (error) {

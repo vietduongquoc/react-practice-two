@@ -25,13 +25,16 @@ export const loginUser = async (email, password) => {
     }
 };
 
-export const registerUser = async (name, email, password) => {
-    try {
-        const response = await axios.post(`${USERS_API_URL}/register`, {
-            name,
+export const registerUser = async (username, email, password) => {
+    const params = {
+        data: {
+            username,
             email,
-            password
-        });
+            password,
+        }
+    }
+    try {
+        const response = await axios.post(`${USERS_API_URL}/register`, params);
 
         if (response.data && response.data.token) {
             // Save the token to localStorage
