@@ -4,10 +4,6 @@ import { getToken } from './servicesUser';
 const api = axios.create({
     baseURL: 'https://v1.slashapi.com/viet/mongodb/KYgqV24RyU',
     withCredentials: false,
-    headers: {
-        'Authorization': `Bearer ${getToken()}`,
-        'Content-Type': 'application/json'
-    }
 });
 
 api.interceptors.request.use(config => {
