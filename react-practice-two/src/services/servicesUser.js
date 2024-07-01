@@ -50,16 +50,18 @@ export const registerUser = async (username, email, password) => {
 
 export const logoutUser = async () => {
     try {
-        const response = await axios.post(`${USERS_API_URL}/login`, {
+        const response = await axios.post(`${USERS_API_URL}/logout`, {}, {
             headers: {
                 'Authorization': `Bearer ${getToken()}`,
                 'Content-Type': 'application/json'
             }
         });
         console.log('response: ', response)
-        // localStorage.removeItem('authToken');
+        localStorage.removeItem('authToken');
+        return { data: response.data, error: null };
     } catch (error) {
-        
+        console.error('Error logging out:', error);
+        return { data: null, error: error.response?.data?.message || error.message };
     }
 }
 

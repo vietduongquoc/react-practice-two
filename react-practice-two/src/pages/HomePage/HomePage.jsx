@@ -6,7 +6,7 @@ import Sidebar from '../../layouts/SideBar';
 import ItemCard from '../../components/ItemCard';
 import { fetchBook, addBookToFavorites, fetchBookById } from '../../services/servicesBook';
 import { useToast } from '../../components/Toast/ToastProvider';
-import { getToken } from '../../services/servicesUser';
+// import { getToken } from '../../services/servicesUser';
 
 const HomePage = () => {
     const [books, setBooks] = useState([]);
@@ -22,14 +22,16 @@ const HomePage = () => {
         try {
             // const token = getToken()
             // console.log('token: ', token)
-            const { data } = await fetchBook();
-            if (data) {
+            const { data, error } = await fetchBook();
+            if (error) {
+                addToast(`Error fetching books: ${error.message}`, 'error');
+            } else {
                 setBooks(data);
                 setFilteredBooks(data);
             }
         } catch (error) {
-            return addToast('Error: ', error);
-        }   
+            addToast('Error fetching books', 'error');
+        }
     };
 
     const splitIntoRows = (books) => {
