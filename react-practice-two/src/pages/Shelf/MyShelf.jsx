@@ -117,7 +117,7 @@ const MyShelf = () => {
                                     <p className='title-four'>Status</p>
                                 </div>
                                 {favorites.map(book => (
-                                    <div key={book.id} className="book-item-favourite">
+                                    <div key={book._id.$oid} className="book-item-favourite">
                                         <img src={book.urlImage} alt={book.name} className="book-item-favourite-image" />
                                         <div className='book-item-favourite-content'>
                                             <h3 className='book-item-name'>{book.name}</h3>

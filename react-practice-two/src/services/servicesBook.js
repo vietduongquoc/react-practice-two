@@ -75,8 +75,13 @@ export const updateBookStatus = async (bookId, updatedStatus) => {
 };
 
 export const updateFavoriteStatus = async (bookId, updatedFavorite) => {
+    const params = {
+        data: {
+            favorite: updatedFavorite
+        }
+    }
     try {
-        const response = await api.put(`/books/${bookId}`, { favorite: updatedFavorite });
+        const response = await api.patch(`/books/${bookId}`, params);
         return { data: response.data.data, error: null };
     } catch (error) {
         console.error('Error updating favorite status:', error);
