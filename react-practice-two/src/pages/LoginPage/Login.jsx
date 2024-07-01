@@ -103,14 +103,13 @@ const LoginPage = () => {
         showLoading();
 
         try {
-            const { data, error } = await loginUser(email, password);
-            if (error) {
-                throw new Error(error);
-            }
+            const { data } = await loginUser(email, password);
 
-            const { username, token } = data;
+            console.log('data: ', data  )
+
+            const { custom_attributes,  } = data;
+            const { username } = custom_attributes || {};
             localStorage.setItem('username', username || 'username');
-            localStorage.setItem('token', token);
 
             if (remember) {
                 localStorage.setItem('rememberMe', 'true');

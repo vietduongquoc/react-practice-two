@@ -29,7 +29,7 @@ const UserMenu = () => {
         setDropdownOpen(!dropdownOpen);
     };
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         logoutUser();
         addToast('Logout successful!', 'success');
         navigate('/login');

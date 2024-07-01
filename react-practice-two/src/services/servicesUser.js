@@ -12,9 +12,9 @@ export const loginUser = async (email, password) => {
 
         const { data } = response.data || {};
         if (data) {
-            const { token, username } = data;
-            localStorage.setItem('authToken', token);
-            return { data: { username, token }, error: null };
+            const { token } = data;
+            await localStorage.setItem('authToken', token);
+            return { data, error: null };
         }
         return { data: null, error: 'Invalid response format' };
     } catch (error) {
@@ -26,9 +26,11 @@ export const loginUser = async (email, password) => {
 export const registerUser = async (username, email, password) => {
     const params = {
         data: {
-            username,
             email,
             password,
+            custom_attributes: {
+                username
+            }
         }
     }
     try {
@@ -46,10 +48,21 @@ export const registerUser = async (username, email, password) => {
     }
 };
 
+export const logoutUser = async () => {
+    try {
+        const response = await axios.post(`${USERS_API_URL}/login`, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log('response: ', response)
+        // localStorage.removeItem('authToken');
+    } catch (error) {
+        
+    }
+}
+
 export const getToken = () => {
     return localStorage.getItem('authToken');
-};
-
-export const logoutUser = () => {
-    localStorage.removeItem('authToken');
 };

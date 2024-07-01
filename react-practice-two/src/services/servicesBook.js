@@ -1,14 +1,23 @@
 import axios from 'axios';
+import { getToken } from './servicesUser';
 
 const api = axios.create({
-    baseURL: 'https://v1.slashapi.com/viet/mongodb/KYgqV24RyU'
+    baseURL: 'https://v1.slashapi.com/viet/mongodb/KYgqV24RyU',
+    withCredentials: false,
+    headers: {
+        'Authorization': `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+    }
 });
 
 export const fetchBook = async () => {
     try {
+        const token = await getToken()
+        console.log('token: ', token)
         const response = await api.get('/books');
         const data = response.data.data;
-        return { data, error: null };
+        console.log(data);
+        return { data };
     } catch (error) {
         console.error('Error fetching books:', error);
         return { data: null, error };
