@@ -1,57 +1,83 @@
-// servicesBook.js
 import axios from 'axios';
-import configCard from '../configs/config-card';
 
 const api = axios.create({
-    baseURL: configCard.apiBaseUrl,
+    baseURL: 'https://v1.slashapi.com/viet/mongodb/KYgqV24RyU'
 });
 
-export const fetchCard = async () => {
+export const fetchBook = async () => {
     try {
-        const response = await api.get('/Card');
-        return { data: response.data, error: null };
+        const response = await api.get('/books');
+        const data = response.data.data;
+        return { data, error: null };
     } catch (error) {
-        console.error('Error fetching Card:', error);
+        console.error('Error fetching books:', error);
+        return { data: null, error };
+    }
+};
+
+export const fetchBookById = async (bookId) => {
+    try {
+        const response = await api.get(`/books/${bookId}`);
+        return { data: response.data.data, error: null };
+    } catch (error) {
+        console.error(`Error fetching book with ID ${bookId}:`, error);
         return { data: null, error };
     }
 };
 
 export const fetchFavorites = async () => {
     try {
-        const response = await api.get('/Card');
-        const favoriteBooks = response.data.filter(book => book.favorites === true);
-        console.log('favoriteBooks', favoriteBooks);
-        return { data: favoriteBooks, error: null };
+        const response = await api.get('/books');
+        const data = response.data.data;
+
+        if (Array.isArray(data)) {
+            const favoriteBooks = data.filter(book => book.favorite === true);
+            return { data: favoriteBooks, error: null };
+        } else {
+            console.error('Data is not an array:', data);
+            return { data: null, error: 'Data is not an array' };
+        }
     } catch (error) {
         console.error('Error fetching favorite books:', error);
         return { data: null, error };
     }
 };
 
-export const addCardToFavorites = async (cardId, updatedFavourite) => {
+
+export const addBookToFavorites = async (bookId, updatedFavorite) => {
+    const params = {
+        data: {
+            favorite: updatedFavorite
+        }
+    }
     try {
-        const response = await api.put(`/Card/${cardId}`, { favorites: updatedFavourite });
-        return { data: response.data, error: null };
+        const response = await api.patch(`/books/${bookId}`, params);
+        return { data: response.data.data, error: null };
     } catch (error) {
         console.error('Error adding to favorites:', error);
         return { data: null, error };
     }
 };
 
-export const updateBookStatus = async (cardId, updatedStatus) => {
+export const updateBookStatus = async (bookId, updatedStatus) => {
+    const params = {
+        data: {
+            status: updatedStatus
+        }
+    }
     try {
-        const response = await api.put(`/Card/${cardId}`, { status: updatedStatus });
-        return { data: response.data, error: null };
+        const response = await api.patch(`/books/${bookId}`, params);
+        return { data: response.data.data, error: null };
     } catch (error) {
         console.error('Error updating book status:', error);
         return { data: null, error };
     }
 };
 
-export const updateFavoriteStatus = async (cardId, updatedFavorite) => {
+export const updateFavoriteStatus = async (bookId, updatedFavorite) => {
     try {
-        const response = await api.put(`/Card/${cardId}`, { favorite: updatedFavorite });
-        return { data: response.data, error: null };
+        const response = await api.put(`/books/${bookId}`, { favorite: updatedFavorite });
+        return { data: response.data.data, error: null };
     } catch (error) {
         console.error('Error updating favorite status:', error);
         return { data: null, error };

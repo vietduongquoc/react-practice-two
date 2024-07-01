@@ -3,12 +3,14 @@ import './index.css';
 import avatarUser from '../../assets/image/avatar-user.jpg';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../../services/servicesUser';
 
 const UserMenu = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const addToast = useToast();
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
+    const username = localStorage.getItem('username');
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -28,14 +30,15 @@ const UserMenu = () => {
     };
 
     const handleLogout = () => {
+        logoutUser();
         addToast('Logout successful!', 'success');
-        navigate('/');
+        navigate('/login');
     };
 
     return (
         <div className="user-menu">
             <img src={avatarUser} alt="User Avatar" className="avatar" onClick={toggleDropdown} />
-            <p className='user-name' onClick={toggleDropdown}>Kenson</p>
+            <p className='user-name' onClick={toggleDropdown}>{username}</p>
             <button className="dropdown-btn-menu" onClick={toggleDropdown}>
                 {dropdownOpen ? '▲' : '▼'}
             </button>

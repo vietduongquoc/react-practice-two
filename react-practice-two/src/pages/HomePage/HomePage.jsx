@@ -4,7 +4,7 @@ import './HomePage.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import ItemCard from '../../components/ItemCard';
-import { fetchCard, addCardToFavorites } from '../../services/servicesBook';
+import { fetchBook, addBookToFavorites, fetchBookById } from '../../services/servicesBook';
 import { useToast } from '../../components/Toast/ToastProvider';
 
 const HomePage = () => {
@@ -15,7 +15,7 @@ const HomePage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { data } = await fetchCard();
+            const { data } = await fetchBook();
             if (data) {
                 setBooks(data);
                 setFilteredBooks(data);
@@ -26,6 +26,9 @@ const HomePage = () => {
     }, []);
 
     const splitIntoRows = (books) => {
+        if (!Array.isArray(books)) {
+            return [];
+        }
         return books.reduce((rows, book, index) => {
             const rowIndex = Math.floor(index / 6);
             if (!rows[rowIndex]) {
@@ -42,10 +45,10 @@ const HomePage = () => {
             <div className="row" key={index}>
                 {row.map((book) => (
                     <ItemCard
-                        key={book.id}
+                        key={book._id.$oid} // Use _id if id does not exist
                         book={book}
                         onAddToFavorites={handleAddToFavorites}
-                        onPreview={() => handlePreview(book.id)}
+                        onPreview={() => handlePreview(book._id.$oid)} // Use _id if id does not exist
                     />
                 ))}
             </div>
@@ -54,7 +57,7 @@ const HomePage = () => {
 
     const handleAddToFavorites = async (bookId) => {
         try {
-            const { data } = await addCardToFavorites(bookId, true);
+            const { data } = await addBookToFavorites(bookId, true);
             if (data) {
                 addToast('Added to favorites', 'success');
             }
@@ -63,8 +66,19 @@ const HomePage = () => {
         }
     };
 
-    const handlePreview = (bookId) => {
-        navigate(`/preview-page/${bookId}`);
+    const handlePreview = async (bookId) => {
+        console.log('bookId: ', bookId)
+        try {
+            const { error } = await fetchBookById(bookId);
+            if (error) {
+                addToast(`Error fetching book details: ${error}`, 'error');
+            } else {
+                // Navigate to PreviewPage with book data
+                navigate(`/preview-page/${bookId}`);
+            }
+        } catch (error) {
+            addToast(`Error fetching book details: ${error.message}`, 'error');
+        }
     };
 
     return (

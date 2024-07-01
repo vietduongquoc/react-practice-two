@@ -5,10 +5,10 @@ import logoIcon from '../../assets/image/Logo.jpg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Checkbox from '../../components/FormCheckbox';
-import { fetchUsers } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
+import { loginUser } from '../../services/servicesUser';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -61,39 +61,40 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isFormValid) {
-            setIsSubmitting(true);
-            showLoading();
-            const result = await fetchUsers();
-            setIsSubmitting(false);
-            hideLoading();
+        try {
+            if (isFormValid) {
+                setIsSubmitting(true);
+                showLoading();
 
-            if (result.error) {
-                addToast('Error fetching users: ' + result.error, 'error');
-                return;
-            }
+                const { data } = await loginUser(email, password);
+                const { username } = data;
 
-            const users = result.data;
-            const user = users.find(user => user.email === email && user.password === password);
+                console.log('data: ', data)
+                setIsSubmitting(false);
+                hideLoading();
 
-            if (user) {
+                localStorage.setItem('username', username || 'username')
                 addToast('Login successful!', 'success');
                 if (remember) {
-                    // If Remember me is checked, save email and password to localStorage
                     localStorage.setItem('rememberMe', 'true');
                     localStorage.setItem('savedEmail', email);
                     localStorage.setItem('savedPassword', password);
                 } else {
-                    // If Remember me is not checked, clear localStorage
                     localStorage.removeItem('rememberMe');
                     localStorage.removeItem('savedEmail');
                     localStorage.removeItem('savedPassword');
                 }
+
+                // Save token to localStorage
+                localStorage.setItem('token', '483|7wGDX8MyvTRv1KkiMkUKPDF3PRbtpYNpKfFFdpi8');
+
                 navigate('/home-page');
-            } else {
-                addToast('Login failed: Incorrect email or password', 'error');
             }
+        } catch (error) {
+            addToast('Login failed: ' + error, 'error');
+            return;
         }
+
     };
 
     const togglePasswordVisibility = () => {

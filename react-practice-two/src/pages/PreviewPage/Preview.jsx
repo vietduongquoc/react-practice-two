@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './Preview.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/Button';
-import { fetchCard, updateBookStatus } from '../../services/servicesBook';
+import { fetchBookById, updateBookStatus } from '../../services/servicesBook';
 import authorImage from '../../assets/image/preview-image.png';
 import arrowBack from '../../assets/image/arrow-small-left.png';
 import rateStars from '../../assets/image/rate-stars.png'
@@ -13,34 +13,27 @@ import { useToast } from '../../components/Toast/ToastProvider';
 
 const PreviewPage = () => {
     const { bookId } = useParams();
-    const navigate = useNavigate();
     const [book, setBook] = useState(null);
     const [status, setStatus] = useState('In-shelf');
     const { showLoading, hideLoading } = useLoading();
     const addToast = useToast();
 
+    const fetchBookDetail = async (bookId) => {
+        try {
+            const { data } = await fetchBookById(bookId)
+            setBook(data)
+            console.log('result: ', data)
+        } catch (error) {
+            console.log('error: ', error)
+        }
+
+    }
+
     useEffect(() => {
-        const fetchBookData = async (id) => {
-            showLoading(); // Show loading when fetching starts
-            try {
-                const { data, error } = await fetchCard();
-                if (error) {
-                    addToast('Error fetching book data: ' + error, 'error');
-                    navigate('/home-page'); // Handle the error scenario or navigate back
-                } else {
-                    const bookData = data.find(b => b.id.toString() === id);
-                    if (bookData) {
-                        setBook(bookData);
-                    }
-                }
-                hideLoading(); // Hide loading on success or no book found
-            } catch (error) {
-                hideLoading(); // Hide loading on failure
-                navigate('/home-page'); // Handle the error scenario or navigate back
-            }
-        };
-        fetchBookData(bookId);
-    }, [bookId, navigate, showLoading, hideLoading, addToast]);
+        if (bookId) {
+            fetchBookDetail(bookId)
+        }
+    }, [bookId])
 
     useEffect(() => {
         if (book) {

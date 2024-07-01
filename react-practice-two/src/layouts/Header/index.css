@@ -1,28 +1,8 @@
-.header {
-    background-color: var(--background-color-primary);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    left: 350px;
-    /* Adjust this based on the width of your sidebar */
-    top: 0;
-    width: calc(100% - 350px);
-    /* Adjust based on sidebar width */
-    height: 50px;
-    /* Adjust based on desired header height */
-    box-sizing: border-box;
-    z-index: 1000;
-    margin-top: 50px;
-}
-
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    margin-top: 40px;
-    margin-right: 40px;
-    background-color: var(--background-color-tertiary);
-    margin-left: 30px;
+    min-height: 112px;
+    margin: 0 50px;
+    flex-wrap: wrap;
 }

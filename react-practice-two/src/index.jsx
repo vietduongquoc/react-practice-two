@@ -9,7 +9,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ToastProvider>
     <LoadingProvider>
-      <App />
+      <div className='container-layout'>
+        <App />
+      </div>
     </LoadingProvider>
   </ToastProvider>
 );

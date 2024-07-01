@@ -1,7 +1,6 @@
 .homepage-container {
     display: flex;
-    height: 100vh;
-    overflow: hidden;
+    width: 100%;
 }
 
 .row {
@@ -12,15 +11,9 @@
 }
 
 .main-content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    margin-left: 380px;
-    margin-top: 70px;
-    margin-right: 40px;
     background-color: var(--background-color-tertiary);
-    overflow-y: auto;
-    padding-top: 120px;
+    width: calc(100% - 380px);
+    margin-top: 50px;
 }
 
 .content {
