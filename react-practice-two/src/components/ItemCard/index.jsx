@@ -1,37 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.css';
-import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
-import { addBookToFavorites } from '../../services/servicesBook';
+import { addBookToFavorites, getFavoritesDetail } from '../../services/servicesFavorite';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { useNavigate } from 'react-router-dom';
+import HeartIcon from "../Icon/index";
+import { getCurrentUserId } from '../../services/servicesUser';
 
 const ItemCard = ({ book, onPreview }) => {
-
     const addToast = useToast();
     const navigate = useNavigate();
-    const handleAddToFavorites = async (event) => {
-        event.stopPropagation();
+
+    const handleAddToFavorites = async () => {
+        console.log('handleAddToFavorites')
+
         try {
-            // const { error } = await addBookToFavorites(book.id, true);
-            const { error } = await addBookToFavorites(book._id.$oid, !book.favorite);
-            if (error) {
-                addToast('Failed to add to favorites: ' + error, 'error');
-            } else {
-                addToast('Added to favorites successfully', 'success');
+            const favorite = await getFavoritesDetail(book._id.$oid);
+            console.log("favorite", favorite.data);
+
+            if (favorite.data.length > 0) {
+                return addToast('Book is already in favorites', 'success');
             }
+
+            const userId = getCurrentUserId();
+            console.log('userId: ', userId)
+
+            const result = await addBookToFavorites(userId, book._id.$oid);
+
+            console.log('result: ', result)
+
+            return addToast('Added to favorites successfully', 'success');
         } catch (error) {
             addToast('Failed to add to favorites: ' + error.message, 'error');
         }
     };
 
     const handlePreview = async () => {
-        await onPreview()
+        await onPreview();
         navigate(`/preview-page/${book._id.$oid}`);
     };
 
     return (
-        <article className="item-card" onClick={handlePreview}>
-            <img src={book.urlImage} alt={book} className="book-image" />
+        <article className="item-card">
+            <div onClick={handlePreview}>
+                <img src={book.urlImage} alt={book.name} className="book-image" />
+            </div>
             <div className='wrap-card-content'>
                 <div className="book-details">
                     <p className='book-details-name'>{book.name}</p>
@@ -39,11 +51,7 @@ const ItemCard = ({ book, onPreview }) => {
                     <p className='book-details-rate'>4.5/5</p>
                 </div>
                 <div className="heart-icon-actions">
-                    <img
-                        src={heartIcon}
-                        alt="Add to favorites"
-                        // className="heart-icon"
-                        className={`heart-icon ${book.favorite ? 'favorited' : ''}`}
+                    <HeartIcon
                         onClick={handleAddToFavorites}
                     />
                 </div>

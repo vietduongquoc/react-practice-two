@@ -1,7 +1,8 @@
-// servicesUser.js
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { v4 as uuidv4 } from 'uuid';
 
-const USERS_API_URL = 'https://v1.slashapi.com/viet/auth/nyHhsMgpor';
+const USERS_API_URL = 'https://v1.slashapi.com/viet1/auth/pRu7oPm236';
 
 export const loginUser = async (email, password) => {
     try {
@@ -12,8 +13,10 @@ export const loginUser = async (email, password) => {
 
         const { data } = response.data || {};
         if (data) {
-            const { token } = data;
-            await localStorage.setItem('authToken', token);
+            const { token, custom_attributes } = data;
+            const { id } = custom_attributes;
+            localStorage.setItem('authToken', token);
+            localStorage.setItem('userId', id);
             return { data, error: null };
         }
         return { data: null, error: 'Invalid response format' };
@@ -29,7 +32,8 @@ export const registerUser = async (username, email, password) => {
             email,
             password,
             custom_attributes: {
-                username
+                username,
+                id: uuidv4()
             }
         }
     }
@@ -63,8 +67,12 @@ export const logoutUser = async () => {
         console.error('Error logging out:', error);
         return { data: null, error: error.response?.data?.message || error.message };
     }
-}
+};
 
 export const getToken = () => {
     return localStorage.getItem('authToken');
+};
+
+export const getCurrentUserId = () => {
+    return localStorage.getItem('userId')
 };

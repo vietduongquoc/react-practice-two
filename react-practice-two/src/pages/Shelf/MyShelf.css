@@ -39,6 +39,7 @@
     width: 100%;
     max-width: 280px;
     padding: 15px 20px 5px 20px;
+    /* padding: 10px 15px 5px 15px; */
     border: 1px solid var(--color-transparent);
     border-radius: var(--border-radius-sm);
     background-color: var(--background-color-primary);
@@ -67,7 +68,7 @@
 }
 
 .book-item-column-right {
-    padding: 10px 0 15px 0;
+    padding: 10px 0 30px 0;
     justify-content: space-between;
     display: flex;
     flex-direction: column;

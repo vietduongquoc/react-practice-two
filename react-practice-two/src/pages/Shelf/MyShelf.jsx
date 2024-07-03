@@ -4,9 +4,12 @@ import './MyShelf.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/Button';
-import { fetchBook, fetchFavorites, updateBookStatus, updateFavoriteStatus } from '../../services/servicesBook';
+import { updateBookStatus, fetchBookById } from '../../services/servicesBook';
+import { fetchFavorites, updateFavoriteStatus } from '../../services/servicesFavorite';
+import { getCurrentUserId } from '../../services/servicesUser';
 import { useToast } from '../../components/Toast/ToastProvider';
-import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
+import HeartIcon from '../../components/Icon';
+import { fetchShelfBooks } from '../../services/servicesShelf';
 
 const MyShelf = () => {
     const [currentTab, setCurrentTab] = useState('all');
@@ -16,33 +19,34 @@ const MyShelf = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchAllBooks = async () => {
-            const { data, error } = await fetchBook();
-            if (error) {
-                addToast('Error fetching borrowed books: ' + error, 'error');
-            } else if (Array.isArray(data)) { // Kiểm tra dữ liệu là một mảng
-                const borrowedBooks = data.filter(book => book.status === true);
-                setBooks(borrowedBooks);
-            } else {
-                console.error('Data is not an array:', data);
-            }
-        };
-
-        const fetchFavoriteBooks = async () => {
-            const { data, error } = await fetchFavorites();
-            if (error) {
-                addToast('Error fetching favorite books: ' + error, 'error');
-            } else if (Array.isArray(data)) { // Kiểm tra dữ liệu là một mảng
-                const favoriteBooks = data.filter(book => book.favorite === true);
-                setFavorites(favoriteBooks);
-            } else {
-                console.error('Data is not an array:', data);
-            }
-        };
-
         fetchAllBooks();
         fetchFavoriteBooks();
-    }, [addToast]);
+    }, []);
+
+    const fetchAllBooks = async () => {
+        try {
+            const userId = getCurrentUserId();
+            const result = await fetchShelfBooks(userId);
+            const promises = result.map(item => fetchBookById(item.bookId));
+            const responses = await Promise.all(promises);
+            console.log('responses: ', responses)
+            setBooks(responses);
+        } catch (error) {
+            addToast('Error fetching borrowed books: ' + error, 'error');
+        }
+    };
+
+    const fetchFavoriteBooks = async () => {
+        try {
+            const userId = getCurrentUserId();
+            const result = await fetchFavorites(userId);
+            const promises = result.map(item => fetchBookById(item.bookId));
+            const responses = await Promise.all(promises);
+            setFavorites(responses);
+        } catch (error) {
+            addToast('Error fetching favorite books: ' + error, 'error');
+        }
+    };
 
     const handleTabChange = (tab) => {
         setCurrentTab(tab);
@@ -83,7 +87,7 @@ const MyShelf = () => {
                         {currentTab === 'all' && (
                             <div className="books-list">
                                 {books.map(book => (
-                                    <article key={book.id} className="book-item">
+                                    <article key={book._id.$oid} className="book-item">
                                         <div className='book-item-column-left'>
                                             <img src={book.urlImage} alt={book.name} className="book-item-image" />
                                             <h3 className='book-item-name'>{book.name}</h3>
@@ -96,7 +100,7 @@ const MyShelf = () => {
                                                 <p className='book-item-time'>11 Mar 2023 09:00 AM</p>
                                             </div>
                                             <Button
-                                                onClick={() => handleReturnBook(book._id.$oid)}
+                                                onClick={() => handleReturnBook()}
                                                 text="Return"
                                                 className="btn-return"
                                                 size="btn-large"
@@ -132,9 +136,7 @@ const MyShelf = () => {
                                             color="btn-enable"
                                             borderRadius="btn-rounded"
                                         />
-                                        <img
-                                            src={heartIcon}
-                                            alt="unlike to favorites"
+                                        <HeartIcon
                                             className="heart-icon"
                                             onClick={() => handleUnlikeBook(book._id.$oid)}
                                         />
