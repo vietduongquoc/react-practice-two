@@ -17,7 +17,6 @@ const MyShelf = () => {
     const [favorites, setFavorites] = useState([]);
     const addToast = useToast();
     const navigate = useNavigate();
-    const [filterData, setFilterData] = useState([]);
 
     useEffect(() => {
         fetchAllBooks();
@@ -36,7 +35,6 @@ const MyShelf = () => {
                 }
             });
             const responses = await Promise.all(promises);
-            console.log('responses: ', responses)
             setBooks(responses);
         } catch (error) {
             addToast('Error fetching borrowed books: ' + error, 'error');
@@ -77,7 +75,6 @@ const MyShelf = () => {
     };
 
     const handleUnlikeBook = async (bookId) => {
-        console.log(bookId);
         try {
             const result = await deleteBookFromFavorites(bookId);
             await fetchFavoriteBooks();
@@ -92,7 +89,6 @@ const MyShelf = () => {
 
     return (
         <div className="my-shelf-container">
-            <Sidebar />
             <div className="main-content">
                 <Header />
                 <div className="content">

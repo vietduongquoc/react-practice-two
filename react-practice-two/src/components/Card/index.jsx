@@ -11,8 +11,6 @@ const ItemCard = ({ book, onPreview }) => {
     const navigate = useNavigate();
 
     const handleAddToFavorites = async () => {
-        console.log('handleAddToFavorites')
-
         try {
             const favorite = await getFavoritesDetail(book._id.$oid);
             console.log("favorite", favorite.data);
@@ -22,10 +20,8 @@ const ItemCard = ({ book, onPreview }) => {
             }
 
             const userId = getCurrentUserId();
-            console.log('userId: ', userId)
 
             const result = await addBookToFavorites(userId, book._id.$oid);
-
             console.log('result: ', result)
 
             return addToast('Added to favorites successfully', 'success');
@@ -41,9 +37,9 @@ const ItemCard = ({ book, onPreview }) => {
 
     return (
         <article className="item-card">
-            <div onClick={handlePreview}>
+            <figure onClick={handlePreview}>
                 <img src={book.urlImage} alt={book.name} className="book-image" />
-            </div>
+            </figure>
             <div className='wrap-card-content'>
                 <div className="book-details">
                     <p className='book-details-name'>{book.name}</p>

@@ -1,0 +1,116 @@
+{
+  "users": [
+    {
+      "createdAt": "",
+      "username": "VietDuong",
+      "email": "viet2002@gmail.com",
+      "password": "2k2Viet",
+      "users-id": 1
+    },
+    {
+      "createdAt": "",
+      "username": "VietDay",
+      "email": "vietduong@gmail.com",
+      "password": "2k2@Viet",
+      "users-id": 2
+    }
+  ],
+  "books": [
+    {
+      "name": "The Design of Every..",
+      "author": "Don Norman, 1988",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/c274bebf-cad0-4302-8f5f-c0043126852a",
+      "book_id": 1
+    },
+    {
+      "name": "Learn UX : Design Gr...",
+      "author": "Jeff Gothelf, 2016",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/413a6823-701e-4283-b8c9-ec4889b94d02",
+      "book_id": 2
+    },
+    {
+      "name": "Sprint : How to solve...",
+      "author": "Jake Knapp, 2000",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/52c377aa-3020-4d5c-95f1-c7266b5de69d",
+      "book_id": 3
+    },
+    {
+      "name": "Don’t Make Me think",
+      "author": "Steve Krug, 2000",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/8eca2e58-ce75-408e-bdd5-97d768c7b0fa",
+      "book_id": 4
+    },
+    {
+      "name": "Harry Potter and The...",
+      "author": "J.K. Rowling, 2002",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/cfdc6fb6-3a6f-42f6-84fe-e642722562dc",
+      "book_id": 5
+    },
+    {
+      "name": "Don’t Make Me think",
+      "author": "Steve Krug, 2000",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/8eca2e58-ce75-408e-bdd5-97d768c7b0fa",
+      "book_id": 6
+    },
+    {
+      "name": "Rich Dad Poor Dad",
+      "author": "Robert T.Kiyosaki, 1997",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/689a5181-4e68-4af8-a4f5-6ce3b784ff83",
+      "book_id": 7
+    },
+    {
+      "name": "The Road to React",
+      "author": "Steve Krug, 2000",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/95eed9f4-4b38-4453-b40e-82369bb7200c",
+      "book_id": 8
+    },
+    {
+      "name": "Harry Potter and The...",
+      "author": "J.K. Rowling, 2002",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/cfdc6fb6-3a6f-42f6-84fe-e642722562dc",
+      "book_id": 9
+    },
+    {
+      "name": "Rich Dad Poor Dad",
+      "author": "Robert T.Kiyosaki, 1997",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/689a5181-4e68-4af8-a4f5-6ce3b784ff83",
+      "book_id": 10
+    },
+    {
+      "name": "The Road to React",
+      "author": "Steve Krug, 2000",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/95eed9f4-4b38-4453-b40e-82369bb7200c",
+      "book_id": 11
+    },
+    {
+      "name": "The Design of Every..",
+      "author": "Don Norman, 1988",
+      "urlImage": "https://github.com/vietduongquoc/react-practice-two/assets/149567679/c274bebf-cad0-4302-8f5f-c0043126852a",
+      "book_id": 12
+    }
+  ],
+  "favorites": [
+    {
+      "favorites": 1,
+      "users_id": 1,
+      "book_id": 1
+    },
+    {
+      "favorites": 2,
+      "users_id": 2,
+      "book_id": 2
+    }
+  ],
+  "shelf": [
+    {
+      "shelf": 1,
+      "users_id": 1,
+      "book_id": 1
+    },
+    {
+      "shelf": 2,
+      "users_id": 2,
+      "book_id": 2
+    }
+  ]
+}
