@@ -19,8 +19,7 @@ const App = () => {
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route path="/" element={<LoginPage />} />
-                <Route path="/home-page" element={<PrivateRoute element={<HomePage />} />} />
+                <Route path="/" element={<PrivateRoute element={<HomePage />} />} />
                 <Route path="/my-shelf" element={<PrivateRoute element={<MyShelf />} />} />
                 <Route path="/preview-page/:bookId" element={<PrivateRoute element={<PreviewPage />} />} />
             </Routes>

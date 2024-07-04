@@ -86,7 +86,7 @@ const LoginPage = () => {
             }
 
             addToast('Login successful!', 'success');
-            navigate('/home-page');
+            navigate('/');
         } catch (error) {
             addToast('Login failed! Please check your email and password again!', 'error');
         } finally {
