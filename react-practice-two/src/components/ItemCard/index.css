@@ -20,24 +20,13 @@
     cursor: pointer;
 }
 
-.heart-icon {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-.heart-icon:hover {
-    transition-delay: 0.15s;
-    height: 22px;
-}
-
 .wrap-card-content {
     display: flex;
     margin: 0 auto;
 }
 
 .heart-icon-actions {
-    padding-top: 11px;
+    padding-top: 10px;
 }
 
 .book-details {

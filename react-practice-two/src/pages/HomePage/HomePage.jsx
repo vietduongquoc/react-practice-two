@@ -4,7 +4,8 @@ import './HomePage.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import ItemCard from '../../components/ItemCard';
-import { fetchBook, addBookToFavorites, fetchBookById } from '../../services/servicesBook';
+import { fetchBook, fetchBookById } from '../../services/servicesBook';
+import { addBookToFavorites } from '../../services/servicesFavorite'
 import { useToast } from '../../components/Toast/ToastProvider';
 // import { getToken } from '../../services/servicesUser';
 

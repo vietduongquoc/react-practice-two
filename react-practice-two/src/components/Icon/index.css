@@ -1,0 +1,12 @@
+.heart-icon {
+    cursor: pointer;
+}
+
+.heart-icon:hover {
+    transition-delay: 0.15s;
+    height: 22px;
+}
+
+.favorited {
+    fill: var(--color-primary);
+}

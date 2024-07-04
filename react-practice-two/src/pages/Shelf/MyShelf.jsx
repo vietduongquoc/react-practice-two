@@ -4,9 +4,12 @@ import './MyShelf.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/Button';
-import { fetchBook, fetchFavorites, updateBookStatus, updateFavoriteStatus } from '../../services/servicesBook';
+import { fetchBookById } from '../../services/servicesBook';
+import { fetchFavorites, deleteBookFromFavorites } from '../../services/servicesFavorite';
+import { getCurrentUserId } from '../../services/servicesUser';
 import { useToast } from '../../components/Toast/ToastProvider';
-import heartIcon from '../../assets/image/heart-icon.jpg'; // Import your heart icon
+import HeartIcon from '../../components/Icon';
+import { fetchShelfBooks, deleteShelfBook } from '../../services/servicesShelf';
 
 const MyShelf = () => {
     const [currentTab, setCurrentTab] = useState('all');
@@ -14,59 +17,78 @@ const MyShelf = () => {
     const [favorites, setFavorites] = useState([]);
     const addToast = useToast();
     const navigate = useNavigate();
+    const [filterData, setFilterData] = useState([]);
 
     useEffect(() => {
-        const fetchAllBooks = async () => {
-            const { data, error } = await fetchBook();
-            if (error) {
-                addToast('Error fetching borrowed books: ' + error, 'error');
-            } else if (Array.isArray(data)) { // Kiểm tra dữ liệu là một mảng
-                const borrowedBooks = data.filter(book => book.status === true);
-                setBooks(borrowedBooks);
-            } else {
-                console.error('Data is not an array:', data);
-            }
-        };
-
-        const fetchFavoriteBooks = async () => {
-            const { data, error } = await fetchFavorites();
-            if (error) {
-                addToast('Error fetching favorite books: ' + error, 'error');
-            } else if (Array.isArray(data)) { // Kiểm tra dữ liệu là một mảng
-                const favoriteBooks = data.filter(book => book.favorite === true);
-                setFavorites(favoriteBooks);
-            } else {
-                console.error('Data is not an array:', data);
-            }
-        };
-
         fetchAllBooks();
         fetchFavoriteBooks();
-    }, [addToast]);
+    }, []);
+
+    const fetchAllBooks = async () => {
+        try {
+            const userId = getCurrentUserId();
+            const result = await fetchShelfBooks(userId);
+            const promises = result.map(async item => {
+                const bookDetail = await fetchBookById(item.bookId)
+                return {
+                    shelfId: item._id.$oid,
+                    ...bookDetail
+                }
+            });
+            const responses = await Promise.all(promises);
+            console.log('responses: ', responses)
+            setBooks(responses);
+        } catch (error) {
+            addToast('Error fetching borrowed books: ' + error, 'error');
+        }
+    };
+
+    const fetchFavoriteBooks = async () => {
+        try {
+            const userId = getCurrentUserId();
+            const result = await fetchFavorites(userId);
+            const promises = result.map(async item => {
+                const bookDetail = await fetchBookById(item.bookId)
+                return {
+                    favoriteId: item._id.$oid,
+                    ...bookDetail
+                }
+            });
+            const responses = await Promise.all(promises);
+            setFavorites(responses);
+        } catch (error) {
+            addToast('Error fetching favorite books: ' + error, 'error');
+        }
+    };
 
     const handleTabChange = (tab) => {
         setCurrentTab(tab);
     };
 
-    const handleReturnBook = async (bookId) => {
-        const { error } = await updateBookStatus(bookId, false);
-        if (error) {
-            addToast('Failed to return book: ' + error, 'error');
-        } else {
-            setBooks(books.filter(book => book._id.$oid !== bookId));
-            addToast('Book returned successfully', 'success');
+    const handleReturnBook = async (shelfId) => {
+        try {
+            const result = await deleteShelfBook(shelfId);
+            await fetchAllBooks();
+            console.log('result: ', result)
+            addToast('Book is returned from my shelf ', 'success')
+        } catch (error) {
+            addToast('Error returned books: ', 'error');
         }
     };
 
     const handleUnlikeBook = async (bookId) => {
-        const { error } = await updateFavoriteStatus(bookId, false);
-        if (error) {
-            addToast('Failed to remove book from favorites: ' + error, 'error');
-        } else {
-            setFavorites(favorites.filter(book => book._id.$oid !== bookId));
+        console.log(bookId);
+        try {
+            const result = await deleteBookFromFavorites(bookId);
+            await fetchFavoriteBooks();
+            console.log('result: ', result)
             addToast('Book removed from favorites', 'success');
+        } catch (error) {
+            addToast('Error handling unlike book: ' + error.message, 'error');
         }
     };
+
+    const resultLast = books;
 
     return (
         <div className="my-shelf-container">
@@ -82,8 +104,8 @@ const MyShelf = () => {
                         </div>
                         {currentTab === 'all' && (
                             <div className="books-list">
-                                {books.map(book => (
-                                    <article key={book.id} className="book-item">
+                                {resultLast.map(book => (
+                                    <article key={book._id.$oid} className="book-item">
                                         <div className='book-item-column-left'>
                                             <img src={book.urlImage} alt={book.name} className="book-item-image" />
                                             <h3 className='book-item-name'>{book.name}</h3>
@@ -96,7 +118,7 @@ const MyShelf = () => {
                                                 <p className='book-item-time'>11 Mar 2023 09:00 AM</p>
                                             </div>
                                             <Button
-                                                onClick={() => handleReturnBook(book._id.$oid)}
+                                                onClick={() => handleReturnBook(book.shelfId)}
                                                 text="Return"
                                                 className="btn-return"
                                                 size="btn-large"
@@ -132,11 +154,9 @@ const MyShelf = () => {
                                             color="btn-enable"
                                             borderRadius="btn-rounded"
                                         />
-                                        <img
-                                            src={heartIcon}
-                                            alt="unlike to favorites"
+                                        <HeartIcon
                                             className="heart-icon"
-                                            onClick={() => handleUnlikeBook(book._id.$oid)}
+                                            onClick={() => handleUnlikeBook(book.favoriteId)}
                                         />
                                         <Button
                                             onClick={() => navigate(`/preview-page/${book._id.$oid}`)}
