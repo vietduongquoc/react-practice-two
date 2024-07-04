@@ -1,5 +1,4 @@
 .homepage-container {
-    display: flex;
     width: 100%;
 }
 
@@ -7,14 +6,11 @@
     display: flex;
     gap: 50px;
     width: 100%;
-    margin-bottom: 70px;
     margin-top: 20px;
 }
 
 .main-content {
-    background-color: var(--background-color-tertiary);
-    width: calc(100% - 380px);
-    margin-top: 50px;
+  width: 100%;
 }
 
 .content {

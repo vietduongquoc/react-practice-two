@@ -42,8 +42,6 @@ const PreviewPage = () => {
     }, [bookId]);
 
     const handleBorrowBook = async () => {
-        console.log("handleBorrowBook: ");
-
         showLoading();
         try {
             const userId = getCurrentUserId();
@@ -71,14 +69,13 @@ const PreviewPage = () => {
 
     return (
         <div className="preview-container">
-            <Sidebar />
             <div className="main-content">
                 <Header />
                 <div className="content">
                     <div className="preview-page">
                         <figure className='wrap-back-arrow'>
-                            <a className='link-homepage' href="/home-page"><img src={arrowBack} alt="Arrow" className='icon-arrow' /></a>
-                            <figcaption><a className='link-homepage' href="/home-page">Back to results</a></figcaption>
+                            <a className='link-homepage' href="/"><img src={arrowBack} alt="Arrow" className='icon-arrow' /></a>
+                            <figcaption><a className='link-homepage' href="/">Back to results</a></figcaption>
                         </figure>
                         <div className="preview-content">
                             <div className='preview-left'>

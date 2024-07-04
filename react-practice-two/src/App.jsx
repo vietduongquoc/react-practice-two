@@ -7,6 +7,7 @@ import PreviewPage from './pages/PreviewPage/Preview';
 import Loading from './components/Spinner/Loading';
 import MyShelf from './pages/Shelf/MyShelf';
 import { getToken } from './services/servicesUser';
+import MainLayout from './layouts/Main';
 
 const PrivateRoute = ({ element }) => {
     const token = getToken();
@@ -19,9 +20,9 @@ const App = () => {
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route path="/" element={<PrivateRoute element={<HomePage />} />} />
-                <Route path="/my-shelf" element={<PrivateRoute element={<MyShelf />} />} />
-                <Route path="/preview-page/:bookId" element={<PrivateRoute element={<PreviewPage />} />} />
+                <Route path="/" element={<PrivateRoute element={<MainLayout><HomePage /></MainLayout>} />} />
+                <Route path="/my-shelf" element={<PrivateRoute element={<MainLayout><MyShelf /></MainLayout>} />} />
+                <Route path="/preview-page/:bookId" element={<PrivateRoute element={<MainLayout><PreviewPage /></MainLayout>} />} />
             </Routes>
             <Loading />
         </Router>

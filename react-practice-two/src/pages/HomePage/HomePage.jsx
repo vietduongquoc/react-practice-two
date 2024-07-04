@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import Header from '../../layouts/Header';
-import Sidebar from '../../layouts/SideBar';
-import ItemCard from '../../components/ItemCard';
-import { fetchBook, fetchBookById } from '../../services/servicesBook';
+import ItemCard from '../../components/Card';
+import { fetchBook } from '../../services/servicesBook';
 import { addBookToFavorites } from '../../services/servicesFavorite'
 import { useToast } from '../../components/Toast/ToastProvider';
-// import { getToken } from '../../services/servicesUser';
 
 const HomePage = () => {
     const [books, setBooks] = useState([]);
@@ -21,8 +19,6 @@ const HomePage = () => {
 
     const fetchData = async () => {
         try {
-            // const token = getToken()
-            // console.log('token: ', token)
             const { data, error } = await fetchBook();
             if (error) {
                 addToast(`Error fetching books: ${error.message}`, 'error');
@@ -77,22 +73,12 @@ const HomePage = () => {
     };
 
     const handlePreview = async (bookId) => {
-        try {
-            const { error } = await fetchBookById(bookId);
-            if (error) {
-                addToast(`Error fetching book details: ${error}`, 'error');
-            } else {
-                // Navigate to PreviewPage with book data
-                navigate(`/preview-page/${bookId}`);
-            }
-        } catch (error) {
-            addToast(`Error fetching book details: ${error.message}`, 'error');
-        }
+        // Navigate to PreviewPage with book data
+        navigate(`/preview-page/${bookId}`);
     };
 
     return (
         <div className="homepage-container">
-            <Sidebar />
             <div className="main-content">
                 <Header setFilteredBooks={setFilteredBooks} books={books} />
                 <div className="content">

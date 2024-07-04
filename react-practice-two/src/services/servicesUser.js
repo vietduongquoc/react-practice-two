@@ -59,7 +59,6 @@ export const logoutUser = async () => {
                 'Content-Type': 'application/json'
             }
         });
-        console.log('response: ', response)
         localStorage.removeItem('authToken');
         return { data: response.data, error: null };
     } catch (error) {

@@ -4,7 +4,7 @@ import './Login.css';
 import logoIcon from '../../assets/image/Logo.jpg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import Checkbox from '../../components/FormCheckbox';
+import Checkbox from '../../components/Checkbox';
 import { validateForm } from '../../utils/validation';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
@@ -68,9 +68,6 @@ const LoginPage = () => {
 
         try {
             const { data } = await loginUser(email, password);
-
-            console.log('data: ', data  )
-
             const { custom_attributes,  } = data;
             const { username } = custom_attributes || {};
             localStorage.setItem('username', username || 'username');
