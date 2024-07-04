@@ -5,7 +5,7 @@ import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/Button';
 import { fetchBookById } from '../../services/servicesBook';
-import { addBookToShelf } from '../../services/servicesShelf';
+import { getShelfBookDetail, addBookToShelf } from '../../services/servicesShelf';
 import authorImage from '../../assets/image/preview-image.png';
 import arrowBack from '../../assets/image/arrow-small-left.png';
 import rateStars from '../../assets/image/rate-stars.png'
@@ -47,16 +47,14 @@ const PreviewPage = () => {
         showLoading();
         try {
             const userId = getCurrentUserId();
-            const borrow = await addBookToShelf(userId, book._id.$oid);
-            console.log('userId: ', userId);
-            console.log("borrow", borrow);
+            const borrow = await getShelfBookDetail(userId, book._id.$oid);
 
             if (borrow.length > 0) {
                 return addToast('Book is already in borrow', 'success');
             }
 
-            
-
+            const result = await addBookToShelf(userId, book._id.$oid)
+            console.log('result: ', result)
 
             setStatus('Borrowed');
             addToast('Book borrowed successfully', 'success');

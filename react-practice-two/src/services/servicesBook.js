@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from './servicesUser';
 
 const api = axios.create({
-    baseURL: 'https://v1.slashapi.com/viet1/mongodb/0euZV2I89E',
+    baseURL: 'https://v1.slashapi.com/vietttt/mongodb/qJgs9vl5pt',
 });
 
 api.interceptors.request.use(config => {
@@ -42,15 +42,16 @@ export const fetchBookById = async (bookId) => {
 export const updateBookStatus = async (bookId, updatedStatus) => {
     const params = {
         data: {
+            bookId,
             status: updatedStatus
         }
     }
     try {
         const response = await api.patch(`/books/${bookId}`, params);
         const { data } = response.data
-        return { data };
+        return data;
     } catch (error) {
         console.error('Error updating book status:', error);
-        return { data: null, error };
+        return error;
     }
 };

@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
 import { v4 as uuidv4 } from 'uuid';
 
-const USERS_API_URL = 'https://v1.slashapi.com/viet1/auth/pRu7oPm236';
+const USERS_API_URL = 'https://v1.slashapi.com/vietttt/auth/54jifb3mRr';
 
 export const loginUser = async (email, password) => {
     try {

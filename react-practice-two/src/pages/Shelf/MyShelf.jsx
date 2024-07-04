@@ -4,12 +4,12 @@ import './MyShelf.css';
 import Header from '../../layouts/Header';
 import Sidebar from '../../layouts/SideBar';
 import Button from '../../components/Button';
-import { updateBookStatus, fetchBookById } from '../../services/servicesBook';
-import { fetchFavorites, updateFavoriteStatus } from '../../services/servicesFavorite';
+import { fetchBookById } from '../../services/servicesBook';
+import { fetchFavorites, deleteBookFromFavorites } from '../../services/servicesFavorite';
 import { getCurrentUserId } from '../../services/servicesUser';
 import { useToast } from '../../components/Toast/ToastProvider';
 import HeartIcon from '../../components/Icon';
-import { fetchShelfBooks } from '../../services/servicesShelf';
+import { fetchShelfBooks, deleteShelfBook } from '../../services/servicesShelf';
 
 const MyShelf = () => {
     const [currentTab, setCurrentTab] = useState('all');
@@ -17,6 +17,7 @@ const MyShelf = () => {
     const [favorites, setFavorites] = useState([]);
     const addToast = useToast();
     const navigate = useNavigate();
+    const [filterData, setFilterData] = useState([]);
 
     useEffect(() => {
         fetchAllBooks();
@@ -27,7 +28,13 @@ const MyShelf = () => {
         try {
             const userId = getCurrentUserId();
             const result = await fetchShelfBooks(userId);
-            const promises = result.map(item => fetchBookById(item.bookId));
+            const promises = result.map(async item => {
+                const bookDetail = await fetchBookById(item.bookId)
+                return {
+                    shelfId: item._id.$oid,
+                    ...bookDetail
+                }
+            });
             const responses = await Promise.all(promises);
             console.log('responses: ', responses)
             setBooks(responses);
@@ -40,7 +47,13 @@ const MyShelf = () => {
         try {
             const userId = getCurrentUserId();
             const result = await fetchFavorites(userId);
-            const promises = result.map(item => fetchBookById(item.bookId));
+            const promises = result.map(async item => {
+                const bookDetail = await fetchBookById(item.bookId)
+                return {
+                    favoriteId: item._id.$oid,
+                    ...bookDetail
+                }
+            });
             const responses = await Promise.all(promises);
             setFavorites(responses);
         } catch (error) {
@@ -52,25 +65,30 @@ const MyShelf = () => {
         setCurrentTab(tab);
     };
 
-    const handleReturnBook = async (bookId) => {
-        const { error } = await updateBookStatus(bookId, false);
-        if (error) {
-            addToast('Failed to return book: ' + error, 'error');
-        } else {
-            setBooks(books.filter(book => book._id.$oid !== bookId));
-            addToast('Book returned successfully', 'success');
+    const handleReturnBook = async (shelfId) => {
+        try {
+            const result = await deleteShelfBook(shelfId);
+            await fetchAllBooks();
+            console.log('result: ', result)
+            addToast('Book is returned from my shelf ', 'success')
+        } catch (error) {
+            addToast('Error returned books: ', 'error');
         }
     };
 
     const handleUnlikeBook = async (bookId) => {
-        const { error } = await updateFavoriteStatus(bookId, false);
-        if (error) {
-            addToast('Failed to remove book from favorites: ' + error, 'error');
-        } else {
-            setFavorites(favorites.filter(book => book._id.$oid !== bookId));
+        console.log(bookId);
+        try {
+            const result = await deleteBookFromFavorites(bookId);
+            await fetchFavoriteBooks();
+            console.log('result: ', result)
             addToast('Book removed from favorites', 'success');
+        } catch (error) {
+            addToast('Error handling unlike book: ' + error.message, 'error');
         }
     };
+
+    const resultLast = books;
 
     return (
         <div className="my-shelf-container">
@@ -86,7 +104,7 @@ const MyShelf = () => {
                         </div>
                         {currentTab === 'all' && (
                             <div className="books-list">
-                                {books.map(book => (
+                                {resultLast.map(book => (
                                     <article key={book._id.$oid} className="book-item">
                                         <div className='book-item-column-left'>
                                             <img src={book.urlImage} alt={book.name} className="book-item-image" />
@@ -100,7 +118,7 @@ const MyShelf = () => {
                                                 <p className='book-item-time'>11 Mar 2023 09:00 AM</p>
                                             </div>
                                             <Button
-                                                onClick={() => handleReturnBook()}
+                                                onClick={() => handleReturnBook(book.shelfId)}
                                                 text="Return"
                                                 className="btn-return"
                                                 size="btn-large"
@@ -138,7 +156,7 @@ const MyShelf = () => {
                                         />
                                         <HeartIcon
                                             className="heart-icon"
-                                            onClick={() => handleUnlikeBook(book._id.$oid)}
+                                            onClick={() => handleUnlikeBook(book.favoriteId)}
                                         />
                                         <Button
                                             onClick={() => navigate(`/preview-page/${book._id.$oid}`)}

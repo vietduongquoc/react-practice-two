@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from './servicesUser';
 
 const api = axios.create({
-    baseURL: 'https://v1.slashapi.com/viet1/mongodb/lvBm1ickHT',
+    baseURL: 'https://v1.slashapi.com/vietttt/mongodb/zAZwkfylYB',
     withCredentials: false,
 });
 
@@ -19,7 +19,7 @@ api.interceptors.request.use(config => {
 // Function to fetch all books in the shelf
 export const fetchShelfBooks = async (userId) => {
     try {
-        const response = await api.get(`/shelf?q={"userId":"${userId}"}`);
+        const response = await api.get(`/shelfbooks?q={"userId":"${userId}"}`);
         const { data } = response.data;
         return data;
     } catch (error) {
@@ -31,7 +31,7 @@ export const fetchShelfBooks = async (userId) => {
 // Function to fetch a specific book by its ID from the shelf
 export const getShelfBookDetail = async (bookId) => {
     try {
-        const response = await api.get(`/shelf?q={"bookId":"${bookId}"}`);
+        const response = await api.get(`/shelfbooks?q={"bookId":"${bookId}"}`);
         const { data } = response.data;
         return data;
     } catch (error) {
@@ -49,7 +49,7 @@ export const addBookToShelf = async (userId, bookId) => {
         }
     };
     try {
-        const response = await api.post('/shelf', params);
+        const response = await api.post('/shelfbooks', params);
         const { data } = response.data
         return data
     } catch (error) {
@@ -58,26 +58,9 @@ export const addBookToShelf = async (userId, bookId) => {
     }
 };
 
-// Function to update the status of a book in the shelf
-export const updateShelfBookStatus = async (userId, bookId, updatedStatus) => {
-    const params = {
-        data: {
-            userId,
-            status: updatedStatus
-        }
-    };
-    try {
-        const response = await api.patch(`/shelf/${bookId}`, params);
-        return { data: response.data.data, error: null };
-    } catch (error) {
-        console.error('Error updating shelf book status:', error);
-        return error;
-    }
-};
-
 export const deleteShelfBook = async (shelfId) => {
     try {
-        const response = await api.delete(`/shelf/${shelfId}`);
+        const response = await api.delete(`/shelfbooks/${shelfId}`);
         const { data } = response.data;
         return data
     } catch (error) {

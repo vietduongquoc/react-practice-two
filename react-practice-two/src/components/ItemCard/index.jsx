@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './index.css';
 import { addBookToFavorites, getFavoritesDetail } from '../../services/servicesFavorite';
 import { useToast } from '../../components/Toast/ToastProvider';
