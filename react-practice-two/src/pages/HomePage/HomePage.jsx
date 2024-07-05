@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './HomePage.css';
-import Header from '../../layouts/Header';
-import ItemCard from '../../components/Card';
-import { fetchBook } from '../../services/servicesBook';
 import { addBookToFavorites } from '../../services/servicesFavorite'
 import { useToast } from '../../components/Toast/ToastProvider';
+import { fetchBook } from '../../services/servicesBook';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ItemCard from '../../components/Card';
+import Header from '../../layouts/Header';
+import './HomePage.css';
 
 const HomePage = () => {
     const [books, setBooks] = useState([]);
@@ -51,10 +51,11 @@ const HomePage = () => {
             <div className="row" key={index}>
                 {row.map((book) => (
                     <ItemCard
-                        key={book._id.$oid} // Use _id if id does not exist
+                        // Use _id if id does not exist
+                        key={book._id.$oid}
                         book={book}
                         onAddToFavorites={handleAddToFavorites}
-                        onPreview={() => handlePreview(book._id.$oid)} // Use _id if id does not exist
+                        onPreview={() => handlePreview(book._id.$oid)}
                     />
                 ))}
             </div>

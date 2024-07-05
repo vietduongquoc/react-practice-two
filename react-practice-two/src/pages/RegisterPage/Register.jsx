@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Register.css';
-import logoIcon from '../../assets/image/Logo.jpg';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-import { validateForm } from '../../utils/validation';
-import { useToast } from '../../components/Toast/ToastProvider';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
+import { useToast } from '../../components/Toast/ToastProvider';
 import { registerUser } from '../../services/servicesUser';
+import { validateForm } from '../../utils/validation';
+import logoIcon from '../../assets/image/Logo.jpg';
+import { useNavigate } from 'react-router-dom';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import './Register.css';
 
 const RegisterPage = () => {
     const navigate = useNavigate();

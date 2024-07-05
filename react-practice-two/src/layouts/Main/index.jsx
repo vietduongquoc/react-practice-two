@@ -1,6 +1,6 @@
+import Sidebar from '../../layouts/SideBar';
 import React from 'react';
 import './index.css';
-import Sidebar from '../../layouts/SideBar';
 
 const MainLayout = ({ children }) => {
     return (

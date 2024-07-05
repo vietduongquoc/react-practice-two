@@ -23,8 +23,7 @@ export const fetchBook = async () => {
         const { data } = response.data;
         return { data };
     } catch (error) {
-        console.error('Error fetching books:', error);
-        return { data: null, error };
+        return error;
     }
 };
 

@@ -1,6 +1,6 @@
+import { useLoading } from './LoadingProvider';
 import React from 'react';
 import './Loading.css';
-import { useLoading } from './LoadingProvider';
 
 const Loading = () => {
     const { isLoading } = useLoading();

@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import './Preview.css';
-import Header from '../../layouts/Header';
-import Sidebar from '../../layouts/SideBar';
-import Button from '../../components/Button';
-import { fetchBookById } from '../../services/servicesBook';
 import { getShelfBookDetail, addBookToShelf } from '../../services/servicesShelf';
-import authorImage from '../../assets/image/preview-image.png';
-import arrowBack from '../../assets/image/arrow-small-left.png';
-import rateStars from '../../assets/image/rate-stars.png'
 import { useLoading } from '../../components/Spinner/LoadingProvider';
+import arrowBack from '../../assets/image/arrow-small-left.png';
 import { useToast } from '../../components/Toast/ToastProvider';
+import authorImage from '../../assets/image/preview-image.png';
 import { getCurrentUserId } from '../../services/servicesUser';
+import { fetchBookById } from '../../services/servicesBook';
+import rateStars from '../../assets/image/rate-stars.png'
+import { useParams, useNavigate } from 'react-router-dom';
+import Button from '../../components/Button';
+import Header from '../../layouts/Header';
+import './Preview.css';
 
 const PreviewPage = () => {
     const { bookId } = useParams();

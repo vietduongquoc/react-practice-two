@@ -20,8 +20,7 @@ export const loginUser = async (email, password) => {
         }
         return { data: null, error: 'Invalid response format' };
     } catch (error) {
-        console.error('Error logging in:', error);
-        return { data: null, error: error.response?.data?.message || error.message };
+        return error ;
     }
 };
 
@@ -46,8 +45,7 @@ export const registerUser = async (username, email, password) => {
 
         return { data: response.data, error: null };
     } catch (error) {
-        console.error('Error registering user:', error);
-        return { data: null, error: error.message };
+        return error;
     }
 };
 
@@ -62,8 +60,7 @@ export const logoutUser = async () => {
         localStorage.removeItem('authToken');
         return { data: response.data, error: null };
     } catch (error) {
-        console.error('Error logging out:', error);
-        return { data: null, error: error.response?.data?.message || error.message };
+        return error;
     }
 };
 
