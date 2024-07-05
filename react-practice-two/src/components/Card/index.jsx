@@ -6,23 +6,25 @@ import HeartIcon from "../Icon/index";
 import React from 'react';
 import './index.css';
 
-const ItemCard = ({ book, onPreview }) => {
+const ItemCard = ({ book, onPreview, isFavorited, onAddToFavorites }) => {
     const addToast = useToast();
     const navigate = useNavigate();
 
-    const handleAddToFavorites = async () => {
-        try {
-            const favorite = await getFavoritesDetail(book._id.$oid);
-            if (favorite.data.length > 0) {
-                return addToast('Book is already in favorites', 'success');
-            }
-            const userId = getCurrentUserId();
-            const result = await addBookToFavorites(userId, book._id.$oid);
-            return addToast('Added to favorites successfully', 'success');
-        } catch (error) {
-            addToast('Failed to add to favorites: ' + error.message, 'error');
-        }
-    };
+    // console.log('book: ', book)
+
+    // const handleAddToFavorites = async () => {
+    //     try {
+    //         const favorite = await getFavoritesDetail(book._id.$oid);
+    //         if (favorite.data.length > 0) {
+    //             return addToast('Book is already in favorites', 'success');
+    //         }
+    //         const userId = getCurrentUserId();
+    //         const result = await addBookToFavorites(userId, book._id.$oid);
+    //         return addToast('Added to favorites successfully', 'success');
+    //     } catch (error) {
+    //         addToast('Failed to add to favorites: ' + error.message, 'error');
+    //     }
+    // };
 
     const handlePreview = async () => {
         await onPreview();
@@ -42,7 +44,8 @@ const ItemCard = ({ book, onPreview }) => {
                 </div>
                 <div className="heart-icon-actions">
                     <HeartIcon
-                        onClick={handleAddToFavorites}
+                        onClick={onAddToFavorites}
+                        isFavorited={isFavorited}
                     />
                 </div>
             </div>

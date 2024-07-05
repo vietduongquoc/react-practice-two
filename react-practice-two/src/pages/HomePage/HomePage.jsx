@@ -1,7 +1,8 @@
 import { useLoading } from '../../components/Spinner/LoadingProvider';
-import { addBookToFavorites } from '../../services/servicesFavorite'
+import { addBookToFavorites, fetchFavorites, getFavoritesDetail } from '../../services/servicesFavorite'
 import { useToast } from '../../components/Toast/ToastProvider';
 import { fetchBook } from '../../services/servicesBook';
+import { getCurrentUserId } from '../../services/servicesUser';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ItemCard from '../../components/Card';
@@ -23,15 +24,20 @@ const HomePage = () => {
     const fetchData = async () => {
         showLoading();
         try {
-            const { data, error } = await fetchBook();
-            if (error) {
-                addToast(`Error fetching books: ${error.message}`, 'error');
-            } else {
-                setBooks(data);
-                setFilteredBooks(data);
-            }
+            const listBook = await fetchBook();
+            const userId = getCurrentUserId();
+            const listFavorite = await fetchFavorites(userId);
+
+            const newListBook = listBook.map(book => {
+                return {
+                    isFavorited: listFavorite.find(item => item.bookId === book._id.$oid) ? true : false,
+                    ...book
+                }
+            })
+
+            setBooks(newListBook);
         } catch (error) {
-            addToast('Error fetching books', 'error');
+            addToast(`Error fetching books: ${error.message}`, 'error');
         }
         finally {
             hideLoading();
@@ -53,7 +59,7 @@ const HomePage = () => {
     };
 
     const renderRows = () => {
-        const rows = splitIntoRows(filteredBooks);
+        const rows = splitIntoRows(books);
         return rows.map((row, index) => (
             <div className="row" key={index}>
                 {row.map((book) => (
@@ -61,7 +67,8 @@ const HomePage = () => {
                         // Use _id if id does not exist
                         key={book._id.$oid}
                         book={book}
-                        onAddToFavorites={handleAddToFavorites}
+                        isFavorited={book.isFavorited}
+                        onAddToFavorites={() => handleAddToFavorites(book._id.$oid)}
                         onPreview={() => handlePreview(book._id.$oid)}
                     />
                 ))}
@@ -71,12 +78,16 @@ const HomePage = () => {
 
     const handleAddToFavorites = async (bookId) => {
         try {
-            const { data } = await addBookToFavorites(bookId, true);
-            if (data) {
-                addToast('Added to favorites', 'success');
+            const favorite = await getFavoritesDetail(bookId);
+            if (favorite.data.length > 0) {
+                return addToast('Book is already in favorites', 'success');
             }
+            const userId = getCurrentUserId();
+            const result = await addBookToFavorites(userId, bookId);
+            await fetchData();
+            return addToast('Added to favorites successfully', 'success');
         } catch (error) {
-            addToast('Error adding to favorites', 'error');
+            addToast('Failed to add to favorites: ' + error.message, 'error');
         }
     };
 

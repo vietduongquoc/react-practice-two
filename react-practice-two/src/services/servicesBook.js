@@ -17,10 +17,9 @@ api.interceptors.request.use(config => {
 
 export const fetchBook = async () => {
     try {
-        const token = await getToken()
         const response = await api.get('/books');
         const { data } = response.data;
-        return { data };
+        return data;
     } catch (error) {
         return error;
     }
