@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-const USERS_API_URL = 'https://v1.slashapi.com/vietttt/auth/54jifb3mRr';
+const USERS_API_URL = 'https://v1.slashapi.com/viet3/auth/PEBgU7tfwM';
 
 export const loginUser = async (email, password) => {
     try {

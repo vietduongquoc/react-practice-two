@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from './servicesUser';
 
 const api = axios.create({
-    baseURL: 'https://v1.slashapi.com/vietttt/mongodb/qJgs9vl5pt',
+    baseURL: 'https://v1.slashapi.com/viet3/mongodb/EozgNrMiyL',
 });
 
 api.interceptors.request.use(config => {
@@ -18,7 +18,6 @@ api.interceptors.request.use(config => {
 export const fetchBook = async () => {
     try {
         const token = await getToken()
-        console.log('token: ', token)
         const response = await api.get('/books');
         const { data } = response.data;
         return { data };
@@ -54,3 +53,16 @@ export const updateBookStatus = async (bookId, updatedStatus) => {
         return error;
     }
 };
+
+export const getListBookById = async (listId) => {
+    const dataListId = listId.map(item => '"' + item + '"').join(',')
+    const queryById = `?q={"_id":{"$in":[${dataListId}]}}`
+    try {
+        const response = await api.get(`/books${queryById}`);
+        const { data } = response.data
+        return data;
+    } catch (error) {
+        console.error('Error get list book: ', error);
+        return error;
+    }
+}

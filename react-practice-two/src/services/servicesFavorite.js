@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from './servicesUser';
 
 const api = axios.create({
-    baseURL: 'https://v1.slashapi.com/vietttt/mongodb/e5ahCnoDJH',
+    baseURL: 'https://v1.slashapi.com/viet3/mongodb/e84U2mnxbc',
     withCredentials: false,
 });
 
@@ -58,7 +58,7 @@ export const addBookToFavorites = async (userId, bookId) => {
     }
 };
 
-export const deleteBookFromFavorites = async (favoriteId) => {
+export const deleteFavorite = async (favoriteId) => {
     try {
         const response = await api.delete(`/favorites/${favoriteId}`);
         const { data } = response.data;

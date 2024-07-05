@@ -28,7 +28,7 @@ const PreviewPage = () => {
         } catch (error) {
             console.error('Error fetching book details:', error);
             addToast('Error fetching book details', 'error');
-            navigate('/home-page');
+            // navigate('/home-page');
         } finally {
             hideLoading();
         }
@@ -51,7 +51,6 @@ const PreviewPage = () => {
             }
 
             const result = await addBookToShelf(userId, book._id.$oid)
-            console.log('result: ', result)
 
             setStatus('Borrowed');
             addToast('Book borrowed successfully', 'success');
