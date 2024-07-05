@@ -7,7 +7,7 @@ import authorImage from '../../assets/image/preview-image.png';
 import { getCurrentUserId } from '../../services/servicesUser';
 import { fetchBookById } from '../../services/servicesBook';
 import rateStars from '../../assets/image/rate-stars.png'
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Button from '../../components/Button';
 import Header from '../../layouts/Header';
 import './Preview.css';
@@ -18,7 +18,6 @@ const PreviewPage = () => {
     const [status, setStatus] = useState('In-shelf');
     const { showLoading, hideLoading } = useLoading();
     const addToast = useToast();
-    const navigate = useNavigate();
 
     const fetchBookDetail = async (bookId) => {
         showLoading();
@@ -28,7 +27,6 @@ const PreviewPage = () => {
         } catch (error) {
             console.error('Error fetching book details:', error);
             addToast('Error fetching book details', 'error');
-            // navigate('/home-page');
         } finally {
             hideLoading();
         }
