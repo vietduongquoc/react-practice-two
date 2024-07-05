@@ -1,8 +1,8 @@
-import { fetchFavorites, deleteBookFromFavorites } from '../../services/servicesFavorite';
+import { fetchFavorites, deleteFavorite } from '../../services/servicesFavorite';
 import { fetchShelfBooks, deleteShelfBook } from '../../services/servicesShelf';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { getCurrentUserId } from '../../services/servicesUser';
-import { fetchBookById } from '../../services/servicesBook';
+import { getListBookById } from '../../services/servicesBook';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HeartIcon from '../../components/Icon';
@@ -26,15 +26,19 @@ const MyShelf = () => {
         try {
             const userId = getCurrentUserId();
             const result = await fetchShelfBooks(userId);
-            const promises = result.map(async item => {
-                const bookDetail = await fetchBookById(item.bookId)
+            const formatData = result.map(item => item.bookId)
+
+            const listBook = await getListBookById(formatData)
+
+            const newListBook = listBook.map(book => {
                 return {
-                    shelfId: item._id.$oid,
-                    ...bookDetail
+                    shelfId: result.find(item => item.bookId === book._id.$oid)._id.$oid,
+                    ...book
                 }
-            });
-            const responses = await Promise.all(promises);
-            setBooks(responses);
+            })
+
+            console.log('newListBook: ', newListBook)
+            setBooks(newListBook);
         } catch (error) {
             addToast('Error fetching borrowed books: ' + error, 'error');
         }
@@ -44,15 +48,19 @@ const MyShelf = () => {
         try {
             const userId = getCurrentUserId();
             const result = await fetchFavorites(userId);
-            const promises = result.map(async item => {
-                const bookDetail = await fetchBookById(item.bookId)
+            console.log('result: ', result)
+            const formatData = result.map(item => item.bookId)
+
+            const listBook = await getListBookById(formatData)
+
+            const newListBook = listBook.map(book => {
                 return {
-                    favoriteId: item._id.$oid,
-                    ...bookDetail
+                    favoriteId: result.find(item => item.bookId === book._id.$oid)._id.$oid,
+                    ...book
                 }
-            });
-            const responses = await Promise.all(promises);
-            setFavorites(responses);
+            })
+
+            setFavorites(newListBook);
         } catch (error) {
             addToast('Error fetching favorite books: ' + error, 'error');
         }
@@ -73,9 +81,10 @@ const MyShelf = () => {
         }
     };
 
-    const handleUnlikeBook = async (bookId) => {
+    const handleUnlikeBook = async (favoriteId) => {
         try {
-            const result = await deleteBookFromFavorites(bookId);
+            console.log('favoriteId: ', favoriteId)
+            const result = await deleteFavorite(favoriteId);
             await fetchFavoriteBooks();
             console.log('result: ', result)
             addToast('Book removed from favorites', 'success');
