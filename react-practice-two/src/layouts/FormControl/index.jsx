@@ -2,7 +2,7 @@ import searchIcon from '../../assets/image/icon-search-color.jpg';
 import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
 
-const FormControl = ({ setFilteredBooks, books }) => {
+const FormControl = ({ setFilteredBooks, books = [] }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [searchType, setSearchType] = useState('Title');
     const [searchQuery, setSearchQuery] = useState('');
@@ -30,6 +30,10 @@ const FormControl = ({ setFilteredBooks, books }) => {
         setDropdownOpen(false);
     };
 
+    const handleSearchQueryChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
     const handleSearch = (e) => {
         e.preventDefault();
         const lowerCaseQuery = searchQuery.toLowerCase();
@@ -41,12 +45,8 @@ const FormControl = ({ setFilteredBooks, books }) => {
         setFilteredBooks(filtered);
     };
 
-    const handleSearchQueryChange = (e) => {
-        setSearchQuery(e.target.value)
-    }
-
     return (
-        <div className="form-control">
+        <div onSubmit={handleSearch} className="form-control">
             <div className="dropdown-form-control" ref={dropdownRef}>
                 <button className="dropdown-btn-form-control" onClick={toggleDropdown}>
                     {searchType} {dropdownOpen ? '▲' : '▼'}
@@ -68,7 +68,7 @@ const FormControl = ({ setFilteredBooks, books }) => {
                     </ul>
                 )}
             </div>
-            <form onSubmit={handleSearch} className="search-form">
+            <form className="search-form">
                 <div className="search-input-container">
                     <input
                         type="text"
@@ -77,7 +77,7 @@ const FormControl = ({ setFilteredBooks, books }) => {
                         placeholder={`Search ${searchType.toLowerCase()}...`}
                         className="search-input"
                     />
-                    <button type="submit" className="search-btn">
+                    <button type="button" className="search-btn">
                         <img
                             src={searchIcon} alt='Search Icon' className='search-icon'
                         />

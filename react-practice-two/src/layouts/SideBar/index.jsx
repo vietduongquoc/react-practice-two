@@ -9,9 +9,9 @@ const Sidebar = () => {
     return (
         <div className="sidebar-container">
             <aside className='sidebar'>
-                <div className="sidebar-logo">
-                    <img src={logoIcon} alt="Logo" className="logo-icon" />
-                </div>
+                <figure className="sidebar-logo">
+                    <a className='link-homepage' href="/"><img src={logoIcon} alt="Logo" className="logo-icon" /></a>
+                </figure>
                 <ul className='list-sidebar-link'>
                     <li className='sidebar-link'>
                         <Link to="/">

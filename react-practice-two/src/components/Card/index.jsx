@@ -13,17 +13,11 @@ const ItemCard = ({ book, onPreview }) => {
     const handleAddToFavorites = async () => {
         try {
             const favorite = await getFavoritesDetail(book._id.$oid);
-            console.log("favorite", favorite.data);
-
             if (favorite.data.length > 0) {
                 return addToast('Book is already in favorites', 'success');
             }
-
             const userId = getCurrentUserId();
-
             const result = await addBookToFavorites(userId, book._id.$oid);
-            console.log('result: ', result)
-
             return addToast('Added to favorites successfully', 'success');
         } catch (error) {
             addToast('Failed to add to favorites: ' + error.message, 'error');
