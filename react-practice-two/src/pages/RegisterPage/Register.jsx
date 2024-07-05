@@ -71,7 +71,7 @@ const RegisterPage = () => {
             }
 
             addToast('Registration successful!', 'success');
-            navigate('/home-page');
+            navigate('/login');
         }
     };
 
