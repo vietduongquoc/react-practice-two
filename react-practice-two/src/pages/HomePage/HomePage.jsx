@@ -1,3 +1,4 @@
+import { useLoading } from '../../components/Spinner/LoadingProvider';
 import { addBookToFavorites } from '../../services/servicesFavorite'
 import { useToast } from '../../components/Toast/ToastProvider';
 import { fetchBook } from '../../services/servicesBook';
@@ -8,16 +9,19 @@ import Header from '../../layouts/Header';
 import './HomePage.css';
 
 const HomePage = () => {
-    const [books, setBooks] = useState([]);
     const [filteredBooks, setFilteredBooks] = useState([]);
+    const { showLoading, hideLoading } = useLoading();
+    const [books, setBooks] = useState([]);
     const navigate = useNavigate();
     const addToast = useToast();
+
 
     useEffect(() => {
         fetchData();
     }, []);
 
     const fetchData = async () => {
+        showLoading();
         try {
             const { data, error } = await fetchBook();
             if (error) {
@@ -28,6 +32,9 @@ const HomePage = () => {
             }
         } catch (error) {
             addToast('Error fetching books', 'error');
+        }
+        finally {
+            hideLoading();
         }
     };
 
