@@ -1,15 +1,14 @@
+import { fetchFavorites, deleteBookFromFavorites } from '../../services/servicesFavorite';
+import { fetchShelfBooks, deleteShelfBook } from '../../services/servicesShelf';
+import { useToast } from '../../components/Toast/ToastProvider';
+import { getCurrentUserId } from '../../services/servicesUser';
+import { fetchBookById } from '../../services/servicesBook';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './MyShelf.css';
-import Header from '../../layouts/Header';
-import Sidebar from '../../layouts/SideBar';
-import Button from '../../components/Button';
-import { fetchBookById } from '../../services/servicesBook';
-import { fetchFavorites, deleteBookFromFavorites } from '../../services/servicesFavorite';
-import { getCurrentUserId } from '../../services/servicesUser';
-import { useToast } from '../../components/Toast/ToastProvider';
 import HeartIcon from '../../components/Icon';
-import { fetchShelfBooks, deleteShelfBook } from '../../services/servicesShelf';
+import Button from '../../components/Button';
+import Header from '../../layouts/Header';
+import './MyShelf.css';
 
 const MyShelf = () => {
     const [currentTab, setCurrentTab] = useState('all');

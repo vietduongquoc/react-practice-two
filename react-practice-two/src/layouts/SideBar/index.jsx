@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './index.css';
-import logoIcon from '../../assets/image/Logo.jpg';
-import homeIcon from '../../assets/image/Sidebar-icon-home.jpg';
 import bookshelfIcon from '../../assets/image/Sidebar-icon-Bookshelf.jpg';
+import homeIcon from '../../assets/image/Sidebar-icon-home.jpg';
+import logoIcon from '../../assets/image/Logo.jpg';
+import { Link } from 'react-router-dom';
+import React from 'react';
+import './index.css';
 
 const Sidebar = () => {
     return (

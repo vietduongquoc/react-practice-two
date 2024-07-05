@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import LoginPage from './pages/LoginPage/Login';
-import HomePage from './pages/HomePage/HomePage';
 import RegisterPage from './pages/RegisterPage/Register';
 import PreviewPage from './pages/PreviewPage/Preview';
 import Loading from './components/Spinner/Loading';
-import MyShelf from './pages/Shelf/MyShelf';
 import { getToken } from './services/servicesUser';
+import HomePage from './pages/HomePage/HomePage';
+import LoginPage from './pages/LoginPage/Login';
+import MyShelf from './pages/Shelf/MyShelf';
 import MainLayout from './layouts/Main';
 
 const PrivateRoute = ({ element }) => {

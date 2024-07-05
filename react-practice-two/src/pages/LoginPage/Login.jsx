@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import './Login.css';
-import logoIcon from '../../assets/image/Logo.jpg';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-import Checkbox from '../../components/Checkbox';
-import { validateForm } from '../../utils/validation';
-import { useToast } from '../../components/Toast/ToastProvider';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
+import { useToast } from '../../components/Toast/ToastProvider';
+import React, { useState, useEffect, useCallback } from 'react';
 import { loginUser } from '../../services/servicesUser';
+import { validateForm } from '../../utils/validation';
+import logoIcon from '../../assets/image/Logo.jpg';
+import Checkbox from '../../components/Checkbox';
+import { useNavigate } from 'react-router-dom';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import './Login.css';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [remember, setRemember] = useState(false); // State for Remember me checkbox
+    const [remember, setRemember] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
     const [isFormValid, setIsFormValid] = useState(false);

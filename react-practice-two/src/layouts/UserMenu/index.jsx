@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './index.css';
-import avatarUser from '../../assets/image/avatar-user.jpg';
 import { useToast } from '../../components/Toast/ToastProvider';
-import { useNavigate } from 'react-router-dom';
+import avatarUser from '../../assets/image/avatar-user.jpg';
+import React, { useState, useEffect, useRef } from 'react';
 import { logoutUser } from '../../services/servicesUser';
+import { useNavigate } from 'react-router-dom';
+import './index.css';
 
 const UserMenu = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
