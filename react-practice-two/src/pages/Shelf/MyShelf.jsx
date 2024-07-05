@@ -264,10 +264,8 @@ const MyShelf = () => {
 
     const handleUnlikeBook = async (favoriteId) => {
         try {
-            console.log('favoriteId: ', favoriteId)
             const result = await deleteFavorite(favoriteId);
             await fetchFavoriteBooks();
-            console.log('result: ', result)
             addToast('Book removed from favorites', 'success');
         } catch (error) {
             addToast('Error handling unlike book: ' + error.message, 'error');
