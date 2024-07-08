@@ -2,7 +2,7 @@ import searchIcon from '../../assets/image/icon-search-color.jpg';
 import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
 
-const FormControl = ({ setFilteredBooks, books = [] }) => {
+const FormControl = ({ setFilteredBooks, books }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [searchType, setSearchType] = useState('Title');
     const [searchQuery, setSearchQuery] = useState('');
@@ -46,8 +46,8 @@ const FormControl = ({ setFilteredBooks, books = [] }) => {
     };
 
     return (
-        <div onSubmit={handleSearch} className="form-control">
-            <div className="dropdown-form-control" ref={dropdownRef}>
+        <div className="form-control">
+            <div onSubmit={handleSearch} className="form-control">
                 <button className="dropdown-btn-form-control" onClick={toggleDropdown}>
                     {searchType} {dropdownOpen ? '▲' : '▼'}
                 </button>
@@ -68,7 +68,7 @@ const FormControl = ({ setFilteredBooks, books = [] }) => {
                     </ul>
                 )}
             </div>
-            <form className="search-form">
+            <form onSubmit={handleSearch} className="search-form">
                 <div className="search-input-container">
                     <input
                         type="text"
@@ -77,7 +77,7 @@ const FormControl = ({ setFilteredBooks, books = [] }) => {
                         placeholder={`Search ${searchType.toLowerCase()}...`}
                         className="search-input"
                     />
-                    <button type="button" className="search-btn">
+                    <button type="submit" className="search-btn">
                         <img
                             src={searchIcon} alt='Search Icon' className='search-icon'
                         />

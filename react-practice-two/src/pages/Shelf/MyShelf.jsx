@@ -22,53 +22,45 @@ const MyShelf = () => {
     const addToast = useToast();
 
     useEffect(() => {
-        fetchAllBooks();
-        fetchFavoriteBooks();
+        fetchData();
     }, []);
 
-    const fetchAllBooks = async () => {
+    const fetchData = async () => {
         showLoading();
         try {
             const userId = getCurrentUserId();
-            const result = await fetchShelfBooks(userId);
-            const formatData = result.map(item => item.bookId)
-            const listBook = await getListBookById(formatData)
-            const newListBook = listBook.map(book => {
-                return {
-                    shelfId: result.find(item => item.bookId === book._id.$oid)._id.$oid,
-                    ...book
-                }
-            })
-            setBooks(newListBook);
-            // Initialize filteredBooks with all books
-            setFilteredBooks(newListBook);
+
+            // Fetch shelf books and favorite books concurrently
+            const [shelfBooksResult, favoriteBooksResult] = await Promise.all([
+                fetchShelfBooks(userId),
+                fetchFavorites(userId)
+            ]);
+
+            // Process shelf books
+            const shelfBookIds = shelfBooksResult.map(item => item.bookId);
+            const shelfBooksList = await getListBookById(shelfBookIds);
+            const formattedShelfBooks = shelfBooksList.map(book => ({
+                shelfId: shelfBooksResult.find(item => item.bookId === book._id.$oid)._id.$oid,
+                ...book
+            }));
+
+            setBooks(formattedShelfBooks);
+            setFilteredBooks(formattedShelfBooks);
+
+            // Process favorite books
+            const favoriteBookIds = favoriteBooksResult.map(item => item.bookId);
+            const favoriteBooksList = await getListBookById(favoriteBookIds);
+            const formattedFavoriteBooks = favoriteBooksList.map(book => ({
+                favoriteId: favoriteBooksResult.find(item => item.bookId === book._id.$oid)._id.$oid,
+                ...book
+            }));
+
+            setFavorites(formattedFavoriteBooks);
+            setFilteredFavorites(formattedFavoriteBooks);
         } catch (error) {
-            addToast('Error fetching borrowed books: ' + error, 'error');
-        }
-        finally{
+            addToast('Error fetching books: ' + error.message, 'error');
+        } finally {
             hideLoading();
-        }
-    };
-
-    const fetchFavoriteBooks = async () => {
-        try {
-            const userId = getCurrentUserId();
-            const result = await fetchFavorites(userId);
-            const formatData = result.map(item => item.bookId)
-            const listBook = await getListBookById(formatData)
-
-            const newListBook = listBook.map(book => {
-                return {
-                    favoriteId: result.find(item => item.bookId === book._id.$oid)._id.$oid,
-                    ...book
-                }
-            });
-
-            setFavorites(newListBook);
-            // Initialize filteredFavorites with all favorites
-            setFilteredFavorites(newListBook);
-        } catch (error) {
-            addToast('Error fetching favorite books: ' + error, 'error');
         }
     };
 
@@ -79,20 +71,20 @@ const MyShelf = () => {
     const handleReturnBook = async (shelfId) => {
         try {
             const result = await deleteShelfBook(shelfId);
-            await fetchAllBooks();
-            addToast('Book is returned from my shelf ', 'success')
+            await fetchData();
+            addToast('Book returned from shelf', 'success');
         } catch (error) {
-            addToast('Error returned books: ', 'error');
+            addToast('Error returning book: ' + error.message, 'error');
         }
     };
 
     const handleUnlikeBook = async (favoriteId) => {
         try {
             const result = await deleteFavorite(favoriteId);
-            await fetchFavoriteBooks();
+            await fetchData();
             addToast('Book removed from favorites', 'success');
         } catch (error) {
-            addToast('Error handling unlike book: ' + error.message, 'error');
+            addToast('Error removing book: ' + error.message, 'error');
         }
     };
 
@@ -101,7 +93,8 @@ const MyShelf = () => {
             <div className="main-content">
                 <Header
                     setFilteredBooks={currentTab === 'all' ? setFilteredBooks : setFilteredFavorites}
-                    books={currentTab === 'all' ? books : favorites} />
+                    books={currentTab === 'all' ? books : favorites}
+                />
                 <div className="content">
                     <div className='myshelf-page'>
                         <h1 className='myshelf-title'>Your <span>Shelf</span></h1>
@@ -183,3 +176,4 @@ const MyShelf = () => {
 };
 
 export default MyShelf;
+
