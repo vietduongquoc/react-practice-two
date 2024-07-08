@@ -24,6 +24,14 @@ const PreviewPage = () => {
         try {
             const result = await fetchBookById(bookId);
             setBook(result);
+            // Check if the book is already in the user's shelf
+            const userId = getCurrentUserId();
+            const borrow = await getShelfBookDetail(bookId);
+            if (borrow.find(item => item.userId === userId)) {
+                setStatus('In-Shelf');
+            } else {
+                setStatus('None');
+            }
         } catch (error) {
             console.error('Error fetching book details:', error);
             addToast('Error fetching book details', 'error');
@@ -43,14 +51,13 @@ const PreviewPage = () => {
         try {
             const userId = getCurrentUserId();
             const borrow = await getShelfBookDetail(userId, book._id.$oid);
-
             if (borrow.length > 0) {
+                setStatus('In-Shelf');
                 return addToast('Book is already in borrow', 'success');
             }
 
             await addBookToShelf(userId, book._id.$oid);
-
-            setStatus('In-shelf');
+            setStatus('In-Shelf');
             addToast('Book borrowed successfully', 'success');
         } catch (error) {
             addToast('Failed to borrow book: ' + error.message, 'error');
@@ -108,7 +115,7 @@ const PreviewPage = () => {
                                                 text={status}
                                                 borderRadius="btn-rounded"
                                                 size="btn-medium"
-                                                isDisabled={false}
+                                                isDisabled={true}
                                             />
                                         </div>
                                     </div>
