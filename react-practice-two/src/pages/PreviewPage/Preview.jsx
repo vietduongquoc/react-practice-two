@@ -6,7 +6,7 @@ import { useToast } from '../../components/Toast/ToastProvider';
 import authorImage from '../../assets/image/preview-image.png';
 import { getCurrentUserId } from '../../services/servicesUser';
 import { fetchBookById } from '../../services/servicesBook';
-import rateStars from '../../assets/image/rate-stars.png'
+import rateStars from '../../assets/image/rate-stars.png';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/Button';
 import Header from '../../layouts/Header';
@@ -15,7 +15,7 @@ import './Preview.css';
 const PreviewPage = () => {
     const { bookId } = useParams();
     const [book, setBook] = useState(null);
-    const [status, setStatus] = useState('In-shelf');
+    const [status, setStatus] = useState('None');
     const { showLoading, hideLoading } = useLoading();
     const addToast = useToast();
 
@@ -23,7 +23,7 @@ const PreviewPage = () => {
         showLoading();
         try {
             const result = await fetchBookById(bookId);
-            setBook(result)
+            setBook(result);
         } catch (error) {
             console.error('Error fetching book details:', error);
             addToast('Error fetching book details', 'error');
@@ -48,9 +48,9 @@ const PreviewPage = () => {
                 return addToast('Book is already in borrow', 'success');
             }
 
-            const result = await addBookToShelf(userId, book._id.$oid)
+            await addBookToShelf(userId, book._id.$oid);
 
-            setStatus('Borrowed');
+            setStatus('In-shelf');
             addToast('Book borrowed successfully', 'success');
         } catch (error) {
             addToast('Failed to borrow book: ' + error.message, 'error');
@@ -105,7 +105,7 @@ const PreviewPage = () => {
                                             <p>Status</p>
                                             <Button
                                                 className="btn-enable"
-                                                text='In-shelf'
+                                                text={status}
                                                 borderRadius="btn-rounded"
                                                 size="btn-medium"
                                                 isDisabled={false}
@@ -115,8 +115,8 @@ const PreviewPage = () => {
                                     <Button
                                         borderRadius="btn-rounded"
                                         size="btn-big"
-                                        className="btn-primary"
-                                        disabled={status !== 'In-shelf'}
+                                        className={status === 'None' ? 'btn-primary' : 'btn-disabled'}
+                                        disabled={status !== 'None'}
                                         onClick={handleBorrowBook}
                                         text="BORROW"
                                     />
