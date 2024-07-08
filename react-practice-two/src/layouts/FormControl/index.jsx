@@ -46,8 +46,8 @@ const FormControl = ({ setFilteredBooks, books }) => {
     };
 
     return (
-        <div onSubmit={handleSearch} className="form-control">
-            <div className="dropdown-form-control" ref={dropdownRef}>
+        <div className="form-control">
+            <div onSubmit={handleSearch} className="form-control">
                 <button className="dropdown-btn-form-control" onClick={toggleDropdown}>
                     {searchType} {dropdownOpen ? '▲' : '▼'}
                 </button>

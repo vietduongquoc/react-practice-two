@@ -36,6 +36,8 @@ const HomePage = () => {
             })
 
             setBooks(newListBook);
+            // Initialize filteredBooks with the full list
+            setFilteredBooks(newListBook);
         } catch (error) {
             addToast(`Error fetching books: ${error.message}`, 'error');
         }
@@ -59,7 +61,8 @@ const HomePage = () => {
     };
 
     const renderRows = () => {
-        const rows = splitIntoRows(books);
+        // Use filteredBooks instead of books
+        const rows = splitIntoRows(filteredBooks);
         return rows.map((row, index) => (
             <div className="row" key={index}>
                 {row.map((book) => (
