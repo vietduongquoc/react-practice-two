@@ -3,7 +3,7 @@ import HeartIcon from '../../components/Icon';
 import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 
-const FavoriteBooks = ({ favorites, handleUnlikeBook }) => {
+const FavoriteBooks = ({ favoriteBooks, handleUnlikeBook }) => {
     const navigate = useNavigate();
 
     return (
@@ -14,7 +14,7 @@ const FavoriteBooks = ({ favorites, handleUnlikeBook }) => {
                 <p className='title-three'>Category</p>
                 <p className='title-four'>Status</p>
             </div>
-            {favorites.map(book => (
+            {favoriteBooks.map(book => (
                 <div key={book._id.$oid} className="book-item-favourite">
                     <img src={book.urlImage} alt={book.name} className="book-item-favourite-image" />
                     <div className='book-item-favourite-content'>

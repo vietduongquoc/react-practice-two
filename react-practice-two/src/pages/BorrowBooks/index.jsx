@@ -1,10 +1,10 @@
 import React from 'react';
 import Button from '../../components/Button';
 
-const BorrowBooks = ({ books, handleReturnBook }) => {
+const BorrowBooks = ({ borrowBooks, handleReturnBook }) => {
     return (
         <div className="books-list">
-            {books.map(book => (
+            {borrowBooks.map(book => (
                 <article key={book._id.$oid} className="book-item">
                     <div className='book-item-column-left'>
                         <img src={book.urlImage} alt={book.name} className="book-item-image" />

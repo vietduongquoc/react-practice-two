@@ -14,7 +14,7 @@ const MyShelf = () => {
     const [filteredBooks, setFilteredBooks] = useState([]);
     const [currentTab, setCurrentTab] = useState('all');
     const { showLoading, hideLoading } = useLoading();
-    const [favorites, setFavorites] = useState([]);
+    const [favoriteBooks, setFavorites] = useState([]);
     const [borrowBooks, setBorrowBooks] = useState([]);
     const addToast = useToast();
 
@@ -92,7 +92,7 @@ const MyShelf = () => {
             <div className="main-content">
                 <Header
                     setFilteredBooks={currentTab === 'all' ? setFilteredBooks : setFilteredFavorites}
-                    borrowBooks={currentTab === 'all' ? borrowBooks : favorites}
+                    myShelf={currentTab === 'all' ? borrowBooks : favoriteBooks}
                 />
                 <div className="content">
                     <div className='myshelf-page'>
@@ -102,10 +102,10 @@ const MyShelf = () => {
                             <button className={`tab ${currentTab === 'favorites' ? 'active' : ''}`} onClick={() => handleTabChange('favorites')}>Favorite</button>
                         </div>
                         {currentTab === 'all' && (
-                            <BorrowBooks books={filteredBooks} handleReturnBook={handleReturnBook} />
+                            <BorrowBooks borrowBooks={filteredBooks} handleReturnBook={handleReturnBook} />
                         )}
                         {currentTab === 'favorites' && (
-                            <FavoriteBooks favorites={filteredFavorites} handleUnlikeBook={handleUnlikeBook} />
+                            <FavoriteBooks favoriteBooks={filteredFavorites} handleUnlikeBook={handleUnlikeBook} />
                         )}
                     </div>
                 </div>
