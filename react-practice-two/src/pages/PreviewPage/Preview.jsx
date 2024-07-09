@@ -46,6 +46,8 @@ const PreviewPage = () => {
     }, [bookId]);
 
     const handleBorrowBook = async () => {
+        // handleBorrowBook cannot be called if the button is disabled
+        if (status !== 'None') return;
         showLoading();
         try {
             const userId = getCurrentUserId();
@@ -123,7 +125,7 @@ const PreviewPage = () => {
                                         size="btn-big"
                                         className={status === 'None' ? 'btn-primary' : 'btn-disabled'}
                                         disabled={status !== 'None'}
-                                        onClick={handleBorrowBook}
+                                        onClick={status === 'None' ? handleBorrowBook : null}
                                         text="BORROW"
                                     />
                                 </div>

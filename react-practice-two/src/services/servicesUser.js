@@ -18,7 +18,7 @@ export const loginUser = async (email, password) => {
             localStorage.setItem('userId', id);
             return { data }
         }
-        return { data: null, error: 'Invalid response format' };
+        return { data };
     } catch (error) {
         return error;
     }
@@ -57,7 +57,8 @@ export const logoutUser = async () => {
             }
         });
         localStorage.removeItem('authToken');
-        return { data: response.data, error: null };
+        const { data } = response.data;
+        return data;
     } catch (error) {
         return error;
     }
