@@ -69,7 +69,7 @@ const MyShelf = () => {
 
     const handleReturnBook = async (shelfId) => {
         try {
-            const result = await deleteShelfBook(shelfId);
+            await deleteShelfBook(shelfId);
             await fetchData();
             addToast('Book returned from shelf', 'success');
         } catch (error) {
@@ -79,7 +79,7 @@ const MyShelf = () => {
 
     const handleUnlikeBook = async (favoriteId) => {
         try {
-            const result = await deleteFavorite(favoriteId);
+            await deleteFavorite(favoriteId);
             await fetchData();
             addToast('Book removed from favorites', 'success');
         } catch (error) {

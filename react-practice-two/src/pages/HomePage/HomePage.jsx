@@ -23,17 +23,18 @@ const HomePage = () => {
     const fetchData = async () => {
         showLoading();
         try {
-            const listBook = await fetchBook();
             const userId = getCurrentUserId();
-            const listFavorite = await fetchFavorites(userId);
-
+            // Use Promise.all to fetch books and favorites concurrently
+            const [listBook, listFavorite] = await Promise.all([
+                fetchBook(),
+                fetchFavorites(userId)
+            ]);
             const newListBook = listBook.map(book => {
                 return {
                     isFavorited: listFavorite.find(item => item.bookId === book._id.$oid) ? true : false,
                     ...book
                 }
             })
-
             setBooks(newListBook);
             // Initialize filteredBooks with the full list
             setFilteredBooks(newListBook);
@@ -85,7 +86,7 @@ const HomePage = () => {
                 return addToast('Book is already in favorites', 'success');
             }
             const userId = getCurrentUserId();
-            const result = await addBookToFavorites(userId, bookId);
+            await addBookToFavorites(userId, bookId);
             await fetchData();
             return addToast('Added to favorites successfully', 'success');
         } catch (error) {

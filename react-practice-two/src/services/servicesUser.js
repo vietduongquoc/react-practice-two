@@ -16,11 +16,11 @@ export const loginUser = async (email, password) => {
             const { id } = custom_attributes;
             localStorage.setItem('authToken', token);
             localStorage.setItem('userId', id);
-            return { data, error: null };
+            return { data }
         }
-        return { data: null, error: 'Invalid response format' };
+        return { data };
     } catch (error) {
-        return error ;
+        return error;
     }
 };
 
@@ -37,15 +37,14 @@ export const registerUser = async (username, email, password) => {
     }
     try {
         const response = await axios.post(`${USERS_API_URL}/register`, params);
+        const { data } = response;
 
-        if (response.data && response.data.token) {
-            // Save the token to localStorage
-            localStorage.setItem('authToken', response.data.token);
+        if (data === "") {
+            throw new Error("Required")
         }
-
-        return { data: response.data, error: null };
+        console.log("pass: ", data);
     } catch (error) {
-        return error;
+        throw error
     }
 };
 
@@ -58,7 +57,8 @@ export const logoutUser = async () => {
             }
         });
         localStorage.removeItem('authToken');
-        return { data: response.data, error: null };
+        const { data } = response.data;
+        return data;
     } catch (error) {
         return error;
     }

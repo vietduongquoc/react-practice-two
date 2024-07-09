@@ -58,19 +58,17 @@ const RegisterPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (isFormValid) {
-            setIsSubmitting(true);
             showLoading();
-            const { error } = await registerUser(name, email, password);
-            setIsSubmitting(false);
-            hideLoading();
-
-            if (error) {
+            try {
+                await registerUser(name, email, password);
+                addToast('Registration successful!', 'success');
+                navigate('/');
+            } catch (error) {
                 addToast('Registration failed: ' + error, 'error');
-                return;
+            } finally {
+                hideLoading();
             }
 
-            addToast('Registration successful!', 'success');
-            navigate('/login');
         }
     };
 
@@ -148,7 +146,6 @@ const RegisterPage = () => {
                         borderRadius="btn-rounded"
                         size="btn-large"
                         text="Register"
-                        onClick={handleSubmit}
                         isDisabled={!isFormValid || isSubmitting}
                     />
                     <div className='wrap-link-register'>
