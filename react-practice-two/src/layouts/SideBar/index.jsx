@@ -3,7 +3,6 @@ import homeIcon from '../../assets/image/Sidebar-icon-home.jpg';
 import logoIcon from '../../assets/image/Logo.jpg';
 import { Link } from 'react-router-dom';
 import React from 'react';
-import './index.css';
 
 const Sidebar = () => {
     return (

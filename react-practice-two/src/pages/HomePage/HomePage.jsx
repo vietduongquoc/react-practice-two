@@ -7,7 +7,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ItemCard from '../../components/Card';
 import Header from '../../layouts/Header';
-import './HomePage.css';
 
 const HomePage = () => {
     const [filteredBooks, setFilteredBooks] = useState([]);

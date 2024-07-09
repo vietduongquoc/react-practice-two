@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import HeartIcon from '../../components/Icon';
 import Button from '../../components/Button';
 import Header from '../../layouts/Header';
-import './MyShelf.css';
 
 const MyShelf = () => {
     const [filteredFavorites, setFilteredFavorites] = useState([]);
