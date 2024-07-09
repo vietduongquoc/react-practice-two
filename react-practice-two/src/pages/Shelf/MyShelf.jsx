@@ -15,7 +15,7 @@ const MyShelf = () => {
     const [currentTab, setCurrentTab] = useState('all');
     const { showLoading, hideLoading } = useLoading();
     const [favorites, setFavorites] = useState([]);
-    const [books, setBooks] = useState([]);
+    const [borrowBooks, setBorrowBooks] = useState([]);
     const addToast = useToast();
 
     useEffect(() => {
@@ -41,7 +41,7 @@ const MyShelf = () => {
                 ...book
             }));
 
-            setBooks(formattedShelfBooks);
+            setBorrowBooks(formattedShelfBooks);
             setFilteredBooks(formattedShelfBooks);
 
             // Process favorite books
@@ -68,7 +68,8 @@ const MyShelf = () => {
     const handleReturnBook = async (shelfId) => {
         try {
             await deleteShelfBook(shelfId);
-            await fetchData();
+            setBorrowBooks(prevBooks => prevBooks.filter(book => book.shelfId !== shelfId));
+            setFilteredBooks(prevFilteredBooks => prevFilteredBooks.filter(book => book.shelfId !== shelfId));
             addToast('Book returned from shelf', 'success');
         } catch (error) {
             addToast('Error returning book: ' + error.message, 'error');
@@ -78,7 +79,8 @@ const MyShelf = () => {
     const handleUnlikeBook = async (favoriteId) => {
         try {
             await deleteFavorite(favoriteId);
-            await fetchData();
+            setFavorites(prevFavorites => prevFavorites.filter(book => book.favoriteId !== favoriteId));
+            setFilteredFavorites(prevFilteredFavorites => prevFilteredFavorites.filter(book => book.favoriteId !== favoriteId));
             addToast('Book removed from favorites', 'success');
         } catch (error) {
             addToast('Error removing book: ' + error.message, 'error');
@@ -90,7 +92,7 @@ const MyShelf = () => {
             <div className="main-content">
                 <Header
                     setFilteredBooks={currentTab === 'all' ? setFilteredBooks : setFilteredFavorites}
-                    books={currentTab === 'all' ? books : favorites}
+                    borrowBooks={currentTab === 'all' ? borrowBooks : favorites}
                 />
                 <div className="content">
                     <div className='myshelf-page'>
