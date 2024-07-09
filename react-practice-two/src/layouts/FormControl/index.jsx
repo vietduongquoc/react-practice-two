@@ -1,6 +1,5 @@
 import searchIcon from '../../assets/image/icon-search-color.jpg';
 import React, { useState, useEffect, useRef } from 'react';
-import './index.css';
 
 const FormControl = ({ setFilteredBooks, books }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);

@@ -1,6 +1,5 @@
 import Sidebar from '../../layouts/SideBar';
 import React from 'react';
-import './index.css';
 
 const MainLayout = ({ children }) => {
     return (

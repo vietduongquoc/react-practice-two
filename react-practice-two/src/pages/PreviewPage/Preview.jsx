@@ -10,7 +10,6 @@ import rateStars from '../../assets/image/rate-stars.png';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/Button';
 import Header from '../../layouts/Header';
-import './Preview.css';
 
 const PreviewPage = () => {
     const { bookId } = useParams();
