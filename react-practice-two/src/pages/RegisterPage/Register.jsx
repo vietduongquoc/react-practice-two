@@ -3,7 +3,7 @@ import { useLoading } from '../../components/Spinner/LoadingProvider';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { registerUser } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
-import logoIcon from '../../assets/image/logo.jpg';
+import logoIcon from '../../assets/image/Logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
