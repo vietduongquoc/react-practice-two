@@ -3,7 +3,7 @@ import { useToast } from '../../components/Toast/ToastProvider';
 import React, { useState, useEffect, useCallback } from 'react';
 import { loginUser } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
-import logoIcon from '../../assets/image/logo.jpg';
+import logoIcon from '../../assets/image/Logo.jpg';
 import Checkbox from '../../components/Checkbox';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
