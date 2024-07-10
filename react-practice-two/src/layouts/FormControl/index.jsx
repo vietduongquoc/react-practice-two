@@ -1,5 +1,6 @@
-import searchIcon from '../../assets/image/icon-search-color.jpg';
+import searchIcon from '../../assets/image/iconSearch.jpg';
 import React, { useState, useEffect, useRef } from 'react';
+import Input from '../../components/Input';
 
 const FormControl = ({ setFilteredBooks, books }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -69,7 +70,7 @@ const FormControl = ({ setFilteredBooks, books }) => {
             </div>
             <form onSubmit={handleSearch} className="search-form">
                 <div className="search-input-container">
-                    <input
+                    <Input
                         type="text"
                         value={searchQuery}
                         onChange={handleSearchQueryChange}

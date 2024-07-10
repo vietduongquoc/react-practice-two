@@ -84,7 +84,7 @@ const RegisterPage = () => {
         <div className="form-container">
             <form className="register-form" onSubmit={handleSubmit}>
                 <div className='wrap-register-form-title'>
-                    <img src={logoIcon} alt="Logo" className="logo-icon" />
+                    <img src={logoIcon} alt="Logo" className="Logo-icon" />
                     <h1 className='register-form-title'>Registration</h1>
                     <p className='register-form-ders'>For Both Staff & Students</p>
                 </div>

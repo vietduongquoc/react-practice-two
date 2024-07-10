@@ -1,9 +1,10 @@
-import eyeClosed from '../../assets/image/eye-closed.jpg'
-import eyeOpen from '../../assets/image/eye-open.jpg'
+import eyeClosed from '../../assets/image/eyeClosed.jpg'
+import eyeOpen from '../../assets/image/eyeOpen.jpg'
 import React, { memo } from 'react';
 import './index.css';
 
 const Input = ({
+    className,
     label,
     type,
     value,
@@ -28,6 +29,7 @@ const Input = ({
                     required={required}
                     placeholder={placeholder}
                     onBlur={onBlur}
+                    className={className}
                 />
                 {type === 'password' && (
                     <span className="toggle" onClick={togglePasswordVisibility}>
