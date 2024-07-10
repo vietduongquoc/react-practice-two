@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const UserMenu = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('username') || sessionStorage.getItem('username');
     const addToast = useToast();
     const dropdownRef = useRef(null);
     const navigate = useNavigate();

@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-const USERS_API_URL = 'https://v1.slashapi.com/viet5/auth/REhGguBImp';
+const USERS_API_URL = 'https://v1.slashapi.com/viet6/auth/uBzvTSAfIl';
 
-export const loginUser = async (email, password) => {
+export const loginUser = async (email, password, rememberMe) => {
     try {
         const response = await axios.post(`${USERS_API_URL}/login`, {
             email,
@@ -14,8 +14,15 @@ export const loginUser = async (email, password) => {
         if (data) {
             const { token, custom_attributes } = data;
             const { id } = custom_attributes;
-            localStorage.setItem('authToken', token);
-            localStorage.setItem('userId', id);
+
+            if (rememberMe) {
+                localStorage.setItem('authToken', token);
+                localStorage.setItem('userId', id);
+            } else {
+                sessionStorage.setItem('authToken', token);
+                sessionStorage.setItem('userId', id);
+            }
+
             return { data };
         }
         return { data };
@@ -50,25 +57,24 @@ export const registerUser = async (username, email, password) => {
 
 export const logoutUser = async () => {
     try {
-        const response = await axios.post(`${USERS_API_URL}/logout`, {}, {
+        await axios.post(`${USERS_API_URL}/logout`, {}, {
             headers: {
                 'Authorization': `Bearer ${getToken()}`,
                 'Content-Type': 'application/json'
             }
         });
-        localStorage.clear();
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userId');
         sessionStorage.clear();
-        const { data } = response.data;
-        return data;
     } catch (error) {
         return error;
     }
 };
 
 export const getToken = () => {
-    return localStorage.getItem('authToken');
+    return sessionStorage.getItem('authToken') || localStorage.getItem('authToken');
 };
 
 export const getCurrentUserId = () => {
-    return localStorage.getItem('userId');
+    return sessionStorage.getItem('userId') || localStorage.getItem('userId');
 };
