@@ -1,5 +1,5 @@
 import bookshelfIcon from '../../assets/image/SidebarIconBookshelf.jpg';
-import homeIcon from '../../assets/image/SidebarIconHome.jpg';
+import homeIcon from '../../assets/image//SidebarIconHome.jpg';
 import logoIcon from '../../assets/image/Logo.jpg';
 import { Link } from 'react-router-dom';
 import React from 'react';
