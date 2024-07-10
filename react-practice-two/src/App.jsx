@@ -9,9 +9,9 @@ import LoginPage from './pages/LoginPage/Login';
 import MyShelf from './pages/Shelf/index';
 import MainLayout from './layouts/Main';
 
-const PrivateRoute = () => {
+const PrivateRoute = ({ element }) => {
     const token = getToken();
-    return token ? <Navigate to="/" /> : <Navigate to="/login" />;
+    return token ? element : <Navigate to="/login" />;
 };
 
 const App = () => {
