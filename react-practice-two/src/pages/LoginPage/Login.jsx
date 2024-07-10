@@ -118,7 +118,7 @@ const LoginPage = () => {
         <div className="form-container">
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className='wrap-login-form-title'>
-                    <img src={logoIcon} alt="logo" className="logo-icon" />
+                    <img src={logoIcon} alt="Logo" className="Logo-icon" />
                     <h1 className='login-form-title'>Welcome Back!</h1>
                     <p className='login-form-ders'>Sign in to continue to your Digital Library</p>
                 </div>

@@ -9,7 +9,7 @@ const HeartIcon = ({ isFavorited, onClick }) => {
             viewBox="0 0 24 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className={`heartIcon ${isFavorited ? 'favorited' : ''}`}
+            className={`heart-icon ${isFavorited ? 'favorited' : ''}`}
             onClick={onClick}
         >
             <path
