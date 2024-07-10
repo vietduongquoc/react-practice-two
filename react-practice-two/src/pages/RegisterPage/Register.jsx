@@ -3,7 +3,7 @@ import { useLoading } from '../../components/Spinner/LoadingProvider';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { registerUser } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
-import logoIcon from '../../assets/image/Logo.jpg';
+import logoIcon from '../../assets/image/logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -84,7 +84,7 @@ const RegisterPage = () => {
         <div className="form-container">
             <form className="register-form" onSubmit={handleSubmit}>
                 <div className='wrap-register-form-title'>
-                    <img src={logoIcon} alt="Logo" className="logo-icon" />
+                    <img src={logoIcon} alt="logo" className="logo-icon" />
                     <h1 className='register-form-title'>Registration</h1>
                     <p className='register-form-ders'>For Both Staff & Students</p>
                 </div>

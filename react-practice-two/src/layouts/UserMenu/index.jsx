@@ -1,5 +1,5 @@
 import { useToast } from '../../components/Toast/ToastProvider';
-import avatarUser from '../../assets/image/avatar-user.jpg';
+import avatarUser from '../../assets/image/avatarUser.jpg';
 import React, { useState, useEffect, useRef } from 'react';
 import { logoutUser } from '../../services/servicesUser';
 import { useNavigate } from 'react-router-dom';
@@ -29,9 +29,22 @@ const UserMenu = () => {
     };
 
     const handleLogout = async () => {
-        logoutUser();
-        addToast('Logout successful!', 'success');
-        navigate('/login');
+        try {
+            await logoutUser();
+            // Remove authentication information from localStorage and sessionStorage
+            localStorage.removeItem('rememberMe');
+            localStorage.removeItem('savedEmail');
+            localStorage.removeItem('savedPassword');
+            localStorage.removeItem('username');
+            sessionStorage.removeItem('authToken');
+            sessionStorage.removeItem('userId');
+            sessionStorage.removeItem('username');
+
+            addToast('Logout successful!', 'success');
+            navigate('/login');
+        } catch (error) {
+            addToast('Logout failed! Please try again.', 'error');
+        }
     };
 
     return (

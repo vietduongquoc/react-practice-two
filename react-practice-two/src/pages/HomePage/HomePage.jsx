@@ -1,5 +1,5 @@
 import { useLoading } from '../../components/Spinner/LoadingProvider';
-import { addBookToFavorites, fetchFavorites, getFavoritesDetail } from '../../services/servicesFavorite'
+import { addBookToFavorites, fetchFavorites } from '../../services/servicesFavorite'
 import { useToast } from '../../components/Toast/ToastProvider';
 import { fetchBook } from '../../services/servicesBook';
 import { getCurrentUserId } from '../../services/servicesUser';
@@ -11,6 +11,7 @@ import Header from '../../layouts/Header';
 const HomePage = () => {
     const [filteredBooks, setFilteredBooks] = useState([]);
     const { showLoading, hideLoading } = useLoading();
+    const [favorites, setFavorites] = useState([]);
     const [books, setBooks] = useState([]);
     const navigate = useNavigate();
     const addToast = useToast();
@@ -81,14 +82,28 @@ const HomePage = () => {
 
     const handleAddToFavorites = async (bookId) => {
         try {
-            const favorite = await getFavoritesDetail(bookId);
-            if (favorite.data.length > 0) {
-                return addToast('Book is already in favorites', 'success');
-            }
             const userId = getCurrentUserId();
+            const isAlreadyFavorited = favorites.find(item => item.bookId === bookId);
+
+            if (isAlreadyFavorited) {
+                addToast('Book is already in favorites', 'success');
+                return;
+            }
             await addBookToFavorites(userId, bookId);
-            await fetchData();
-            return addToast('Added to favorites successfully', 'success');
+            // Update the favorites state directly
+            const updatedFavorites = [...favorites, { bookId }];
+            setFavorites(updatedFavorites);
+
+            // Update the books state to reflect the new favorite status
+            const updatedBooks = books.map(book => {
+                if (book._id.$oid === bookId) {
+                    return { ...book, isFavorited: true };
+                }
+                return book;
+            });
+            setBooks(updatedBooks);
+            setFilteredBooks(updatedBooks);
+            addToast('Added to favorites successfully', 'success');
         } catch (error) {
             addToast('Failed to add to favorites: ' + error.message, 'error');
         }

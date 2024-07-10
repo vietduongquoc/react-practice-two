@@ -6,8 +6,8 @@ import { getCurrentUserId } from '../../services/servicesUser';
 import { getListBookById } from '../../services/servicesBook';
 import React, { useState, useEffect } from 'react';
 import Header from '../../layouts/Header';
-import BorrowBooks from '../BorrowBooks';
-import FavoriteBooks from '../FavoriteBooks';
+import BorrowBooks from './Myshelf/BorrowBooks';
+import FavoriteBooks from './Myshelf/FavoriteBooks';
 
 const MyShelf = () => {
     const [filteredFavorites, setFilteredFavorites] = useState([]);

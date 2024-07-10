@@ -16,7 +16,7 @@ export const loginUser = async (email, password) => {
             const { id } = custom_attributes;
             localStorage.setItem('authToken', token);
             localStorage.setItem('userId', id);
-            return { data }
+            return { data };
         }
         return { data };
     } catch (error) {
@@ -40,11 +40,11 @@ export const registerUser = async (username, email, password) => {
         const { data } = response;
 
         if (data === "") {
-            throw new Error("Required")
+            throw new Error("Required");
         }
         console.log("pass: ", data);
     } catch (error) {
-        throw error
+        throw error;
     }
 };
 
@@ -56,7 +56,8 @@ export const logoutUser = async () => {
                 'Content-Type': 'application/json'
             }
         });
-        localStorage.removeItem('authToken');
+        localStorage.clear();
+        sessionStorage.clear();
         const { data } = response.data;
         return data;
     } catch (error) {
@@ -69,5 +70,5 @@ export const getToken = () => {
 };
 
 export const getCurrentUserId = () => {
-    return localStorage.getItem('userId')
+    return localStorage.getItem('userId');
 };

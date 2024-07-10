@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getShelfBookDetail, addBookToShelf } from '../../services/servicesShelf';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
-import arrowBack from '../../assets/image/arrow-small-left.png';
+import arrowBack from '../../assets/image/arrowSmallLeft.png';
 import { useToast } from '../../components/Toast/ToastProvider';
-import authorImage from '../../assets/image/preview-image.png';
+import authorImage from '../../assets/image/previewImage.png';
 import { getCurrentUserId } from '../../services/servicesUser';
 import { fetchBookById } from '../../services/servicesBook';
-import rateStars from '../../assets/image/rate-stars.png';
+import rateStars from '../../assets/image/rateStars.png';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/Button';
 import Header from '../../layouts/Header';
@@ -21,11 +21,16 @@ const PreviewPage = () => {
     const fetchBookDetail = async (bookId) => {
         showLoading();
         try {
-            const result = await fetchBookById(bookId);
+            // Get the userId
+            const userId = getCurrentUserId();
+            // Fetch book details and shelf details concurrently using Promise.all
+            const [result, borrow] = await Promise.all([
+                fetchBookById(bookId),
+                getShelfBookDetail(bookId)
+            ]);
+            // Set the book details
             setBook(result);
             // Check if the book is already in the user's shelf
-            const userId = getCurrentUserId();
-            const borrow = await getShelfBookDetail(bookId);
             if (borrow.find(item => item.userId === userId)) {
                 setStatus('In-Shelf');
             } else {
@@ -88,12 +93,12 @@ const PreviewPage = () => {
                                 </div>
                                 <div className="preview-book-details">
                                     <h1 className="preview-book-title">{book.name}</h1>
-                                    <div className='preview-book-ders'>
-                                        <img src={rateStars} alt="stars" className="icon-start" />
-                                        <p className="preview-book-rate">5.0 Ratings</p>
-                                        <p>25 Currently reading</p>
-                                        <p>119 Have read</p>
-                                    </div>
+                                    <ul className='preview-book-ders'>
+                                        <li className='availability-ders'><img src={rateStars} alt="stars" className="icon-start" /></li>
+                                        <li className='availability-ders'><p className="preview-book-rate">5.0 Ratings</p></li>
+                                        <li className='availability-ders'><p>25 Currently reading</p></li>
+                                        <li className='availability-ders'><p>119 Have read</p></li>
+                                    </ul>
                                     <div className='wrap-status'>
                                         <ul className="availability-title">Availability
                                             <li className='availability-ders'>

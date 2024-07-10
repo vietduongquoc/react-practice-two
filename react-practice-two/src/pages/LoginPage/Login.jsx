@@ -3,7 +3,7 @@ import { useToast } from '../../components/Toast/ToastProvider';
 import React, { useState, useEffect, useCallback } from 'react';
 import { loginUser } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
-import logoIcon from '../../assets/image/Logo.jpg';
+import logoIcon from '../../assets/image/logo.jpg';
 import Checkbox from '../../components/Checkbox';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
@@ -22,9 +22,9 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check localStorage for Remember me status and populate email/password if checked
-        const rememberMeStatus = localStorage.getItem('rememberMe');
-        if (rememberMeStatus === 'true') {
+        // Check localStorage for saved credentials if Remember me was selected
+        const savedRememberMe = localStorage.getItem('rememberMe') === 'true';
+        if (savedRememberMe) {
             const savedEmail = localStorage.getItem('savedEmail');
             const savedPassword = localStorage.getItem('savedPassword');
             if (savedEmail && savedPassword) {
@@ -32,8 +32,28 @@ const LoginPage = () => {
                 setPassword(savedPassword);
                 setRemember(true);
             }
+        } else {
+            // Clear session storage when component mounts
+            sessionStorage.clear();
         }
     }, []);
+
+    useEffect(() => {
+        const handleUnload = () => {
+            if (!remember) {
+                sessionStorage.clear();
+                localStorage.removeItem('rememberMe');
+                localStorage.removeItem('savedEmail');
+                localStorage.removeItem('savedPassword');
+            }
+        };
+
+        window.addEventListener('beforeunload', handleUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleUnload);
+        };
+    }, [remember]);
 
     const validateAllFields = useCallback(() => {
         const { errors, isFormValid } = validateForm({ email, password });
@@ -54,7 +74,7 @@ const LoginPage = () => {
         validateAllFields();
     };
 
-    const handleBlur = (field) => {
+    const handleBlur = () => {
         validateAllFields();
     };
 
@@ -67,7 +87,7 @@ const LoginPage = () => {
 
         try {
             const { data } = await loginUser(email, password);
-            const { custom_attributes,  } = data;
+            const { custom_attributes } = data;
             const { username } = custom_attributes || {};
             localStorage.setItem('username', username || 'username');
 
@@ -76,9 +96,8 @@ const LoginPage = () => {
                 localStorage.setItem('savedEmail', email);
                 localStorage.setItem('savedPassword', password);
             } else {
-                localStorage.removeItem('rememberMe');
-                localStorage.removeItem('savedEmail');
-                localStorage.removeItem('savedPassword');
+                sessionStorage.setItem('email', email);
+                sessionStorage.setItem('password', password);
             }
 
             addToast('Login successful!', 'success');
@@ -99,7 +118,7 @@ const LoginPage = () => {
         <div className="form-container">
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className='wrap-login-form-title'>
-                    <img src={logoIcon} alt="Logo" className="logo-icon" />
+                    <img src={logoIcon} alt="logo" className="logo-icon" />
                     <h1 className='login-form-title'>Welcome Back!</h1>
                     <p className='login-form-ders'>Sign in to continue to your Digital Library</p>
                 </div>
@@ -117,7 +136,7 @@ const LoginPage = () => {
                 {errors.email && <div className="error">{errors.email}</div>}
                 <Input
                     label="Password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     value={password}

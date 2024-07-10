@@ -1,17 +1,17 @@
 import React from 'react';
-import Button from '../../components/Button';
+import Button from '../../../../components/Button';
 
 const BorrowBooks = ({ borrowBooks, handleReturnBook }) => {
     return (
-        <div className="books-list">
+        <ul className="books-list">
             {borrowBooks.map(book => (
-                <article key={book._id.$oid} className="book-item">
-                    <div className='book-item-column-left'>
-                        <img src={book.urlImage} alt={book.name} className="book-item-image" />
-                        <h3 className='book-item-name'>{book.name}</h3>
-                        <p className='book-item-author'>{book.author}</p>
-                        <p className="book-item-rate">5.0 Ratings</p>
-                    </div>
+                <li key={book._id.$oid} className="book-item">
+                    <ul className='book-item-column-left'>
+                        <li><img src={book.urlImage} alt={book.name} className="book-item-image" /></li>
+                        <li> <h3 className='book-item-name'>{book.name}</h3></li>
+                        <li> <p className='book-item-author'>{book.author}</p></li>
+                        <li> <p className="book-item-rate">5.0 Ratings</p></li>
+                    </ul>
                     <aside className="book-item-column-right">
                         <div className="book-item-column-right-text">
                             <p className='book-item-status'>Borrowed on </p>
@@ -24,9 +24,9 @@ const BorrowBooks = ({ borrowBooks, handleReturnBook }) => {
                             size="btn-large"
                         />
                     </aside>
-                </article>
+                </li>
             ))}
-        </div>
+        </ul>
     );
 };
 

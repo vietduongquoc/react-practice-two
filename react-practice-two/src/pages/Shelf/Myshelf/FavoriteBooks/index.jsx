@@ -1,21 +1,21 @@
 import React from 'react';
-import HeartIcon from '../../components/Icon';
-import Button from '../../components/Button';
+import HeartIcon from '../../../../components/Icon';
+import Button from '../../../../components/Button';
 import { useNavigate } from 'react-router-dom';
 
 const FavoriteBooks = ({ favoriteBooks, handleUnlikeBook }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="books-list">
-            <div className='wrap-book-item-favourite-title'>
-                <p className='title-one'>Title</p>
-                <p className='title-two'>Ratings</p>
-                <p className='title-three'>Category</p>
-                <p className='title-four'>Status</p>
-            </div>
+        <ul className="books-list">
+            <ul className='wrap-book-item-favourite-title'>
+                <li className='title-one'>Title</li>
+                <li className='title-two'>Ratings</li>
+                <li className='title-three'>Category</li>
+                <li className='title-four'>Status</li>
+            </ul>
             {favoriteBooks.map(book => (
-                <div key={book._id.$oid} className="book-item-favourite">
+                <li key={book._id.$oid} className="book-item-favourite">
                     <img src={book.urlImage} alt={book.name} className="book-item-favourite-image" />
                     <div className='book-item-favourite-content'>
                         <h3 className='book-item-name'>{book.name}</h3>
@@ -33,7 +33,7 @@ const FavoriteBooks = ({ favoriteBooks, handleUnlikeBook }) => {
                         borderRadius="btn-rounded"
                     />
                     <HeartIcon
-                        className="heart-icon"
+                        className="heartIcon"
                         onClick={() => handleUnlikeBook(book.favoriteId)}
                     />
                     <Button
@@ -42,9 +42,9 @@ const FavoriteBooks = ({ favoriteBooks, handleUnlikeBook }) => {
                         className="btn-preview"
                         borderRadius="btn-rounded"
                     />
-                </div>
+                </li>
             ))}
-        </div>
+        </ul>
     );
 };
 

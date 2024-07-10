@@ -1,8 +1,8 @@
-.heart-icon {
+.heartIcon {
     cursor: pointer;
 }
 
-.heart-icon:hover {
+.heartIcon:hover {
     transition-delay: 0.15s;
     height: 22px;
 }

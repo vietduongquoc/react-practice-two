@@ -31,8 +31,8 @@
 .books-list {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: space-between; */
     gap: 20px;
+    padding: 0;
 }
 
 .book-item {
@@ -116,6 +116,7 @@
     justify-content: space-between;
     align-items: center;
     color: var(--text-color-primary);
+    list-style-type: none;
 }
 
 .book-item-favourite-image {
@@ -157,11 +158,21 @@
     font-size: var(--font-size-lg);
     width: 100%;
     max-width: 1400px;
-    grid-template-columns: 435px 150px 225px 100px;
+    grid-template-columns: 450px 135px 215px 100px;
     margin-top: 20px;
     margin-bottom: 5px;
+    padding: 0;
 }
 
-.wrap-book-item-favourite-title p {
+.wrap-book-item-favourite-title li {
+    list-style-type: none;
+}
+
+.book-item-column-left li{
+    list-style-type: none;
+}
+
+.book-item-column-left {
     margin: 0;
+    padding: 0;
 }

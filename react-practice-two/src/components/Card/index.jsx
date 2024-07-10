@@ -22,7 +22,7 @@ const ItemCard = ({ book, onPreview, isFavorited, onAddToFavorites }) => {
                     <p className='book-details-author'>{book.author}</p>
                     <p className='book-details-rate'>4.5/5</p>
                 </div>
-                <div className="heart-icon-actions">
+                <div className="heartIcon-actions">
                     <HeartIcon
                         onClick={onAddToFavorites}
                         isFavorited={isFavorited}
