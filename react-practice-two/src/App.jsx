@@ -9,9 +9,9 @@ import LoginPage from './pages/LoginPage/Login';
 import MyShelf from './pages/Shelf/index';
 import MainLayout from './layouts/Main';
 
-const PrivateRoute = ({ element }) => {
+const PrivateRoute = () => {
     const token = getToken();
-    return token ? element : <Navigate to="/login" />;
+    return token ? <Navigate to="/" /> : <Navigate to="/login" />;
 };
 
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route path="/" element={<PrivateRoute element={<MainLayout><HomePage /></MainLayout>} />} />
+                <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
                 <Route path="/my-shelf" element={<PrivateRoute element={<MainLayout><MyShelf /></MainLayout>} />} />
                 <Route path="/preview-page/:bookId" element={<PrivateRoute element={<MainLayout><PreviewPage /></MainLayout>} />} />
             </Routes>
