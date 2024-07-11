@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getShelfBookDetail, addBookToShelf } from '../../services/servicesShelf';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
-import arrowBack from '../../assets/image/arrowSmallLeft.png';
+import arrowBack from '../../assets/images/arrowLeft.png';
 import { useToast } from '../../components/Toast/ToastProvider';
-import authorImage from '../../assets/image/previewImage.png';
+import authorImage from '../../assets/images/imageAuthor.png';
 import { getCurrentUserId } from '../../services/servicesUser';
 import { fetchBookById } from '../../services/servicesBook';
-import rateStars from '../../assets/image/rateStars.png';
+import rateStars from '../../assets/images/rateStars.png';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/Button';
 import Header from '../../layouts/Header';
@@ -17,6 +17,12 @@ const PreviewPage = () => {
     const [status, setStatus] = useState('None');
     const { showLoading, hideLoading } = useLoading();
     const addToast = useToast();
+
+    useEffect(() => {
+        if (bookId) {
+            fetchBookDetail(bookId);
+        }
+    }, [bookId]);
 
     const fetchBookDetail = async (bookId) => {
         showLoading();
@@ -37,18 +43,11 @@ const PreviewPage = () => {
                 setStatus('None');
             }
         } catch (error) {
-            console.error('Error fetching book details:', error);
             addToast('Error fetching book details', 'error');
         } finally {
             hideLoading();
         }
     };
-
-    useEffect(() => {
-        if (bookId) {
-            fetchBookDetail(bookId);
-        }
-    }, [bookId]);
 
     const handleBorrowBook = async () => {
         // handleBorrowBook cannot be called if the button is disabled

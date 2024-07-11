@@ -1,5 +1,5 @@
 import { useToast } from '../../components/Toast/ToastProvider';
-import avatarUser from '../../assets/image/avatarUser.jpg';
+import avatarUser from '../../assets/images/avatarUser.jpg';
 import React, { useState, useEffect, useRef } from 'react';
 import { logoutUser } from '../../services/servicesUser';
 import { useNavigate } from 'react-router-dom';

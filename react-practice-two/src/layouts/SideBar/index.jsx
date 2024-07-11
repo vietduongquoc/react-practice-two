@@ -1,6 +1,6 @@
-import bookshelfIcon from '../../assets/image/sidebarIconBookshelf.jpg';
-import homeIcon from '../../assets/image/sidebarIconHome.jpg';
-import logoIcon from '../../assets/image/Logo.jpg';
+import bookshelfIcon from '../../assets/images/iconBookshelf.jpg';
+import homeIcon from '../../assets/images/iconHome.jpg';
+import logoIcon from '../../assets/images/iconLogo.jpg';
 import { Link } from 'react-router-dom';
 import React from 'react';
 

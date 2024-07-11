@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import HeartIcon from "../Icon/index";
+import IconHeart from "../Icon/index";
 import React from 'react';
 import './index.css';
 
@@ -23,7 +23,7 @@ const ItemCard = ({ book, onPreview, isFavorited, onAddToFavorites }) => {
                     <p className='book-details-rate'>4.5/5</p>
                 </div>
                 <div className="heart-icon-actions">
-                    <HeartIcon
+                    <IconHeart
                         onClick={onAddToFavorites}
                         isFavorited={isFavorited}
                     />
