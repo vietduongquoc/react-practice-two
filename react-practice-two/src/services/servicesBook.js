@@ -2,11 +2,13 @@ import axios from 'axios';
 import { getToken } from './servicesUser';
 
 const api = axios.create({
-    baseURL: 'https://v1.slashapi.com/viet6/mongodb/goiDbyEVLd',
+    baseURL: 'https://v1.slashapi.com/viet7/mongodb/aAx1beMvyT',
+    withCredentials: false,
 });
 
 api.interceptors.request.use(config => {
     const token = getToken();
+    console.log('Token:', token); 
     if (token) {
         config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -19,9 +21,13 @@ export const fetchBook = async () => {
     try {
         const response = await api.get('/books');
         const { data } = response.data;
+        if (!Array.isArray(data)) {
+            throw new Error('Expected data to be an array');
+        }
         return data;
     } catch (error) {
-        return error;
+        console.error('Error fetching books:', error);
+        return [];
     }
 };
 
@@ -65,3 +71,5 @@ export const getListBookById = async (listId) => {
         return error;
     }
 }
+
+export default api;
