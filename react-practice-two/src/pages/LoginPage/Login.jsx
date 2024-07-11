@@ -3,7 +3,7 @@ import { useToast } from '../../components/Toast/ToastProvider';
 import React, { useState, useEffect, useCallback } from 'react';
 import { loginUser, logoutUser } from '../../services/servicesUser';
 import { validateForm } from '../../utils/validation';
-import logoIcon from '../../assets/image/Logo.jpg';
+import logoIcon from '../../assets/images/iconLogo.jpg';
 import Checkbox from '../../components/Checkbox';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
@@ -45,16 +45,24 @@ const LoginPage = () => {
         validateAllFields();
     }, [email, password, validateAllFields]);
 
+    // Redirect to HomePage if user is already logged in
+    const token = getToken();
+    useEffect(() => {
+        if (token) {
+            navigate('/');
+        }
+    }, []);
+
+    const handleBlur = () => {
+        validateAllFields();
+    };
+
     const handleChange = (field, value) => {
         if (field === 'email') {
             setEmail(value);
         } else if (field === 'password') {
             setPassword(value);
         }
-        validateAllFields();
-    };
-
-    const handleBlur = () => {
         validateAllFields();
     };
 
@@ -90,14 +98,6 @@ const LoginPage = () => {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-
-    // Redirect to HomePage if user is already logged in
-    const token = getToken();
-    useEffect(() => {
-        if (token) {
-            navigate('/');
-        }
-    }, [token, navigate]);
 
     return (
         <div className="form-container">

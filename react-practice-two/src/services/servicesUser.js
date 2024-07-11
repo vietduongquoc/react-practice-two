@@ -49,9 +49,8 @@ export const registerUser = async (username, email, password) => {
         if (data === "") {
             throw new Error("Required");
         }
-        console.log("pass: ", data);
     } catch (error) {
-        throw error;
+       return error
     }
 };
 

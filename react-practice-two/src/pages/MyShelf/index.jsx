@@ -1,13 +1,14 @@
+import React, { useState, useEffect } from 'react';
+import Button from '../../components/Button';
+import Header from '../../layouts/Header';
+import BorrowBooks from './components/BorrowBooks';
+import FavoriteBooks from './components/FavoriteBooks';
 import { fetchFavorites, deleteFavorite } from '../../services/servicesFavorite';
 import { fetchShelfBooks, deleteShelfBook } from '../../services/servicesShelf';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
 import { useToast } from '../../components/Toast/ToastProvider';
 import { getCurrentUserId } from '../../services/servicesUser';
 import { getListBookById } from '../../services/servicesBook';
-import React, { useState, useEffect } from 'react';
-import Header from '../../layouts/Header';
-import BorrowBooks from './Myshelf/BorrowBooks';
-import FavoriteBooks from './Myshelf/FavoriteBooks';
 
 const MyShelf = () => {
     const [filteredFavorites, setFilteredFavorites] = useState([]);
@@ -26,32 +27,28 @@ const MyShelf = () => {
         showLoading();
         try {
             const userId = getCurrentUserId();
-
-            // Fetch shelf books and favorite books concurrently
             const [shelfBooksResult, favoriteBooksResult] = await Promise.all([
                 fetchShelfBooks(userId),
                 fetchFavorites(userId)
             ]);
-
-            // Process shelf books
             const shelfBookIds = shelfBooksResult.map(item => item.bookId);
-            const shelfBooksList = await getListBookById(shelfBookIds);
+            const favoriteBookIds = favoriteBooksResult.map(item => item.bookId);
+            const [shelfBooksList, favoriteBooksList] = await Promise.all([
+                getListBookById(shelfBookIds),
+                getListBookById(favoriteBookIds)
+            ]);
+
             const formattedShelfBooks = shelfBooksList.map(book => ({
                 shelfId: shelfBooksResult.find(item => item.bookId === book._id.$oid)._id.$oid,
                 ...book
             }));
-
             setBorrowBooks(formattedShelfBooks);
             setFilteredBooks(formattedShelfBooks);
 
-            // Process favorite books
-            const favoriteBookIds = favoriteBooksResult.map(item => item.bookId);
-            const favoriteBooksList = await getListBookById(favoriteBookIds);
             const formattedFavoriteBooks = favoriteBooksList.map(book => ({
                 favoriteId: favoriteBooksResult.find(item => item.bookId === book._id.$oid)._id.$oid,
                 ...book
             }));
-
             setFavorites(formattedFavoriteBooks);
             setFilteredFavorites(formattedFavoriteBooks);
         } catch (error) {
@@ -88,26 +85,32 @@ const MyShelf = () => {
     };
 
     return (
-        <div className="my-shelf-container">
-            <div className="main-content">
-                <Header
-                    setFilteredBooks={currentTab === 'all' ? setFilteredBooks : setFilteredFavorites}
-                    myShelf={currentTab === 'all' ? borrowBooks : favoriteBooks}
-                />
-                <div className="content">
-                    <div className='myshelf-page'>
-                        <h1 className='myshelf-title'>Your <span>Shelf</span></h1>
-                        <div className="tabs">
-                            <button className={`tab ${currentTab === 'all' ? 'active' : ''}`} onClick={() => handleTabChange('all')}>All Books</button>
-                            <button className={`tab ${currentTab === 'favorites' ? 'active' : ''}`} onClick={() => handleTabChange('favorites')}>Favorite</button>
-                        </div>
-                        {currentTab === 'all' && (
-                            <BorrowBooks borrowBooks={filteredBooks} handleReturnBook={handleReturnBook} />
-                        )}
-                        {currentTab === 'favorites' && (
-                            <FavoriteBooks favoriteBooks={filteredFavorites} handleUnlikeBook={handleUnlikeBook} />
-                        )}
+        <div className="main-content">
+            <Header
+                setFilteredBooks={currentTab === 'all' ? setFilteredBooks : setFilteredFavorites}
+                books={currentTab === 'all' ? borrowBooks : favoriteBooks}
+            />
+            <div className="content">
+                <div className='myshelf-page'>
+                    <h1 className='myshelf-title'>Your <span>Shelf</span></h1>
+                    <div className="tabs">
+                        <Button
+                            className={`tab ${currentTab === 'all' ? 'active' : ''}`}
+                            onClick={() => handleTabChange('all')}
+                            text="All Books"
+                        />
+                        <Button
+                            className={`tab ${currentTab === 'favorites' ? 'active' : ''}`}
+                            onClick={() => handleTabChange('favorites')}
+                            text="Favorite"
+                        />
                     </div>
+                    {currentTab === 'all' && (
+                        <BorrowBooks borrowBooks={filteredBooks} handleReturnBook={handleReturnBook} />
+                    )}
+                    {currentTab === 'favorites' && (
+                        <FavoriteBooks favoriteBooks={filteredFavorites} handleUnlikeBook={handleUnlikeBook} />
+                    )}
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import HeartIcon from '../../../../components/Icon';
+import IconHeart from '../../../../components/Icon';
 import Button from '../../../../components/Button';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,9 +31,10 @@ const FavoriteBooks = ({ favoriteBooks, handleUnlikeBook }) => {
                         color="btn-enable"
                         borderRadius="btn-rounded"
                     />
-                    <HeartIcon
-                        className="heartIcon"
+                    <IconHeart
+                        className="iconHeart"
                         onClick={() => handleUnlikeBook(book.favoriteId)}
+                        isFavorited
                     />
                     <Button
                         onClick={() => navigate(`/preview-page/${book._id.$oid}`)}

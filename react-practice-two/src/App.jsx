@@ -6,7 +6,7 @@ import Loading from './components/Spinner/Loading';
 import { getToken } from './services/servicesUser';
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/LoginPage/Login';
-import MyShelf from './pages/Shelf/index';
+import MyShelf from './pages/MyShelf';
 import MainLayout from './layouts/Main';
 
 const PrivateRoute = ({ element }) => {

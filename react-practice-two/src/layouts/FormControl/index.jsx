@@ -1,4 +1,4 @@
-import searchIcon from '../../assets/image/iconSearch.jpg';
+import searchIcon from '../../assets/images/iconSearch.jpg';
 import React, { useState, useEffect, useRef } from 'react';
 import Input from '../../components/Input';
 
@@ -37,6 +37,11 @@ const FormControl = ({ setFilteredBooks, books }) => {
     const handleSearch = (e) => {
         e.preventDefault();
         const lowerCaseQuery = searchQuery.toLowerCase();
+        if (!books) {
+            console.error('Books array is undefined');
+            return;
+        }
+
         const filtered = books.filter(book =>
             searchType === 'Title'
                 ? book.name.toLowerCase().includes(lowerCaseQuery)

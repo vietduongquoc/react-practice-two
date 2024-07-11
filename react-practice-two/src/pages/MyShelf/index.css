@@ -1,8 +1,3 @@
-/* MyShelf.css */
-.my-shelf-container {
-    display: flex;
-}
-
 .myshelf-page {
     height: calc(100vh - 210px);
 }
@@ -14,7 +9,7 @@
     margin-top: 25px;
 }
 
-.tab {
+.tab.undefined {
     color: var(--text-color-grey);
     margin-right: 30px;
     cursor: pointer;
@@ -22,10 +17,19 @@
     background: var(--background-color-tertiary);
 }
 
+.tab.undefined:hover {
+    background-color: var(--background-color-tertiary);
+}
+
 .tab.active {
     color: var(--text-color-primary);
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-md);
+    background: var(--background-color-tertiary);
+}
+
+.tab.active:hover {
+    background-color: var(--background-color-tertiary);
 }
 
 .books-list {
@@ -127,6 +131,7 @@
 
 .book-item-favourite-content {
     font-weight: var(--font-weight-regular);
+    width: 220px;
 }
 
 .book-item-name {
@@ -160,7 +165,7 @@
     font-size: var(--font-size-lg);
     width: 100%;
     max-width: 1400px;
-    grid-template-columns: 450px 135px 230px 100px;
+    grid-template-columns: 470px 125px 225px 100px;
     margin-top: 20px;
     margin-bottom: 5px;
     padding: 0;
@@ -170,7 +175,7 @@
     list-style-type: none;
 }
 
-.book-item-column-left li{
+.book-item-column-left li {
     list-style-type: none;
 }
 

@@ -16,7 +16,6 @@ const HomePage = () => {
     const navigate = useNavigate();
     const addToast = useToast();
 
-
     useEffect(() => {
         fetchData();
     }, []);
