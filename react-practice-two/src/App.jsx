@@ -11,7 +11,17 @@ import MainLayout from './layouts/Main';
 
 const PrivateRoute = ({ element }) => {
     const token = getToken();
-    return token ? element : <Navigate to="/login" />;
+    const rememberMe = localStorage.getItem('rememberMe') === 'true';
+    const savedEmail = sessionStorage.getItem('savedEmail');
+    const savedPassword = sessionStorage.getItem('savedPassword');
+
+    // Check if the user is logged in either by token or by remember me
+    if (token || rememberMe || (savedEmail && savedPassword)) {
+        return element;
+    }
+
+    // If not logged in, redirect to the login page
+    return <Navigate to="/login" />;
 };
 
 const App = () => {
@@ -20,7 +30,7 @@ const App = () => {
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
+                <Route path="/" element={<PrivateRoute element={<MainLayout><HomePage /></MainLayout>} />} />
                 <Route path="/my-shelf" element={<PrivateRoute element={<MainLayout><MyShelf /></MainLayout>} />} />
                 <Route path="/preview-page/:bookId" element={<PrivateRoute element={<MainLayout><PreviewPage /></MainLayout>} />} />
             </Routes>

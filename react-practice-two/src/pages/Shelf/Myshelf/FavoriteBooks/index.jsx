@@ -23,8 +23,7 @@ const FavoriteBooks = ({ favoriteBooks, handleUnlikeBook }) => {
                     </div>
                     <p className="book-item-favourite-rate">4.5/<span>5</span></p>
                     <div className='book-item-favourite-category'>
-                        <p>Computer Science</p>
-                        <p>Ux Design</p>
+                        <p>{book.Category}</p>
                     </div>
                     <Button
                         text="In-Shelf"

@@ -140,10 +140,12 @@
 .book-item-favourite-category {
     font-weight: var(--font-weight-regular);
     font-size: var(--font-size-xs);
+    width: 155px;
 }
 
 .book-item-favourite-rate {
     font-size: var(--font-size-lg);
+    margin-left: 20px;
 }
 
 .book-item-favourite-rate span {
@@ -158,7 +160,7 @@
     font-size: var(--font-size-lg);
     width: 100%;
     max-width: 1400px;
-    grid-template-columns: 450px 135px 215px 100px;
+    grid-template-columns: 450px 135px 230px 100px;
     margin-top: 20px;
     margin-bottom: 5px;
     padding: 0;
