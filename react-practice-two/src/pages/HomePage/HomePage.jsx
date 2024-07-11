@@ -49,7 +49,7 @@ const HomePage = () => {
             setBooks(newListBook);
             setFilteredBooks(newListBook);
         } catch (error) {
-            // addToast(`Error fetching books: ${error.message}`, 'error');
+            addToast(`Error Authoraization!`, 'error');
             localStorage.clear()
             navigate('/login');
         } finally {
