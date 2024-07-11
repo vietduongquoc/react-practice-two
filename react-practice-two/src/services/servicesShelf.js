@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from './servicesUser';
 
 const api = axios.create({
-    baseURL: 'https://v1.slashapi.com/viet6/mongodb/BN4M7C9ptR',
+    baseURL: 'https://v1.slashapi.com/viet7/mongodb/dJ2aM8meLK',
     withCredentials: false,
 });
 

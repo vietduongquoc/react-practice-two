@@ -2,7 +2,7 @@ import { useLoading } from '../../components/Spinner/LoadingProvider';
 import { addBookToFavorites, fetchFavorites } from '../../services/servicesFavorite'
 import { useToast } from '../../components/Toast/ToastProvider';
 import { fetchBook } from '../../services/servicesBook';
-import { getCurrentUserId } from '../../services/servicesUser';
+import { getCurrentUserId, getToken } from '../../services/servicesUser';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ItemCard from '../../components/Card';
@@ -25,11 +25,21 @@ const HomePage = () => {
         showLoading();
         try {
             const userId = getCurrentUserId();
+            const token = getToken();
+            if (!token) {
+                navigate('/login');
+                return;
+            }
             // Use Promise.all to fetch books and favorites concurrently
             const [listBook, listFavorite] = await Promise.all([
                 fetchBook(),
                 fetchFavorites(userId)
             ]);
+
+            if (!Array.isArray(listBook)) {
+                throw new Error('Expected listBook to be an array');
+            }
+
             const newListBook = listBook.map(book => {
                 return {
                     isFavorited: listFavorite.find(item => item.bookId === book._id.$oid) ? true : false,
@@ -37,12 +47,11 @@ const HomePage = () => {
                 }
             })
             setBooks(newListBook);
-            // Initialize filteredBooks with the full list
             setFilteredBooks(newListBook);
         } catch (error) {
             addToast(`Error fetching books: ${error.message}`, 'error');
-        }
-        finally {
+            localStorage.clear()
+        } finally {
             hideLoading();
         }
     };
@@ -68,7 +77,6 @@ const HomePage = () => {
             <div className="row" key={index}>
                 {row.map((book) => (
                     <ItemCard
-                        // Use _id if id does not exist
                         key={book._id.$oid}
                         book={book}
                         isFavorited={book.isFavorited}
@@ -93,7 +101,6 @@ const HomePage = () => {
             // Update the favorites state directly
             const updatedFavorites = [...favorites, { bookId }];
             setFavorites(updatedFavorites);
-
             // Update the books state to reflect the new favorite status
             const updatedBooks = books.map(book => {
                 if (book._id.$oid === bookId) {

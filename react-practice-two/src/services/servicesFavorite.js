@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from './servicesUser';
 
 const api = axios.create({
-    baseURL: 'https://v1.slashapi.com/viet6/mongodb/gx4iND82jU',
+    baseURL: 'https://v1.slashapi.com/viet7/mongodb/uJ7AnkVswY',
     withCredentials: false,
 });
 
@@ -23,8 +23,12 @@ export const fetchFavorites = async (userId) => {
 
         return data
     } catch (error) {
+        if (error.response && error.response.status === 401) {
+            // Unauthorized error handling
+            throw new Error('Unauthorized. Please log in again.');
+        }
         console.error('Error fetching favorite books:', error);
-        return error
+        return [];
     }
 };
 
