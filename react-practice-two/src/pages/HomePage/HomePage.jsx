@@ -49,8 +49,9 @@ const HomePage = () => {
             setBooks(newListBook);
             setFilteredBooks(newListBook);
         } catch (error) {
-            addToast(`Error fetching books: ${error.message}`, 'error');
+            // addToast(`Error fetching books: ${error.message}`, 'error');
             localStorage.clear()
+            navigate('/login');
         } finally {
             hideLoading();
         }
