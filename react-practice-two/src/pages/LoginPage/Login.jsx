@@ -23,26 +23,6 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check sessionStorage for saved credentials if Remember Me was not selected
-        const savedEmail = sessionStorage.getItem('savedEmail');
-        const savedPassword = sessionStorage.getItem('savedPassword');
-        if (savedEmail && savedPassword) {
-            setEmail(savedEmail);
-            setPassword(savedPassword);
-        }
-
-        // Check localStorage for saved credentials if Remember Me was selected
-        const savedEmailLocal = localStorage.getItem('savedEmail');
-        const savedPasswordLocal = localStorage.getItem('savedPassword');
-        const savedRememberMe = localStorage.getItem('rememberMe');
-        // const savedUsername = localStorage.getItem('username');
-        
-        if (savedRememberMe === 'true' && savedEmailLocal && savedPasswordLocal) {
-            setEmail(savedEmailLocal);
-            setPassword(savedPasswordLocal);
-            setRemember(true);
-        }
-
         // Handle logout when closing tab or browser
         const handleUnload = () => {
             if (!remember) {
@@ -92,12 +72,8 @@ const LoginPage = () => {
 
             if (remember) {
                 localStorage.setItem('rememberMe', 'true');
-                localStorage.setItem('savedEmail', email);
-                localStorage.setItem('savedPassword', password);
                 localStorage.setItem('username', username || 'username');
             } else {
-                sessionStorage.setItem('savedEmail', email);
-                sessionStorage.setItem('savedPassword', password);
                 sessionStorage.setItem('username', username || 'username');
             }
 

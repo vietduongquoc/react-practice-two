@@ -12,14 +12,10 @@ import MainLayout from './layouts/Main';
 const PrivateRoute = ({ element }) => {
     const token = getToken();
     const rememberMe = localStorage.getItem('rememberMe') === 'true';
-    const savedEmail = sessionStorage.getItem('savedEmail');
-    const savedPassword = sessionStorage.getItem('savedPassword');
-
     // Check if the user is logged in either by token or by remember me
-    if (token || rememberMe || (savedEmail && savedPassword)) {
+    if (token || rememberMe ) {
         return element;
     }
-
     // If not logged in, redirect to the login page
     return <Navigate to="/login" />;
 };
