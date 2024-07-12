@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import RegisterPage from './pages/RegisterPage/Register';
-import PreviewPage from './pages/PreviewPage/Preview';
+import RegisterPage from './pages/RegisterPage';
+import PreviewPage from './pages/PreviewPage';
 import Loading from './components/Spinner/Loading';
-import { getToken } from './services/servicesUser';
-import HomePage from './pages/HomePage/HomePage';
-import LoginPage from './pages/LoginPage/Login';
+import { getToken } from './services/userService';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
 import MyShelf from './pages/MyShelf';
 import MainLayout from './layouts/Main';
 
@@ -13,7 +13,7 @@ const PrivateRoute = ({ element }) => {
     const token = getToken();
     const rememberMe = localStorage.getItem('rememberMe') === 'true';
     // Check if the user is logged in either by token or by remember me
-    if (token || rememberMe ) {
+    if (token || rememberMe) {
         return element;
     }
     // If not logged in, redirect to the login page

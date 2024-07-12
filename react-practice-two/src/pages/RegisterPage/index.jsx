@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
 import { useToast } from '../../components/Toast/ToastProvider';
-import { registerUser } from '../../services/servicesUser';
+import { registerUser } from '../../services/userService';
 import { validateForm } from '../../utils/validation';
-import logoIcon from '../../assets/images/iconLogo.jpg';
+import logoIcon from '../../assets/images/icon-logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -21,15 +21,11 @@ const RegisterPage = () => {
     const addToast = useToast();
     const { showLoading, hideLoading } = useLoading();
 
-    const validateAllFields = useCallback(() => {
+    useEffect(() => {
         const { errors, isFormValid } = validateForm({ name, email, password, confirmPassword });
         setErrors(errors);
         setIsFormValid(isFormValid);
     }, [name, email, password, confirmPassword]);
-
-    useEffect(() => {
-        validateAllFields();
-    }, [name, email, password, confirmPassword, validateAllFields]);
 
     const handleChange = (field, value) => {
         switch (field) {
@@ -48,11 +44,6 @@ const RegisterPage = () => {
             default:
                 break;
         }
-        validateAllFields();
-    };
-
-    const handleBlur = (field) => {
-        validateAllFields();
     };
 
     const handleSubmit = async (e) => {
@@ -68,7 +59,6 @@ const RegisterPage = () => {
             } finally {
                 hideLoading();
             }
-
         }
     };
 
@@ -95,7 +85,6 @@ const RegisterPage = () => {
                     name="name"
                     value={name}
                     onChange={(e) => handleChange('name', e.target.value)}
-                    onBlur={() => handleBlur('name')}
                     required={true}
                     placeholder="Username"
                 />
@@ -107,19 +96,17 @@ const RegisterPage = () => {
                     name="email"
                     value={email}
                     onChange={(e) => handleChange('email', e.target.value)}
-                    onBlur={() => handleBlur('email')}
                     required={true}
                     placeholder="Username@mail.com"
                 />
                 {errors.email && <div className="error">{errors.email}</div>}
                 <Input
                     label="Password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     value={password}
                     onChange={(e) => handleChange('password', e.target.value)}
-                    onBlur={() => handleBlur('password')}
                     required={true}
                     showPassword={showPassword}
                     togglePasswordVisibility={togglePasswordVisibility}
@@ -128,7 +115,7 @@ const RegisterPage = () => {
                 {errors.password && <div className="error">{errors.password}</div>}
                 <Input
                     label="Confirm Password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     id="confirmPassword"
                     name="confirmPassword"
                     value={confirmPassword}

@@ -1,5 +1,5 @@
-@import url(LoginPage/Login.css);
-@import url(RegisterPage/Register.css);
-@import url(HomePage/HomePage.css);
-@import url(PreviewPage/Preview.css);
+@import url(LoginPage/index.css);
+@import url(RegisterPage/index.css);
+@import url(HomePage/index.css);
+@import url(PreviewPage/index.css);
 @import url(MyShelf/index.css);

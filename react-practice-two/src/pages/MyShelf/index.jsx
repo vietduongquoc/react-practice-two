@@ -3,12 +3,12 @@ import Button from '../../components/Button';
 import Header from '../../layouts/Header';
 import BorrowBooks from './components/BorrowBooks';
 import FavoriteBooks from './components/FavoriteBooks';
-import { fetchFavorites, deleteFavorite } from '../../services/servicesFavorite';
-import { fetchShelfBooks, deleteShelfBook } from '../../services/servicesShelf';
+import { fetchFavorites, deleteFavorite } from '../../services/favoriteService';
+import { fetchShelfBooks, deleteShelfBook } from '../../services/shelfService';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
 import { useToast } from '../../components/Toast/ToastProvider';
-import { getCurrentUserId } from '../../services/servicesUser';
-import { getListBookById } from '../../services/servicesBook';
+import { getCurrentUserId } from '../../services/userService';
+import { getListBookById } from '../../services/bookService';
 
 const MyShelf = () => {
     const [filteredFavorites, setFilteredFavorites] = useState([]);

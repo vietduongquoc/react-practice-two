@@ -5,14 +5,14 @@ import { useNavigate } from 'react-router-dom';
 
 const FavoriteBooks = ({ favoriteBooks, handleUnlikeBook }) => {
     const navigate = useNavigate();
+    const titles = ['Title', 'Ratings', 'Category', 'Status'];
 
     return (
         <ul className="books-list">
             <ul className='wrap-book-item-favourite-title'>
-                <li className='title-one'>Title</li>
-                <li className='title-two'>Ratings</li>
-                <li className='title-three'>Category</li>
-                <li className='title-four'>Status</li>
+                {titles.map((title, index) => (
+                    <li key={index} className={`title-${index + 1}`}>{title}</li>
+                ))}
             </ul>
             {favoriteBooks.map(book => (
                 <li key={book._id.$oid} className="book-item-favourite">

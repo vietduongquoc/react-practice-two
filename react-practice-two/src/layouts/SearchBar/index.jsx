@@ -1,7 +1,8 @@
-import searchIcon from '../../assets/images/iconSearch.jpg';
+import { useToast } from '../../components/Toast/ToastProvider';
+import searchIcon from '../../assets/images/icon-search.jpg';
 import React, { useState, useEffect, useRef } from 'react';
 import Input from '../../components/Input';
-import { useToast } from '../../components/Toast/ToastProvider';
+import Button from '../../components/Button';
 
 const FormControl = ({ setFilteredBooks, books }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -23,12 +24,6 @@ const FormControl = ({ setFilteredBooks, books }) => {
         };
     }, []);
 
-    useEffect(() => {
-        if (searchQuery === '') {
-            setFilteredBooks(books);
-        }
-    }, [searchQuery, books, setFilteredBooks]);
-
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
     };
@@ -39,7 +34,13 @@ const FormControl = ({ setFilteredBooks, books }) => {
     };
 
     const handleSearchQueryChange = (e) => {
-        setSearchQuery(e.target.value);
+        const query = e.target.value;
+        setSearchQuery(query);
+
+        if (query === '') {
+            // Reset to all books when search query is cleared
+            setFilteredBooks(books);
+        }
     };
 
     const handleSearch = (e) => {
@@ -64,9 +65,11 @@ const FormControl = ({ setFilteredBooks, books }) => {
     return (
         <div className="form-control">
             <div ref={dropdownRef} className="form-control">
-                <button className="dropdown-btn-form-control" onClick={toggleDropdown}>
-                    {searchType} {dropdownOpen ? '▲' : '▼'}
-                </button>
+                <Button
+                    className="dropdown-btn-form-control"
+                    onClick={toggleDropdown}
+                    text={`${searchType} ${dropdownOpen ? '▲' : '▼'}`}
+                />
                 {dropdownOpen && (
                     <ul className="dropdown-menu-form-control">
                         <li
@@ -93,11 +96,11 @@ const FormControl = ({ setFilteredBooks, books }) => {
                         placeholder={`Search ${searchType.toLowerCase()}...`}
                         className="search-input"
                     />
-                    <button type="submit" className="search-btn">
-                        <img
-                            src={searchIcon} alt='Search Icon' className='search-icon'
-                        />
-                    </button>
+                    <Button
+                        type="submit"
+                        className="search-btn"
+                        icon={<img src={searchIcon} alt='Search Icon' className='search-icon' />}
+                    />
                 </div>
             </form>
         </div>
