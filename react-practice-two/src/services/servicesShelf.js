@@ -23,7 +23,6 @@ export const fetchShelfBooks = async (userId) => {
         const { data } = response.data;
         return data;
     } catch (error) {
-        console.error('Error fetching shelf books:', error);
         return error;
     }
 };
@@ -35,7 +34,6 @@ export const getShelfBookDetail = async (bookId) => {
         const { data } = response.data;
         return data;
     } catch (error) {
-        console.error('Error fetching shelf book details:', error);
         return error;
     }
 };
@@ -53,7 +51,6 @@ export const addBookToShelf = async (userId, bookId) => {
         const { data } = response.data
         return data
     } catch (error) {
-        console.error('Error adding to shelf:', error);
         return error;
     }
 };
@@ -64,7 +61,6 @@ export const deleteShelfBook = async (shelfId) => {
         const { data } = response.data;
         return data
     } catch (error) {
-        console.error('Error updating shelf book status:', error);
         return error;
     }
 }
