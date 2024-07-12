@@ -34,17 +34,14 @@ const LoginPage = () => {
             window.removeEventListener('beforeunload', handleUnload);
         };
     }, [remember]);
-
     const validateAllFields = useCallback(() => {
         const { errors, isFormValid } = validateForm({ email, password });
         setErrors(errors);
         setIsFormValid(isFormValid);
     }, [email, password]);
-
     useEffect(() => {
         validateAllFields();
     }, [email, password, validateAllFields]);
-
     // Redirect to HomePage if user is already logged in
     const token = getToken();
     useEffect(() => {

@@ -89,6 +89,7 @@ const HomePage = () => {
     };
 
     const handleAddToFavorites = async (bookId) => {
+        showLoading();
         try {
             const userId = getCurrentUserId();
             const isAlreadyFavorited = favorites.find(item => item.bookId === bookId);
@@ -113,6 +114,9 @@ const HomePage = () => {
             addToast('Added to favorites successfully', 'success');
         } catch (error) {
             addToast('Failed to add to favorites: ' + error.message, 'error');
+        }
+        finally {
+            hideLoading();
         }
     };
 

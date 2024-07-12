@@ -63,6 +63,7 @@ const MyShelf = () => {
     };
 
     const handleReturnBook = async (shelfId) => {
+        showLoading();
         try {
             await deleteShelfBook(shelfId);
             setBorrowBooks(prevBooks => prevBooks.filter(book => book.shelfId !== shelfId));
@@ -70,10 +71,13 @@ const MyShelf = () => {
             addToast('Book returned from shelf', 'success');
         } catch (error) {
             addToast('Error returning book: ' + error.message, 'error');
+        } finally {
+            hideLoading();
         }
     };
 
     const handleUnlikeBook = async (favoriteId) => {
+        showLoading();
         try {
             await deleteFavorite(favoriteId);
             setFavorites(prevFavorites => prevFavorites.filter(book => book.favoriteId !== favoriteId));
@@ -81,6 +85,8 @@ const MyShelf = () => {
             addToast('Book removed from favorites', 'success');
         } catch (error) {
             addToast('Error removing book: ' + error.message, 'error');
+        } finally {
+            hideLoading();
         }
     };
 

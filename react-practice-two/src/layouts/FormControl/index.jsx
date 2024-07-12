@@ -1,12 +1,14 @@
 import searchIcon from '../../assets/images/iconSearch.jpg';
 import React, { useState, useEffect, useRef } from 'react';
 import Input from '../../components/Input';
+import { useToast } from '../../components/Toast/ToastProvider';
 
 const FormControl = ({ setFilteredBooks, books }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [searchType, setSearchType] = useState('Title');
     const [searchQuery, setSearchQuery] = useState('');
     const dropdownRef = useRef(null);
+    const addToast = useToast();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -20,6 +22,12 @@ const FormControl = ({ setFilteredBooks, books }) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    useEffect(() => {
+        if (searchQuery === '') {
+            setFilteredBooks(books);
+        }
+    }, [searchQuery, books, setFilteredBooks]);
 
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
@@ -38,7 +46,6 @@ const FormControl = ({ setFilteredBooks, books }) => {
         e.preventDefault();
         const lowerCaseQuery = searchQuery.toLowerCase();
         if (!books) {
-            console.error('Books array is undefined');
             return;
         }
 
@@ -47,6 +54,10 @@ const FormControl = ({ setFilteredBooks, books }) => {
                 ? book.name.toLowerCase().includes(lowerCaseQuery)
                 : book.author.toLowerCase().includes(lowerCaseQuery)
         );
+        if (filtered.length === 0) {
+            addToast('Not Found', 'error');
+        }
+
         setFilteredBooks(filtered);
     };
 
