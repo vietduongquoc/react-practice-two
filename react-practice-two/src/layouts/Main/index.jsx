@@ -5,9 +5,9 @@ const MainLayout = ({ children }) => {
     return (
         <div className="main-layout-container">
             <Sidebar />
-            <div className="content-container">
+            <main className="content-container">
                 {children}
-            </div>
+            </main>
         </div>
     );
 };

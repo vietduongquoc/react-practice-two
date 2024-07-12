@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-const FormControl = ({ setFilteredBooks, books }) => {
+const SearchBar = ({ setFilteredBooks, books }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [searchType, setSearchType] = useState('Title');
     const [searchQuery, setSearchQuery] = useState('');
@@ -107,4 +107,4 @@ const FormControl = ({ setFilteredBooks, books }) => {
     );
 };
 
-export default FormControl;
+export default SearchBar;

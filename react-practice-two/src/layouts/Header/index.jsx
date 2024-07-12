@@ -1,11 +1,11 @@
 import React from 'react';
-import FormControl from '../SearchBar';
+import SearchBar from '../SearchBar';
 import UserMenu from '../UserMenu';
 
 const Header = ({ setFilteredBooks, books }) => {
     return (
         <header className="header-container">
-            <FormControl setFilteredBooks={setFilteredBooks} books={books} />
+            <SearchBar setFilteredBooks={setFilteredBooks} books={books} />
             <UserMenu />
         </header>
     );
