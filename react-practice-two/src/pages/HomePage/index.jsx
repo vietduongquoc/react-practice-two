@@ -1,8 +1,8 @@
 import { useLoading } from '../../components/Spinner/LoadingProvider';
-import { addBookToFavorites, fetchFavorites } from '../../services/servicesFavorite'
+import { addBookToFavorites, fetchFavorites } from '../../services/favoriteService'
 import { useToast } from '../../components/Toast/ToastProvider';
-import { fetchBook } from '../../services/servicesBook';
-import { getCurrentUserId, getToken } from '../../services/servicesUser';
+import { fetchBook } from '../../services/bookService';
+import { getCurrentUserId, getToken } from '../../services/userService';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ItemCard from '../../components/Card';
@@ -95,7 +95,7 @@ const HomePage = () => {
             const isAlreadyFavorited = favorites.find(item => item.bookId === bookId);
 
             if (isAlreadyFavorited) {
-                addToast('Book is already in favorites', 'success');
+                addToast('Book is already in favorites', 'error');
                 return;
             }
             await addBookToFavorites(userId, bookId);

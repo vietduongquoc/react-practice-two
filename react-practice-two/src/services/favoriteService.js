@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken } from './servicesUser';
+import { getToken } from './userService';
 
 const api = axios.create({
     baseURL: 'https://v1.slashapi.com/viet7/mongodb/uJ7AnkVswY',

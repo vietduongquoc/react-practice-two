@@ -1,14 +1,13 @@
 import { useLoading } from '../../components/Spinner/LoadingProvider';
 import { useToast } from '../../components/Toast/ToastProvider';
 import React, { useState, useEffect, useCallback } from 'react';
-import { loginUser, logoutUser } from '../../services/servicesUser';
+import { loginUser, getToken } from '../../services/userService';
 import { validateForm } from '../../utils/validation';
-import logoIcon from '../../assets/images/iconLogo.jpg';
+import logoIcon from '../../assets/images/icon-logo.jpg';
 import Checkbox from '../../components/Checkbox';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { getToken } from '../../services/servicesUser';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -23,25 +22,15 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Handle logout when closing tab or browser
-        const handleUnload = () => {
-            if (!remember) {
-                logoutUser();
-            }
-        };
-        window.addEventListener('beforeunload', handleUnload);
-        return () => {
-            window.removeEventListener('beforeunload', handleUnload);
-        };
-    }, [remember]);
-    const validateAllFields = useCallback(() => {
+        validateFields();
+    }, [email, password]);
+
+    const validateFields = () => {
         const { errors, isFormValid } = validateForm({ email, password });
         setErrors(errors);
         setIsFormValid(isFormValid);
-    }, [email, password]);
-    useEffect(() => {
-        validateAllFields();
-    }, [email, password, validateAllFields]);
+    };
+
     // Redirect to HomePage if user is already logged in
     const token = getToken();
     useEffect(() => {
@@ -51,7 +40,7 @@ const LoginPage = () => {
     }, []);
 
     const handleBlur = () => {
-        validateAllFields();
+        validateFields();
     };
 
     const handleChange = (field, value) => {
@@ -60,7 +49,6 @@ const LoginPage = () => {
         } else if (field === 'password') {
             setPassword(value);
         }
-        validateAllFields();
     };
 
     const handleSubmit = async (e) => {
@@ -111,7 +99,7 @@ const LoginPage = () => {
                     name="email"
                     value={email}
                     onChange={(e) => handleChange('email', e.target.value)}
-                    onBlur={() => handleBlur('email')}
+                    onBlur={handleBlur}
                     required={true}
                     placeholder="Email"
                 />
@@ -123,7 +111,7 @@ const LoginPage = () => {
                     name="password"
                     value={password}
                     onChange={(e) => handleChange('password', e.target.value)}
-                    onBlur={() => handleBlur('password')}
+                    onBlur={handleBlur}
                     required={true}
                     showPassword={showPassword}
                     togglePasswordVisibility={togglePasswordVisibility}

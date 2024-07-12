@@ -1,5 +1,5 @@
-import eyeClosed from '../../assets/images/eyeClosed.jpg'
-import eyeOpen from '../../assets/images/eyeOpen.jpg'
+import eyeClosed from '../../assets/images/eye-closed.jpg'
+import eyeOpen from '../../assets/images/eye-open.jpg'
 import React, { memo } from 'react';
 import './index.css';
 

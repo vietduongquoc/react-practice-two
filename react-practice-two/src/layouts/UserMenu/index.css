@@ -28,9 +28,14 @@
 
 .dropdown-btn-menu {
     padding: 5px;
-    background-color: var(--background-color-primary);
     border: none;
     cursor: pointer;
+    color: var(--text-color-primary);
+    background-color: var(--background-color-primary);
+}
+
+.dropdown-btn-menu:hover{
+    background-color: var(--background-color-primary);
 }
 
 .dropdown-menu-user {

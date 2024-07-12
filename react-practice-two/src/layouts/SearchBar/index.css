@@ -21,6 +21,11 @@
     font-weight: var(--font-weight-regular);
     border: none;
     width: 150px;
+    color: var(--text-color-primary);
+}
+
+.dropdown-btn-form-control:hover {
+    background-color: var(--background-color-tertiary);
 }
 
 .dropdown-form-control .dropdown-btn-form-control::after {
@@ -73,6 +78,10 @@
     border: none;
     cursor: pointer;
     padding: 0;
+}
+
+.search-btn:hover {
+    background-color: var(--background-color-primary);
 }
 
 .search-icon {

@@ -1,7 +1,3 @@
-.preview-container {
-    display: flex;
-}
-
 .preview-page {
     height: calc(100vh - 240px);
 }

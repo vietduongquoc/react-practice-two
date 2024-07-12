@@ -1,8 +1,9 @@
 import { useToast } from '../../components/Toast/ToastProvider';
-import avatarUser from '../../assets/images/avatarUser.jpg';
+import avatarUser from '../../assets/images/avatar-user.jpg';
 import React, { useState, useEffect, useRef } from 'react';
-import { logoutUser } from '../../services/servicesUser';
+import { logoutUser } from '../../services/userService';
 import { useNavigate } from 'react-router-dom';
+import Button from '../../components/Button';
 
 const UserMenu = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -51,9 +52,11 @@ const UserMenu = () => {
         <div className="user-menu" ref={dropdownRef}>
             <img src={avatarUser} alt="User Avatar" className="avatar" onClick={toggleDropdown} />
             <p className='user-name' onClick={toggleDropdown}>{username}</p>
-            <button className="dropdown-btn-menu" onClick={toggleDropdown}>
-                {dropdownOpen ? '▲' : '▼'}
-            </button>
+            <Button
+                className="dropdown-btn-menu"
+                onClick={toggleDropdown}
+                text={`${dropdownOpen ? '▲' : '▼'}`}
+            />
             {dropdownOpen && (
                 <ul className="dropdown-menu-user">
                     <li className='dropdown-menu-option' onClick={handleLogout}>Logout</li>
