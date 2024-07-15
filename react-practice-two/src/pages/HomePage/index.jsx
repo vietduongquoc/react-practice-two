@@ -129,9 +129,7 @@ const HomePage = () => {
         <div className="homepage-container">
             <div className="main-content">
                 <Header setFilteredBooks={setFilteredBooks} books={books} />
-                <div className="content">
-                    <div className="homepage-content">{renderRows()}</div>
-                </div>
+                <div className="content homepage-content">{renderRows()}</div>
             </div>
         </div>
     );

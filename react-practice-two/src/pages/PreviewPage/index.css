@@ -210,7 +210,14 @@
     /* Inner circle color */
 }
 
-.status {
+.wrap-btn-status {
     font-size: 14px;
     font-weight: var(--font-weight-bold);
+}
+
+.header-preview-page {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: flex-end;
 }

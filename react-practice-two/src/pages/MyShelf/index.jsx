@@ -96,28 +96,26 @@ const MyShelf = () => {
                 setFilteredBooks={currentTab === 'all' ? setFilteredBooks : setFilteredFavorites}
                 books={currentTab === 'all' ? borrowBooks : favoriteBooks}
             />
-            <div className="content">
-                <div className='myshelf-page'>
-                    <h1 className='myshelf-title'>Your <span>Shelf</span></h1>
-                    <div className="tabs">
-                        <Button
-                            className={`tab ${currentTab === 'all' ? 'active' : ''}`}
-                            onClick={() => handleTabChange('all')}
-                            text="All Books"
-                        />
-                        <Button
-                            className={`tab ${currentTab === 'favorites' ? 'active' : ''}`}
-                            onClick={() => handleTabChange('favorites')}
-                            text="Favorite"
-                        />
-                    </div>
-                    {currentTab === 'all' && (
-                        <BorrowBooks borrowBooks={filteredBooks} handleReturnBook={handleReturnBook} />
-                    )}
-                    {currentTab === 'favorites' && (
-                        <FavoriteBooks favoriteBooks={filteredFavorites} handleUnlikeBook={handleUnlikeBook} />
-                    )}
+            <div className='content myshelf-page'>
+                <h1 className='myshelf-title'>Your <span>Shelf</span></h1>
+                <div className="tabs">
+                    <Button
+                        className={`tab ${currentTab === 'all' ? 'active' : ''}`}
+                        onClick={() => handleTabChange('all')}
+                        text="All Books"
+                    />
+                    <Button
+                        className={`tab ${currentTab === 'favorites' ? 'active' : ''}`}
+                        onClick={() => handleTabChange('favorites')}
+                        text="Favorite"
+                    />
                 </div>
+                {currentTab === 'all' && (
+                    <BorrowBooks borrowBooks={filteredBooks} handleReturnBook={handleReturnBook} />
+                )}
+                {currentTab === 'favorites' && (
+                    <FavoriteBooks favoriteBooks={filteredFavorites} handleUnlikeBook={handleUnlikeBook} />
+                )}
             </div>
         </div>
     );
