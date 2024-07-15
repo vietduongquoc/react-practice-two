@@ -20,15 +20,19 @@ const PrivateRoute = ({ element }) => {
     return <Navigate to="/login" />;
 };
 
+const HomeComponent = <MainLayout component={<HomePage/>} />
+const MyShelfComponent = <MainLayout component={<MyShelf/>} />
+const PreviewComponent = <MainLayout component={<PreviewPage/>} />
+
 const App = () => {
     return (
         <Router>
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route path="/" element={<PrivateRoute element={<MainLayout><HomePage /></MainLayout>} />} />
-                <Route path="/my-shelf" element={<PrivateRoute element={<MainLayout><MyShelf /></MainLayout>} />} />
-                <Route path="/preview-page/:bookId" element={<PrivateRoute element={<MainLayout><PreviewPage /></MainLayout>} />} />
+                <Route path="/" element={<PrivateRoute element={HomeComponent} />} />
+                <Route path="/my-shelf" element={<PrivateRoute element={MyShelfComponent} />} />
+                <Route path="/preview-page/:bookId" element={<PrivateRoute element={PreviewComponent} />} />
             </Routes>
             <Loading />
         </Router>

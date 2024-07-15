@@ -11,7 +11,7 @@ import rateStars from '../../assets/images/rate-stars.png';
 import arrowBack from '../../assets/images/arrow-left.png';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/Button';
-import Header from '../../layouts/Header';
+import UserMenu from '../../layouts/UserMenu';
 
 const PreviewPage = () => {
     const { bookId } = useParams();
@@ -74,69 +74,69 @@ const PreviewPage = () => {
 
     return (
         <div className="main-content">
-            <Header />
-            <div className="content">
-                <div className="preview-page">
-                    <figure className='wrap-back-arrow'>
-                        <a className='link-homepage' href="/"><img src={arrowBack} alt="Arrow" className='icon-arrow' /></a>
-                        <figcaption><a className='link-homepage' href="/">Back to results</a></figcaption>
-                    </figure>
-                    <div className="preview-content">
-                        <div className='preview-left'>
-                            <div className='wrap-preview-book-image'>
-                                <img src={book.urlImage} alt={book.name} className="preview-book-image" />
-                            </div>
-                            <div className="preview-book-details">
-                                <h1 className="preview-book-title">{book.name}</h1>
-                                <div className='preview-book-ders'>
-                                    <img src={rateStars} alt="stars" className="icon-start" />
-                                    <p className="preview-book-rate">5.0 Ratings</p>
-                                    <p>25 Currently reading</p>
-                                    <p>119 Have read</p>
-                                </div>
-                                <div className='wrap-status'>
-                                    <ul className="availability-title">Availability
-                                        {AVAILABILITY_OPTIONS.map((option, index) => (
-                                            <li key={index} className='availability-ders'>
-                                                <input type="checkbox" checked={option.checked} readOnly />
-                                                <label>{option.label}</label>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <div className="status">
-                                        <p>Status</p>
-                                        <Button
-                                            className="btn-enable"
-                                            text={status}
-                                            borderRadius="btn-rounded"
-                                            size="btn-medium"
-                                            isDisabled={true}
-                                        />
-                                    </div>
-                                </div>
-                                <Button
-                                    borderRadius="btn-rounded"
-                                    size="btn-big"
-                                    className={status === STATUS_NONE ? 'btn-primary' : 'btn-disabled'}
-                                    disabled={status !== STATUS_NONE}
-                                    onClick={status === STATUS_NONE ? handleBorrowBook : null}
-                                    text="BORROW"
-                                />
-                            </div>
+            <div className="header-preview-page" >
+                <UserMenu />
+            </div>
+            <div className="content preview-page">
+                <figure className='wrap-back-arrow'>
+                    <a className='link-homepage' href="/"><img src={arrowBack} alt="Arrow" className='icon-arrow' /></a>
+                    <figcaption><a className='link-homepage' href="/">Back to results</a></figcaption>
+                </figure>
+                <div className="preview-content">
+                    <div className='preview-left'>
+                        <div className='wrap-preview-book-image'>
+                            <img src={book.urlImage} alt={book.name} className="preview-book-image" />
                         </div>
-                        <aside className="preview-right">
-                            <div className='preview-right-wrap-header'>
-                                <div className='wrap-title'>
-                                    <h2 className="preview-title">About <span>Author</span></h2>
-                                    <p>{book.author}</p>
-                                </div>
-                                <img src={authorImage} alt='authorImage' className="preview-image" />
+                        <div className="preview-book-details">
+                            <h1 className="preview-book-title">{book.name}</h1>
+                            <div className='preview-book-ders'>
+                                <img src={rateStars} alt="stars" className="icon-start" />
+                                <p className="preview-book-rate">5.0 Ratings</p>
+                                <p>25 Currently reading</p>
+                                <p>119 Have read</p>
                             </div>
-                            <p className="preview-description">Steve Krug is a usability consultant who has more than 30 years of experience
-                                as a user advocate for companies like Apple, Netscape, AOL, Lexus, and others. Based in part on the success
-                                of his first book, Don't Make Me Think, he has become a highly sought-after speaker on usability design.</p>
-                        </aside>
+                            <div className='wrap-status'>
+                                <ul className="availability-title">Availability
+                                    {AVAILABILITY_OPTIONS.map((option, index) => (
+                                        <li key={index} className='availability-ders'>
+                                            <input type="checkbox" checked={option.checked} readOnly />
+                                            <label>{option.label}</label>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div className="wrap-btn-status">
+                                    <p>Status</p>
+                                    <Button
+                                        className="btn-enable"
+                                        text={status}
+                                        borderRadius="btn-rounded"
+                                        size="btn-medium"
+                                        isDisabled={true}
+                                    />
+                                </div>
+                            </div>
+                            <Button
+                                borderRadius="btn-rounded"
+                                size="btn-big"
+                                className={status === STATUS_NONE ? 'btn-primary' : 'btn-disabled'}
+                                disabled={status !== STATUS_NONE}
+                                onClick={status === STATUS_NONE ? handleBorrowBook : null}
+                                text="BORROW"
+                            />
+                        </div>
                     </div>
+                    <aside className="preview-right">
+                        <div className='preview-right-wrap-header'>
+                            <div className='wrap-title'>
+                                <h2 className="preview-title">About <span>Author</span></h2>
+                                <p>{book.author}</p>
+                            </div>
+                            <img src={authorImage} alt='authorImage' className="preview-image" />
+                        </div>
+                        <p className="preview-description">Steve Krug is a usability consultant who has more than 30 years of experience
+                            as a user advocate for companies like Apple, Netscape, AOL, Lexus, and others. Based in part on the success
+                            of his first book, Don't Make Me Think, he has become a highly sought-after speaker on usability design.</p>
+                    </aside>
                 </div>
             </div>
         </div>
