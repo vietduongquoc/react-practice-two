@@ -27,7 +27,6 @@ export const fetchFavorites = async (userId) => {
             // Unauthorized error handling
             throw new Error('Unauthorized. Please log in again.');
         }
-        console.error('Error fetching favorite books:', error);
         return [];
     }
 };
@@ -40,7 +39,6 @@ export const getFavoritesDetail = async (bookId) => {
             data
         }
     } catch (error) {
-        console.error('Error fetching favorite book details:', error);
         return error
     }
 }
@@ -57,7 +55,6 @@ export const addBookToFavorites = async (userId, bookId) => {
         const { data } = response.data
         return data
     } catch (error) {
-        console.error('Error adding to favorites:', error);
         return error
     }
 };
@@ -68,7 +65,6 @@ export const deleteFavorite = async (favoriteId) => {
         const { data } = response.data;
         return data
     } catch (error) {
-        console.error('Error updating shelf book status:', error);
         return error;
     }
 }

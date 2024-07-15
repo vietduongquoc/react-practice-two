@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { getShelfBookDetail, addBookToShelf } from '../../services/shelfService';
+import { AVAILABILITY_OPTIONS } from '../../constants/options';
+import { STATUS_IN_SHELF, STATUS_NONE } from '../../constants/status';
 import { useLoading } from '../../components/Spinner/LoadingProvider';
-import arrowBack from '../../assets/images/arrow-left.png';
 import { useToast } from '../../components/Toast/ToastProvider';
 import authorImage from '../../assets/images/image-author.png';
 import { getCurrentUserId } from '../../services/userService';
 import { fetchBookById } from '../../services/bookService';
 import rateStars from '../../assets/images/rate-stars.png';
+import arrowBack from '../../assets/images/arrow-left.png';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/Button';
 import Header from '../../layouts/Header';
-import { STATUS_IN_SHELF, STATUS_NONE } from '../../constants/status';
 
 const PreviewPage = () => {
     const { bookId } = useParams();
@@ -71,12 +72,6 @@ const PreviewPage = () => {
         return <div className="loading-container">Loading...</div>;
     }
 
-    const availabilityOptions = [
-        { label: 'Hard Copy', checked: true },
-        { label: 'E - Book', checked: true },
-        { label: 'Audio book', checked: true }
-    ];
-
     return (
         <div className="main-content">
             <Header />
@@ -101,7 +96,7 @@ const PreviewPage = () => {
                                 </div>
                                 <div className='wrap-status'>
                                     <ul className="availability-title">Availability
-                                        {availabilityOptions.map((option, index) => (
+                                        {AVAILABILITY_OPTIONS.map((option, index) => (
                                             <li key={index} className='availability-ders'>
                                                 <input type="checkbox" checked={option.checked} readOnly />
                                                 <label>{option.label}</label>

@@ -1,4 +1,3 @@
-import React, { memo } from 'react';
 import './index.css';
 
 const Checkbox = ({ 
@@ -21,4 +20,4 @@ const Checkbox = ({
     );
 };
 
-export default memo(Checkbox);
+export default Checkbox;

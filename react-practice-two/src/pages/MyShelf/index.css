@@ -43,7 +43,6 @@
     width: 100%;
     max-width: 280px;
     padding: 15px 20px 5px 20px;
-    /* padding: 10px 15px 5px 15px; */
     border: 1px solid var(--color-transparent);
     border-radius: var(--border-radius-sm);
     background-color: var(--background-color-primary);
@@ -99,7 +98,6 @@
     margin-top: 10px;
 }
 
-
 .myshelf-title {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
@@ -115,12 +113,13 @@
     width: 100%;
     display: flex;
     background-color: var(--background-color-primary);
-    padding: 15px 250px 15px 20px;
+    padding: 15px 15px 20px;
+    max-width: 1400px;
     border-radius: var(--border-radius-sm);
-    justify-content: space-between;
     align-items: center;
     color: var(--text-color-primary);
     list-style-type: none;
+    justify-content: flex-start;
 }
 
 .book-item-favourite-image {
@@ -145,12 +144,28 @@
 .book-item-favourite-category {
     font-weight: var(--font-weight-regular);
     font-size: var(--font-size-xs);
-    width: 155px;
+    width: 15%;
+}
+
+.author {
+    width: 34%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.rate {
+    width: 10%;
+}
+
+.status {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .book-item-favourite-rate {
     font-size: var(--font-size-lg);
-    margin-left: 20px;
 }
 
 .book-item-favourite-rate span {
@@ -160,12 +175,11 @@
 
 .wrap-book-item-favourite-title {
     color: var(--text-color-primary);
-    display: grid;
+    display: flex;
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-lg);
     width: 100%;
     max-width: 1400px;
-    grid-template-columns: 465px 120px 225px 100px;
     margin-top: 20px;
     margin-bottom: 5px;
     padding: 0;
@@ -182,4 +196,20 @@
 .book-item-column-left {
     margin: 0;
     padding: 0;
+}
+
+.wrap-book-item-favourite-title li:nth-child(1) {
+    width: 34%;
+}
+
+.wrap-book-item-favourite-title li:nth-child(2) {
+    width: 10%;
+}
+
+.wrap-book-item-favourite-title li:nth-child(3) {
+    width: 16%;
+}
+
+.wrap-book-item-favourite-title li:nth-child(4) {
+    width: 11%;
 }

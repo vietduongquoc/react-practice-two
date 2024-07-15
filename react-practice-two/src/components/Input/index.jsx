@@ -1,6 +1,5 @@
 import eyeClosed from '../../assets/images/eye-closed.jpg'
 import eyeOpen from '../../assets/images/eye-open.jpg'
-import React, { memo } from 'react';
 import './index.css';
 
 const Input = ({
@@ -15,7 +14,8 @@ const Input = ({
     showPassword,
     placeholder,
     togglePasswordVisibility,
-    onBlur }) => {
+    onBlur,
+    errorMessage }) => {
     return (
         <div className={`input-group ${type === 'password' ? 'password-toggle' : ''}`}>
             <label className='lable-input' htmlFor={id}>{label}</label>
@@ -37,8 +37,9 @@ const Input = ({
                     </span>
                 )}
             </div>
+            {errorMessage && <div className="error">{errorMessage}</div>}
         </div>
     );
 };
 
-export default memo(Input);
+export default Input;
