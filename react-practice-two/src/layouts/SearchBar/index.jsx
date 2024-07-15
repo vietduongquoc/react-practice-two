@@ -36,7 +36,6 @@ const SearchBar = ({ setFilteredBooks, books }) => {
     const handleSearchQueryChange = (e) => {
         const query = e.target.value;
         setSearchQuery(query);
-
         if (query === '') {
             // Reset to all books when search query is cleared
             setFilteredBooks(books);
