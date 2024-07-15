@@ -28,10 +28,6 @@ git clone https://github.com/vietduongquoc/react-practice-two
 ```
 cd react-practice-two
 ```
-- Move to the branch react-practice-two
-```
-cd react-practice-two
-```
 - Install packages
 ```
 npm install
