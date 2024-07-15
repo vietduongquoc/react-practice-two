@@ -87,8 +87,8 @@ const RegisterPage = () => {
                     onChange={(e) => handleChange('name', e.target.value)}
                     required={true}
                     placeholder="Username"
+                    errorMessage={errors.name}
                 />
-                {errors.name && <div className="error">{errors.name}</div>}
                 <Input
                     label="Email"
                     type="email"
@@ -98,8 +98,8 @@ const RegisterPage = () => {
                     onChange={(e) => handleChange('email', e.target.value)}
                     required={true}
                     placeholder="Username@mail.com"
+                    errorMessage={errors.email}
                 />
-                {errors.email && <div className="error">{errors.email}</div>}
                 <Input
                     label="Password"
                     type={showPassword ? "text" : "password"}
@@ -111,8 +111,8 @@ const RegisterPage = () => {
                     showPassword={showPassword}
                     togglePasswordVisibility={togglePasswordVisibility}
                     placeholder="Password"
+                    errorMessage={errors.password}
                 />
-                {errors.password && <div className="error">{errors.password}</div>}
                 <Input
                     label="Confirm Password"
                     type={showPassword ? "text" : "password"}
@@ -124,8 +124,8 @@ const RegisterPage = () => {
                     showPassword={showPassword}
                     togglePasswordVisibility={togglePasswordVisibility}
                     placeholder="Confirm Password"
+                    errorMessage={errors.confirmPassword}
                 />
-                {errors.confirmPassword && <div className="error">{errors.confirmPassword}</div>}
                 <div className="actions-register">
                     <Button
                         type="submit"
@@ -136,7 +136,7 @@ const RegisterPage = () => {
                         isDisabled={!isFormValid || isSubmitting}
                     />
                     <div className='wrap-link-register'>
-                        <span className='text-register'> Already a User?</span>
+                        <span className='text-register'>Already a User?</span>
                         <span className='link-register' onClick={handleLoginClick}>Login Now</span>
                     </div>
                 </div>

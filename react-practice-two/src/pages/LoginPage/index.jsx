@@ -1,6 +1,6 @@
 import { useLoading } from '../../components/Spinner/LoadingProvider';
 import { useToast } from '../../components/Toast/ToastProvider';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { loginUser, getToken } from '../../services/userService';
 import { validateForm } from '../../utils/validation';
 import logoIcon from '../../assets/images/icon-logo.jpg';
@@ -25,19 +25,19 @@ const LoginPage = () => {
         validateFields();
     }, [email, password]);
 
+        // Redirect to HomePage if user is already logged in
+        const token = getToken();
+        useEffect(() => {
+            if (token) {
+                navigate('/');
+            }
+        }, []);
+
     const validateFields = () => {
         const { errors, isFormValid } = validateForm({ email, password });
         setErrors(errors);
         setIsFormValid(isFormValid);
     };
-
-    // Redirect to HomePage if user is already logged in
-    const token = getToken();
-    useEffect(() => {
-        if (token) {
-            navigate('/');
-        }
-    }, []);
 
     const handleBlur = () => {
         validateFields();
@@ -102,8 +102,8 @@ const LoginPage = () => {
                     onBlur={handleBlur}
                     required={true}
                     placeholder="Email"
+                    errorMessage={errors.email}
                 />
-                {errors.email && <div className="error">{errors.email}</div>}
                 <Input
                     label="Password"
                     type={showPassword ? "text" : "password"}
@@ -116,8 +116,8 @@ const LoginPage = () => {
                     showPassword={showPassword}
                     togglePasswordVisibility={togglePasswordVisibility}
                     placeholder="Password"
+                    errorMessage={errors.password}
                 />
-                {errors.password && <div className="error">{errors.password}</div>}
                 <Checkbox
                     id="remember"
                     name="remember"

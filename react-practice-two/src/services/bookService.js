@@ -25,7 +25,6 @@ export const fetchBook = async () => {
         }
         return data;
     } catch (error) {
-        console.error('Error fetching books:', error);
         return [];
     }
 };
@@ -36,7 +35,6 @@ export const fetchBookById = async (bookId) => {
         const { data } = response.data
         return data
     } catch (error) {
-        console.error(`Error fetching book with ID ${bookId}:`, error);
         return error
     }
 };
@@ -53,7 +51,6 @@ export const updateBookStatus = async (bookId, updatedStatus) => {
         const { data } = response.data
         return data;
     } catch (error) {
-        console.error('Error updating book status:', error);
         return error;
     }
 };
@@ -66,7 +63,6 @@ export const getListBookById = async (listId) => {
         const { data } = response.data
         return data;
     } catch (error) {
-        console.error('Error get list book: ', error);
         return error;
     }
 }
