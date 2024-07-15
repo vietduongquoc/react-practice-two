@@ -14,7 +14,7 @@
 
 @font-face {
     font-family: 'Inter';
-    src: url(/src/assets/fonts/inter-semiBold.ttf);
+    src: url(/src/assets/fonts//inter-semiBold.ttf) ;
     font-weight: 600;
     font-display: swap;
 }
