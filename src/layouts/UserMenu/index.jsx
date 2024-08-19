@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { logoutUser } from '../../services/userService';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
+import { useLoading } from '../../components/Spinner/LoadingProvider';
 
 const UserMenu = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -11,6 +12,7 @@ const UserMenu = () => {
     const addToast = useToast();
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
+    const { showLoading, hideLoading } = useLoading();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -31,7 +33,9 @@ const UserMenu = () => {
 
     const handleLogout = async () => {
         try {
+            showLoading();
             await logoutUser();
+
             // Remove authentication information from localStorage and sessionStorage
             localStorage.removeItem('rememberMe');
             localStorage.removeItem('savedEmail');
@@ -41,6 +45,7 @@ const UserMenu = () => {
             sessionStorage.removeItem('userId');
             sessionStorage.removeItem('username');
 
+            hideLoading();
             addToast('Logout successful!', 'success');
             navigate('/login');
         } catch (error) {

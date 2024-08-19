@@ -69,7 +69,7 @@ const PreviewPage = () => {
     };
 
     if (!book) {
-        return <div className="loading-container">Loading...</div>;
+        return <div className="loading-container"></div>;
     }
 
     return (
